@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
+{
+    public class KlinickiCentar
+    {
+        public virtual int Id { get; protected set; }
+        public virtual string Ime { get; set; }
+        public virtual string Lokacija { get; set; }
+        public virtual Zaposleni DirektorKlinickogCentra { get; set; }
+
+        public KlinickiCentar()
+        {
+            //DirektorKlinickogCentra = new Zaposleni();            
+        }
+    }
+}
