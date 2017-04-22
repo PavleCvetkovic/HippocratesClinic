@@ -58,6 +58,7 @@
     <Compile Include="Entiteti\Narudzbenica.cs" />
     <Compile Include="Entiteti\PacijentKlinickogCentra.cs" />
     <Compile Include="Entiteti\PotrosniMaterijal.cs" />
+    <Compile Include="Entiteti\Rodjak.cs" />
     <Compile Include="Entiteti\Ugovor.cs" />
     <Compile Include="Entiteti\Zaposleni.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
