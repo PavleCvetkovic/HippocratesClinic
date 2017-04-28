@@ -11,5 +11,13 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual int Id { get; set; }
         public virtual string Ime { get; set; }
 
+        public virtual IList<PotrosniMaterijal> DobavljaMaterijal { get; set; }
+        public virtual IList<KlinickiCentar> DobavljaZaKC { get; set; }
+
+        public Dobavljac()
+        {
+            DobavljaMaterijal = new List<PotrosniMaterijal>();
+            DobavljaZaKC = new List<KlinickiCentar>();
+        }
     }
 }

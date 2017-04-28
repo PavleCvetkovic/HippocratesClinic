@@ -19,5 +19,14 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual string NacinAdministracije { get; set; }
         public virtual CentralniMagacin CentralniMag { get; set; }
 
-    }
+        public virtual IList<MagacinKlinike> MagaciniSaMaterijalom { get; set; }
+        public virtual IList<Dobavljac> MaterijalDobavljaju { get; set; }
+        public virtual IList<PacijentKlinickogCentra> PacijetniUzimajuLek { get; set; }
+
+        public PotrosniMaterijal()
+        {
+            MagaciniSaMaterijalom = new List<MagacinKlinike>();
+            MaterijalDobavljaju = new List<Dobavljac>();
+            PacijetniUzimajuLek = new List<PacijentKlinickogCentra>();
+        }
 }

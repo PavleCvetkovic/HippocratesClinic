@@ -11,5 +11,11 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual int Id { get; protected set; }
         public virtual Klinika CekanjeZaKliniku { get; set; }
 
+        public virtual IList<PacijentKlinickogCentra> PacijentiKojiCekaju { get; set; }
+
+        public ListaCekanja()
+        {
+            PacijentiKojiCekaju = new List<PacijentKlinickogCentra>();
+        }
     }
 }

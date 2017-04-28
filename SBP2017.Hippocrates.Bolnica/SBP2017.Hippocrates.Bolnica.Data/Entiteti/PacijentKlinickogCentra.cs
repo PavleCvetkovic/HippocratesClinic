@@ -19,5 +19,16 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual string Adresa { get; set; }
         public virtual Rodjak RodjakPacijenta { get; set; }
 
+        public virtual IList<PotrosniMaterijal> LekoviPacijenta { get; set; }
+        public virtual IList<BoraviNaKlinici> PacijentBoraviNaKlinici { get; set; }
+        public virtual IList<PacijentiCekaju> PacijentListeCekanja { get; set; }
+
+        public PacijentKlinickogCentra()
+        {
+            LekoviPacijenta = new List<PotrosniMaterijal>();
+            PacijentBoraviNaKlinici = new List<BoraviNaKlinici>();
+            PacijentListeCekanja = new List<PacijentiCekaju>();
+        }
+
     }
 }

@@ -13,9 +13,15 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual string Lokacija { get; set; }
         public virtual Zaposleni DirektorKlinickogCentra { get; set; }
 
+        public virtual IList<Klinika> Klinike { get; set; }
+        public virtual IList<Dobavljac> KCKupujeODobavljaca { get; set; }\
+        public virtual IList<Ugovor> UgovoriKC { get; set; }
+
         public KlinickiCentar()
         {
-            //DirektorKlinickogCentra = new Zaposleni();            
+            Klinike = new List<Klinika>();
+            KCKupujeODobavljaca = new List<Dobavljac>();
+            UgovoriKC = new List<Ugovor>();
         }
     }
 }

@@ -15,5 +15,12 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual Zaposleni GlavnaSestraKlinike { get; set; }
         public virtual KlinickiCentar KCKlinike { get; set; }
 
+        public IList<BoraviNaKlinici> PacijentiNaKlinici { get; set; }
+
+        public Klinika()
+        {
+            PacijentiNaKlinici = new List<BoraviNaKlinici>();
+        }
+
     }
 }

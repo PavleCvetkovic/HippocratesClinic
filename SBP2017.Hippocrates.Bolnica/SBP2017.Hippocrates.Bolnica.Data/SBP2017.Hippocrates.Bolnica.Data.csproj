@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DataLayer.cs" />
     <Compile Include="Entiteti\BoraviNaKlinici.cs" />
+    <Compile Include="Entiteti\BoraviNaKliniciId.cs" />
     <Compile Include="Entiteti\CentarKupujeOd.cs" />
     <Compile Include="Entiteti\CentralniMagacin.cs" />
     <Compile Include="Entiteti\Dobavlja.cs" />
@@ -56,11 +60,37 @@
     <Compile Include="Entiteti\MagacinKlinike.cs" />
     <Compile Include="Entiteti\MagacinKlinikeSadrzi.cs" />
     <Compile Include="Entiteti\Narudzbenica.cs" />
+    <Compile Include="Entiteti\PacijentiCekaju.cs" />
+    <Compile Include="Entiteti\PacijentiCekajuId.cs" />
     <Compile Include="Entiteti\PacijentKlinickogCentra.cs" />
+    <Compile Include="Entiteti\PacijentUzimaLekove.cs" />
+    <Compile Include="Entiteti\PacijentUzimaLekoveId.cs" />
+    <Compile Include="Mapiranja\ListaCekanjaMapiranje.cs" />
+    <Compile Include="Mapiranja\PacijentiCekajuMapiranje.cs" />
+    <Compile Include="Mapiranja\PacijentUzimaLekoveMapiranje.cs" />
     <Compile Include="Entiteti\PotrosniMaterijal.cs" />
+    <Compile Include="Entiteti\Pregled.cs" />
     <Compile Include="Entiteti\Rodjak.cs" />
+    <Compile Include="Entiteti\Smena.cs" />
     <Compile Include="Entiteti\Ugovor.cs" />
     <Compile Include="Entiteti\Zaposleni.cs" />
+    <Compile Include="Mapiranja\BoraviNaKliniciMapranje.cs" />
+    <Compile Include="Mapiranja\CentralniMagacinMapiranje.cs" />
+    <Compile Include="Mapiranja\DobavljacMapiranje.cs" />
+    <Compile Include="Mapiranja\IskustvoMapiranje.cs" />
+    <Compile Include="Mapiranja\KrevetMapiranje.cs" />
+    <Compile Include="Mapiranja\KlinickiCentarMapiranje.cs" />
+    <Compile Include="Mapiranja\KlinikaMapiranje.cs" />
+    <Compile Include="Mapiranja\KvalifikacijaMapiranje.cs" />
+    <Compile Include="Mapiranja\MagacinKlinikeMapiranje.cs" />
+    <Compile Include="Mapiranja\NarudzbenicaMapiranje.cs" />
+    <Compile Include="Mapiranja\PacijentMapiranje.cs" />
+    <Compile Include="Mapiranja\PotrosniMaterijalMapiranje.cs" />
+    <Compile Include="Mapiranja\PregledMapiranje.cs" />
+    <Compile Include="Mapiranja\RodjakMapiranje.cs" />
+    <Compile Include="Mapiranja\SmenaMapiranje.cs" />
+    <Compile Include="Mapiranja\UgovorMapiranje.cs" />
+    <Compile Include="Mapiranja\ZaposleniMapiranje.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
