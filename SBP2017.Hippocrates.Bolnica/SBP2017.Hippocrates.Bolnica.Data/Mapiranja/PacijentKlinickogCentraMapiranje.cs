@@ -8,29 +8,27 @@ using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 
 namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 {
-    public class PacijentMapiranje : ClassMap<PacijentKlinickogCentra>
+    public class PacijentKlinickogCentraMapiranje:ClassMap<PacijentKlinickogCentra>
     {
-        public PacijentMapiranje()
-        {                     
+        public PacijentKlinickogCentraMapiranje()
+        {
             Table("PACIJENT_KLINICKOG_CENTRA");
 
-            Id(x => x.Id, "ID")
-                .GeneratedBy.TriggerIdentity();
+            Id(x => x.Id, "ID").GeneratedBy.TriggerIdentity();
 
             Map(x => x.Ime, "IME");
             Map(x => x.Prezime, "PREZIME");
             Map(x => x.DatumRodjenja, "DATUM_RODJENJA");
             Map(x => x.JMBG, "JMBG");
-            Map(x => x.BracniStatus,"BRACNI_STATUS");
+            Map(x => x.BracniStatus, "BRACNI_STATUS");
             Map(x => x.Pol, "POL");
             Map(x => x.Adresa, "ADRESA");
 
             References(x => x.RodjakPacijenta).Column("ID_RODJAKA").LazyLoad();
 
             HasMany(x => x.LekoviPacijenta).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse();
-            HasMany(x => x.PacijentBoraviNaKlinici).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse();
+            HasMany(x => x.PacijentBoraviNaKlinikama).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse();
             HasMany(x => x.PacijentListeCekanja).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse();
-
         }
     }
 }

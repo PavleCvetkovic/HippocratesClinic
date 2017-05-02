@@ -9,20 +9,18 @@ using FluentNHibernate.Mapping;
 
 namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 {
-    public class BoraviNaKliniciMapranje : ClassMap<BoraviNaKlinici>
+    public class BoraviNaKliniciMapiranje : ClassMap<BoraviNaKlinici>
     {
-        public BoraviNaKliniciMapranje()
+        public BoraviNaKliniciMapiranje()
         {
             Table("BORAVI_NA_KLINICI");
 
-            CompositeId(x => x.Id)
-                .KeyReference(x => x.KlnikaPacijenta, "ID_KLINIKE")
-                .KeyReference(x => x.Pacijent, "ID_PACIJENTA");
-
+            Id(x => x.Id).Column("ID");
             Map(x => x.DatumPrijema, "DATUM_PRIJEMA");
             Map(x => x.OcekivaniBoravak, "DATUM_OTPUSTA");
             Map(x => x.DatumOtpusta, "DATUM_OTPUSTA");
-
+            References(x => x.Klinika).Column("ID_KLINIKE");
+            References(x => x.Pacijent).Column("ID_PACIJENTA");
             References(x => x.KrevetPacijenta).Column("BROJ_KREVETA").LazyLoad();
         }
     }

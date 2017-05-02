@@ -9,7 +9,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
     public class CentralniMagacin
     {
         public virtual int Id { get; protected set; }
-        public virtual KlinickiCentar CMagacinKCentra { get; set; }
+        public virtual KlinickiCentar KlinickiCentar { get; set; }
 
     }
 }

@@ -18,13 +18,13 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 
             Map(x => x.Ime, "IME");
             Map(x => x.Lokacija);
-
-            References(x => x.DirektorKlinickogCentra, "ID_DIREKTORA").LazyLoad();            
-
-            HasMany(x => x.Klinike).KeyColumn("ID_KC").Inverse().Cascade.All();
-            HasMany(x => x.UgovoriKC).KeyColumn("ID_KC").Inverse().Cascade.All();
-
-            HasManyToMany(x => x.KCKupujeODobavljaca)
+        
+            HasOne(x => x.DirektorKlinickogCentra).PropertyRef(x => x.UgovorZaposlenog.RadiUKC);
+            HasMany(x => x.Klinike).KeyColumn("ID_KC").Inverse().Cascade.All().LazyLoad();
+            HasMany(x => x.Ugovori).KeyColumn("ID_KC").Inverse().Cascade.All().LazyLoad();
+            HasMany(x => x.Kreveti).KeyColumn("ID_KC").Inverse().Cascade.All().LazyLoad();
+            HasOne(x=>x.CentralniMagacin).PropertyRef(x=>x.KlinickiCentar);
+            HasManyToMany(x => x.Dobavljaci)
                 .Table("CENTAR_KUPUJE_OD")
                 .ParentKeyColumn("ID_KC")
                 .ChildKeyColumn("ID_DOBAVLJACA")

@@ -9,6 +9,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
     public class PotrosniMaterijal
     {
         public virtual int Id { get; protected set; }
+
         public virtual string Naziv { get; set; }
         public virtual string Opis { get; set; }
         public virtual int CenaPoJedinici { get; set; }
@@ -29,4 +30,5 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
             MaterijalDobavljaju = new List<Dobavljac>();
             PacijetniUzimajuLek = new List<PacijentKlinickogCentra>();
         }
+    }
 }

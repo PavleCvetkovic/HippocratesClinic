@@ -16,9 +16,10 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 
             Id(x => x.Id, "ID").GeneratedBy.TriggerIdentity();
 
-            References(x => x.KrevetNaKlinici).Column("ID_KLINIKE").LazyLoad();
-            References(x => x.KrevetUKC).Column("ID_KC").LazyLoad();
+            References(x => x.Klinika).Column("ID_KLINIKE").LazyLoad();
+            References(x => x.KlinickiCentar).Column("ID_KC").LazyLoad();
 
+            HasMany(x => x.BoraviNaKliniciKrevet).KeyColumn("BROJ_KREVETA").Cascade.All().Inverse().LazyLoad();
         }
     }
 }
