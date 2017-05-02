@@ -26,9 +26,9 @@ namespace SBP2017.Hippocrates.Bolnica
             KlinickiCentar k = s.Load<KlinickiCentar>(1);
             IList<Klinika> klinike = new List<Klinika>();
             klinike = k.Klinike;
-            foreach(Klinika klin in klinike)
+            foreach(Ugovor u in k.Ugovori)
             {
-                MessageBox.Show(klin.GlavnaSestraKlinike.Ime);
+                MessageBox.Show(u.Zaposleni.Ime);
             }
 
             s.Close();

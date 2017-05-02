@@ -23,7 +23,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.Plata, "PLATA");
 
             References(x => x.KlinickiCentar).Column("ID_KC").LazyLoad();
-            HasOne(x => x.Zaposleni).PropertyRef(x=>x.Ugovor);
+            HasOne(x => x.Zaposleni).PropertyRef("Ugovor");
         }
     }
 }
