@@ -11,7 +11,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual int Id { get; protected set; }
         public virtual DateTime DatumOd { get; set; }
         public virtual DateTime DatumDo { get; set; }
-        public virtual Zaposleni SmenaZaposlenog { get; set; }
+        public virtual Zaposleni Zaposleni { get; set; }
         public virtual string TipSmene { get; set; }
     }
 }

@@ -14,13 +14,13 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
         {
             Table("SMENA");
 
-            Id(x => x.Id).GeneratedBy.TriggerIdentity();
+            Id(x => x.Id).Column("ID").GeneratedBy.TriggerIdentity();
 
             Map(x => x.DatumOd, "DATUM_OD");
             Map(x => x.DatumDo, "DATUM_DO");
             Map(x => x.TipSmene, "TIP_SMENE");
 
-            References(x => x.SmenaZaposlenog, "ID_ZAPOLENOG").LazyLoad();
+            References(x => x.Zaposleni, "ID_ZAPOLENOG").LazyLoad();
 
         }
     }

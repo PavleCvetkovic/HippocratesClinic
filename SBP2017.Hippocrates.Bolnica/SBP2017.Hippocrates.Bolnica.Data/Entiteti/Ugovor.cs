@@ -13,8 +13,8 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual int BrojSatiNedeljno { get; set; }
         public virtual string TipIsplate { get; set; }
         public virtual string TipUgovora { get; set; }
-        public virtual KlinickiCentar RadiUKC { get; set; }
+        public virtual KlinickiCentar KlinickiCentar { get; set; }
         public virtual int Plata { get; set; }
-
+        public virtual Zaposleni Zaposleni { get; set; }
     }
 }

@@ -14,12 +14,13 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
         {
             Table("PACIJENTI_CEKAJU");
 
-            CompositeId(x => x.Id)
-                .KeyReference(x => x.Pacijent, "ID_PACIJENTA")
-                .KeyReference(x => x.Lista, "ID_LISTE_CEKANJA");
-
+            Id(x => x.Id).Column("ID").GeneratedBy.TriggerIdentity();
+            
             Map(x => x.DatumUpisa, "DATUM_UPISA");
             Map(x => x.OcekivanoVremeCekanja, "OCEKIVANO_VREME");
+
+            References(x => x.ListaCekanja).Column("ID_LISTE_CEKANJA");
+            References(x => x.Pacijent).Column("ID_PACIJENTA");
         }
     }
 }

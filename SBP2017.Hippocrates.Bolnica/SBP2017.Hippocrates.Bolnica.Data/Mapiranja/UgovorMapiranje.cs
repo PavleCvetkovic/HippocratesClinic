@@ -22,8 +22,8 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.TipUgovora, "TIP_UGOVORA");
             Map(x => x.Plata, "PLATA");
 
-            References(x => x.RadiUKC).Column("ID_KC").LazyLoad();
-
+            References(x => x.KlinickiCentar).Column("ID_KC").LazyLoad();
+            HasOne(x => x.Zaposleni).PropertyRef(x => x.Ugovor);
         }
     }
 }

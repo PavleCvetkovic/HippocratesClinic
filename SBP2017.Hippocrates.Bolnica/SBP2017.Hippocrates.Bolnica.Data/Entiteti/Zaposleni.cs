@@ -19,19 +19,19 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual string TipZaposlenog { get; set; }
         public virtual string TipSestre { get; set; }
         public virtual string BrojOrdinacije { get; set; }
-        public virtual Ugovor UgovorZaposlenog { get; set; }
-        public virtual Klinika ZaposlenUKlinici { get; set; }
+        public virtual Ugovor Ugovor { get; set; }
+        public virtual Klinika Klinika { get; set; }
         public virtual string Password { get; protected set; }
 
-        public virtual IList<Kvalifikacija> KvalifikacijeZaposlenog { get; set; }
-        public virtual IList<Iskustvo> IskustvoZaposlenog { get; set; }
-        public virtual IList<Smena> SmeneZaposlenog { get; set; }
+        public virtual IList<Kvalifikacija> Kvalifikacije { get; set; }
+        public virtual IList<Iskustvo> Iskustva { get; set; }
+        public virtual IList<Smena> Smene { get; set; }
 
         public Zaposleni()
         {
-            KvalifikacijeZaposlenog = new List<Kvalifikacija>();
-            IskustvoZaposlenog = new List<Iskustvo>();
-            SmeneZaposlenog = new List<Smena>();
+            Kvalifikacije = new List<Kvalifikacija>();
+            Iskustva = new List<Iskustvo>();
+            Smene = new List<Smena>();
         }
 
     }

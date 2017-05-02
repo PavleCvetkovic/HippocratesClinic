@@ -19,7 +19,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.Ime, "IME");
 
             HasManyToMany(x => x.DobavljaMaterijal)
-                .Table("POTROSNI_MATERIJAL")
+                .Table("DOBAVLJA")
                 .ParentKeyColumn("ID_DOBAVLJAC")
                 .ChildKeyColumn("ID_MATERIJALA");
 

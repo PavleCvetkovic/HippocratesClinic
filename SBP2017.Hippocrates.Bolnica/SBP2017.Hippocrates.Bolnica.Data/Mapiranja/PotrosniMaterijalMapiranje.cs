@@ -25,21 +25,21 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.TipicnaDoza, "TIPICNA_DOZA");
             Map(x => x.NacinAdministracije, "NACIN_ADMINISTRACIJE");
 
-            References(x => x.CentralniMag).Column("ID_CENTRALNOG_MAGACINA").LazyLoad();
+            References(x => x.CentralniMagacin).Column("ID_CENTRALNOG_MAGACINA").LazyLoad();
 
-            HasMany(x => x.PacijetniUzimajuLek).KeyColumn("ID_LEKA").Cascade.All();
+            HasMany(x => x.Pacijenti).KeyColumn("ID_LEKA").Cascade.All();
 
-            HasManyToMany(x => x.MagaciniSaMaterijalom)
+            HasManyToMany(x => x.Magacini)
                 .Table("MAGACIN_KLINIKE_SADRZI")
                 .ParentKeyColumn("ID_POTROSNG_MATERIJALA")
                 .ChildKeyColumn("ID_MAGACINA")
                 .Inverse()
                 .Cascade.All();           
 
-            HasManyToMany(x => x.MaterijalDobavljaju)
-                .Table("DOBAVLJAC")
+            HasManyToMany(x => x.Dobavljaci)
+                .Table("DOBAVLJA")
                 .ParentKeyColumn("ID_MATERIJALA")
-                .ChildKeyColumn("ID_DOBAVLJACA")
+                .ChildKeyColumn("ID_DOBAVLJAC")
                 .Inverse().Cascade.All();
 
         }

@@ -28,12 +28,13 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.BrojOrdinacije, "BROJ_ORDINACIJE");
             Map(x => x.Password, "PASSWORD");
 
-            References(x => x.UgovorZaposlenog, "ID_UGOVORA").LazyLoad();
-            References(x => x.ZaposlenUKlinici, "ID_KLINIKE").LazyLoad();
+            References(x => x.Ugovor).Column("ID_UGOVORA").LazyLoad();
+            References(x => x.Klinika, "ID_KLINIKE").LazyLoad();
+            
 
-            HasMany(x => x.IskustvoZaposlenog).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All();
-            HasMany(x => x.KvalifikacijeZaposlenog).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All();
-            HasMany(x => x.SmeneZaposlenog).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All();
+            HasMany(x => x.Iskustva).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All();
+            HasMany(x => x.Kvalifikacije).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All();
+            HasMany(x => x.Smene).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All();
         }
     }
 }

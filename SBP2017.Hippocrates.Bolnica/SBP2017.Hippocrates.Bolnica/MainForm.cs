@@ -7,15 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MetroFramework.Forms;
-
+using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
+using SBP2017.Hippocrates.Bolnica.Data;
+using NHibernate;
+using MetroFramework;
 namespace SBP2017.Hippocrates.Bolnica
 {
-    public partial class MainForm : MetroForm
+    public partial class MainForm : Form
     {
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ISession s = DataLayer.GetSession();
+            KlinickiCentar k = s.Load<KlinickiCentar>(1);
+            IList<Klinika> klinike = new List<Klinika>();
+            klinike = k.Klinike;
+
+            s.Close();
         }
     }
 }
