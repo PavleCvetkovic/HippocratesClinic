@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 using SBP2017.Hippocrates.Bolnica.Data;
 using NHibernate;
-using MetroFramework;
+using MetroFramework.Forms;
 namespace SBP2017.Hippocrates.Bolnica
 {
     public partial class MainForm : Form
@@ -26,6 +26,10 @@ namespace SBP2017.Hippocrates.Bolnica
             KlinickiCentar k = s.Load<KlinickiCentar>(1);
             IList<Klinika> klinike = new List<Klinika>();
             klinike = k.Klinike;
+            foreach(Klinika klin in klinike)
+            {
+                MessageBox.Show(klin.GlavnaSestraKlinike.Ime);
+            }
 
             s.Close();
         }

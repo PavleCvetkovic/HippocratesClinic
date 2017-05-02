@@ -45,6 +45,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data
                     .Database(cfg)
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<SBP2017.Hippocrates.Bolnica.Data.Mapiranja.BoraviNaKliniciMapiranje>())
                     .BuildSessionFactory();
+                
             }
             catch (Exception ec)
             {

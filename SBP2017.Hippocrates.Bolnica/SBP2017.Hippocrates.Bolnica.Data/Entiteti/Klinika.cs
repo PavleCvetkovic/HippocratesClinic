@@ -17,9 +17,9 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual MagacinKlinike Magacin { get; set; }
         public virtual ListaCekanja ListaCekanja { get; set; }
 
-        public IList<Narudzbenica> Narudzbenice { get; set; }
-        public IList<Krevet> KoristiKrevete { get; set; }
-        public IList<BoraviNaKlinici> Pacijenti { get; set; }
+        public virtual IList<Narudzbenica> Narudzbenice { get; set; }
+        public virtual IList<Krevet> KoristiKrevete { get; set; }
+        public virtual IList<BoraviNaKlinici> Pacijenti { get; set; }
 
         public Klinika()
         {

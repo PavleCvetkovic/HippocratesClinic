@@ -22,7 +22,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.Telefon, "TELEFON");
             Map(x => x.Pol, "POL");
             Map(x => x.DatumRodjenja, "DATUM_RODJENJA");
-            Map(x => x.JMBG, "JMGB");
+            Map(x => x.JMBG, "JMBG");
             Map(x => x.TipZaposlenog, "TIP_ZAPOSLENOG");
             Map(x => x.TipSestre, "TIP_SESTRE");
             Map(x => x.BrojOrdinacije, "BROJ_ORDINACIJE");
