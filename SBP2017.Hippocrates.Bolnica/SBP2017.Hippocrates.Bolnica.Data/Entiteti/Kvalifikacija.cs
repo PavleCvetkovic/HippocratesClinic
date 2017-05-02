@@ -12,7 +12,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual string Institucija { get; set; }
         public virtual string Vrsta { get; set; }
         public virtual DateTime Datum { get; set; }
-        public virtual Zaposleni KvalifikacijaZaposlenog { get; set; }
+        public virtual Zaposleni Zaposleni { get; set; }
 
     }
 }

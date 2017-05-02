@@ -24,7 +24,8 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.ImeZaposlenog, "IME_ZAPOSLENOG");
             Map(x => x.Cena, "CENA");
 
-            References(x => x.NarudzbenicaZaKLiniku).Column("ID_KLINIKE").LazyLoad();
+            References(x => x.Klinika).Column("ID_KLINIKE").LazyLoad();
+            //CHECK
             References(x => x.NaruceniMaterijal).Column("ID_POTROSNOG_MATERIJALA").LazyLoad();
 
         }

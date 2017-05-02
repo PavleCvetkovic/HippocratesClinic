@@ -16,9 +16,9 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 
             Id(x => x.Id).GeneratedBy.TriggerIdentity();
 
-            References(x => x.MagacinNaKlinici).Column("ID_KLINIKE").LazyLoad();
+            HasOne(x => x.Klinika).PropertyRef(x => x.Magacin).LazyLoad();
 
-            HasManyToMany(x => x.MaterijalUMagacinu)
+            HasManyToMany(x => x.PotrosniMaterijal)
                 .Table("MAGACIN_KLINIKE_SADRZI")
                 .ParentKeyColumn("ID_MAGACINA")
                 .ChildKeyColumn("ID_POTROSNOG_MATERIJALA");

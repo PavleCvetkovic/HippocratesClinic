@@ -13,13 +13,19 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual string Telefon { get; set; }
         public virtual string Lokacija { get; set; }
         public virtual Zaposleni GlavnaSestraKlinike { get; set; }
-        public virtual KlinickiCentar KCKlinike { get; set; }
+        public virtual KlinickiCentar KlinickiCentar { get; set; }
+        public virtual MagacinKlinike Magacin { get; set; }
+        public virtual ListaCekanja ListaCekanja { get; set; }
 
-        public IList<BoraviNaKlinici> PacijentiNaKlinici { get; set; }
+        public IList<Narudzbenica> Narudzbenice { get; set; }
+        public IList<Krevet> KoristiKrevete { get; set; }
+        public IList<BoraviNaKlinici> Pacijenti { get; set; }
 
         public Klinika()
         {
-            PacijentiNaKlinici = new List<BoraviNaKlinici>();
+            Pacijenti= new List<BoraviNaKlinici>();
+            KoristiKrevete = new List<Krevet>();
+            Narudzbenice = new List<Narudzbenica>();
         }
 
     }

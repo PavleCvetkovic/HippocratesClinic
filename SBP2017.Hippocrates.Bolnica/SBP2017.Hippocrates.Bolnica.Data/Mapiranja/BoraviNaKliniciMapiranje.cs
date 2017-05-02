@@ -21,7 +21,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.DatumOtpusta, "DATUM_OTPUSTA");
             References(x => x.Klinika).Column("ID_KLINIKE");
             References(x => x.Pacijent).Column("ID_PACIJENTA");
-            References(x => x.KrevetPacijenta).Column("BROJ_KREVETA").LazyLoad();
+            References(x => x.KrevetPacijenta).Column("BROJ_KREVETA");
         }
     }
 }
