@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//PREDSTAVLJA SAMO EVIDENCIJU DOMOVA ZDRAVLJA IZ KOJIH SU LEKARI PISALI UPUTE...
+//SVI DOMOVI SE CUVAJU U MYSQL BAZI!
 namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
 {
     public class DomZdravlja
@@ -14,5 +15,11 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual string Adresa { get; set; }
         public virtual string Lokacija { get; set; }
 
+        public virtual IList<IzabraniLekar> IzabraniLekari { get; set; }
+        
+        public DomZdravlja()
+        {
+            IzabraniLekari = new List<IzabraniLekar>();
+        }
     }
 }

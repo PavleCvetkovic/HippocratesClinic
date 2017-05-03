@@ -61,6 +61,7 @@
     <Compile Include="Entiteti\Dobavljac.cs" />
     <Compile Include="Entiteti\DomZdravlja.cs" />
     <Compile Include="Entiteti\Iskustvo.cs" />
+    <Compile Include="Entiteti\IzabraniLekar.cs" />
     <Compile Include="Entiteti\KlinickiCentar.cs" />
     <Compile Include="Entiteti\Klinika.cs" />
     <Compile Include="Entiteti\Krevet.cs" />
@@ -71,6 +72,8 @@
     <Compile Include="Entiteti\PacijentiCekaju.cs" />
     <Compile Include="Entiteti\PacijentKlinickogCentra.cs" />
     <Compile Include="Entiteti\PacijentUzimaLekove.cs" />
+    <Compile Include="Mapiranja\DomZdravljaMapiranje.cs" />
+    <Compile Include="Mapiranja\IzabraniLekarMapiranje.cs" />
     <Compile Include="Mapiranja\ListaCekanjaMapiranje.cs" />
     <Compile Include="Mapiranja\PacijentiCekajuMapiranje.cs" />
     <Compile Include="Mapiranja\PacijentKlinickogCentraMapiranje.cs" />
