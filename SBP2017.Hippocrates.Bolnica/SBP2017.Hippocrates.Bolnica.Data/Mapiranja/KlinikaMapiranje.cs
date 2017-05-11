@@ -23,9 +23,9 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 
             References(x => x.KlinickiCentar).Column("ID_KC").LazyLoad();
 
-            HasOne(x => x.ListaCekanja).PropertyRef("Klinika");
+            HasOne(x => x.ListaCekanja).PropertyRef("Klinika").Cascade.All();
             References(x => x.GlavnaSestraKlinike).Column("ID_GLAVNE_SESTRE");
-            HasOne(x => x.Magacin).PropertyRef("Klinika").LazyLoad();
+            HasOne(x => x.Magacin).PropertyRef("Klinika").LazyLoad().Cascade.All();
             HasMany(x => x.Pacijenti).KeyColumn("ID_KLINIKE").Cascade.All().Inverse().LazyLoad();
         }
     }

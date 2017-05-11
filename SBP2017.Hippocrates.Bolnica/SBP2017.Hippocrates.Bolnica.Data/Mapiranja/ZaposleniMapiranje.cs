@@ -14,6 +14,8 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
         {
             Table("ZAPOSLENI");
 
+            DiscriminateSubClassesOnColumn("TIP_ZAPOSLENOG");
+
             Id(x => x.Id).GeneratedBy.TriggerIdentity();
 
             Map(x => x.Ime, "IME");
@@ -23,9 +25,6 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.Pol, "POL");
             Map(x => x.DatumRodjenja, "DATUM_RODJENJA");
             Map(x => x.JMBG, "JMBG");
-            Map(x => x.TipZaposlenog, "TIP_ZAPOSLENOG");
-            Map(x => x.TipSestre, "TIP_SESTRE");
-            Map(x => x.BrojOrdinacije, "BROJ_ORDINACIJE");
             Map(x => x.Password, "PASSWORD");
 
             References(x => x.Ugovor).Column("ID_UGOVORA").LazyLoad();
@@ -35,6 +34,37 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             HasMany(x => x.Iskustva).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All();
             HasMany(x => x.Kvalifikacije).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All();
             HasMany(x => x.Smene).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All();
+        }
+    }
+    public class SpecijalistaMapiranje : SubclassMap<Specijalista>
+    {
+        public SpecijalistaMapiranje()
+        {
+            DiscriminatorValue("SPECIJALISTA");
+            Map(x => x.BrojOrdinacije).Column("BROJ_ORDINACIJE");
+        }
+    }
+    public class SestraMapiranje : SubclassMap<Sestra>
+    {
+        public SestraMapiranje()
+        {
+            DiscriminatorValue("SESTRA");
+            // moze da se uprosti i na klase mladja,starija,glavna sestra, ali ne vidim svrhu, zbog toga ovako mapiram.
+            Map(x => x.TipSestre).Column("TIP_SESTRE");
+        }
+    }
+    public class PomocnoOsobljeMapiranje : SubclassMap<PomocnoOsoblje>
+    {
+        public PomocnoOsobljeMapiranje()
+        {
+            DiscriminatorValue("POMOCNOOSBLJE");
+        }
+    }
+    public class BolnicarMapiranje : SubclassMap<Bolnicar>
+    {
+        public BolnicarMapiranje()
+        {
+            DiscriminatorValue("BOLNICAR");
         }
     }
 }
