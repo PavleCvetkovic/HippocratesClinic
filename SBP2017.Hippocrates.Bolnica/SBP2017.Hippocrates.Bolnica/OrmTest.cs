@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NHibernate;
 using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 using SBP2017.Hippocrates.Bolnica.Data;
-using NHibernate;
-using MetroFramework.Forms;
+
 namespace SBP2017.Hippocrates.Bolnica
 {
-    public partial class ORMTESTFORM : Form
+    public partial class OrmTest : Form
     {
-        public ORMTESTFORM()
+        public OrmTest()
         {
             InitializeComponent();
         }
@@ -50,7 +50,7 @@ namespace SBP2017.Hippocrates.Bolnica
                 Klinika = k,
                 Password = "TEST"
             };
-            
+
             Ugovor u = new Ugovor()
             {
                 BrojSatiNedeljno = 40,
@@ -63,7 +63,7 @@ namespace SBP2017.Hippocrates.Bolnica
             };
             sp.Ugovor = u;
             kc.Ugovori.Add(u);
-            
+
             s.Save(kc);
             s.Save(sp);
             s.Flush();
@@ -73,10 +73,10 @@ namespace SBP2017.Hippocrates.Bolnica
         private void button2_Click(object sender, EventArgs e)
         {
             ISession s = DataLayer.GetSession();
-            IList<Klinika> k = s.QueryOver<Klinika>().Where(x=>x.Telefon == "121414").List<Klinika>();
+            IList<Klinika> k = s.QueryOver<Klinika>().Where(x => x.Telefon == "121414").List<Klinika>();
             if (k.Count > 0)
             {
-                
+
                 Klinika klin = k[0];
                 MagacinKlinike mk = new MagacinKlinike()
                 {
@@ -104,7 +104,7 @@ namespace SBP2017.Hippocrates.Bolnica
                 s.Save(pm);
                 s.Save(mk);
             }
-            
+
             s.Flush();
             s.Close();
         }

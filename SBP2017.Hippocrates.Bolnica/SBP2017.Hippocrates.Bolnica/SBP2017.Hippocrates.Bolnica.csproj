@@ -77,16 +77,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ORMTESTFORM.cs">
+    <Compile Include="OrmTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>ORMTESTFORM.cs</DependentUpon>
+    <Compile Include="OrmTest.Designer.cs">
+      <DependentUpon>OrmTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>ORMTESTFORM.cs</DependentUpon>
+    <EmbeddedResource Include="OrmTest.resx">
+      <DependentUpon>OrmTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

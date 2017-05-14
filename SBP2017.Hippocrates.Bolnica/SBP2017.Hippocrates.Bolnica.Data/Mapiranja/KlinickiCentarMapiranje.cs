@@ -23,7 +23,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             HasMany(x => x.Klinike).KeyColumn("ID_KC").Inverse().Cascade.All().LazyLoad();
             HasMany(x => x.Ugovori).KeyColumn("ID_KC").Inverse().Cascade.All().LazyLoad();
             HasMany(x => x.Kreveti).KeyColumn("ID_KC").Inverse().Cascade.All().LazyLoad();
-            HasOne(x => x.CentralniMagacin).PropertyRef("KlinickiCentar");
+            HasOne(x => x.CentralniMagacin).PropertyRef("KlinickiCentar").Cascade.All();
             HasManyToMany(x => x.Dobavljaci)
                 .Table("CENTAR_KUPUJE_OD")
                 .ParentKeyColumn("ID_KC")

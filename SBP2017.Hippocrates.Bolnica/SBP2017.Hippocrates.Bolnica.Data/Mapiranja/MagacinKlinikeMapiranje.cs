@@ -21,7 +21,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             HasManyToMany(x => x.PotrosniMaterijal)
                 .Table("MAGACIN_KLINIKE_SADRZI")
                 .ParentKeyColumn("ID_MAGACINA")
-                .ChildKeyColumn("ID_POTROSNOG_MATERIJALA");
+                .ChildKeyColumn("ID_POTROSNOG_MATERIJALA").Cascade.All();
         }
     }
 }

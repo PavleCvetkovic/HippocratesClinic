@@ -18,7 +18,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 
             Map(x => x.Datum, "DATUM");
             Map(x => x.Vreme, "VREME");
-            Map(x => x.Prostorija, "PROTORIJA");
+            Map(x => x.Prostorija, "PROSTORIJA");
 
             References(x => x.Specijalista).Column("ID_SPECIJALISTE");
             References(x => x.Pacijent).Column("ID_PACIJENTA");

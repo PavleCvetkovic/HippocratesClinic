@@ -27,7 +27,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 
             References(x => x.CentralniMagacin).Column("ID_CENTRALNOG_MAGACINA").LazyLoad();
 
-            HasMany(x => x.Pacijenti).KeyColumn("ID_LEKA").Cascade.All();
+            HasMany(x => x.Pacijenti).KeyColumn("ID_LEKA").Cascade.All().Inverse();
 
             HasManyToMany(x => x.Magacini)
                 .Table("MAGACIN_KLINIKE_SADRZI")
