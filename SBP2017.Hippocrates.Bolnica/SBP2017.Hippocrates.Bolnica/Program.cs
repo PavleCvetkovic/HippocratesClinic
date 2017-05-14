@@ -16,7 +16,7 @@ namespace SBP2017.Hippocrates.Bolnica
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new OrmTest());
+            Application.Run(new LoginForm());
         }
     }
 }
