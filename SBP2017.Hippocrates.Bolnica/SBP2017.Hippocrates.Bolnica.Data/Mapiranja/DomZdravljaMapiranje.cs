@@ -20,7 +20,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.Adresa).Column("ADRESA");
             Map(x => x.Lokacija).Column("LOKACIJA");
 
-            HasMany(x => x.IzabraniLekari).KeyColumn("MBRZU").LazyLoad().Cascade.All().Inverse();
+            HasMany(x => x.IzabraniLekari).KeyColumn("MBRZU").Not.LazyLoad().Cascade.All().Inverse();
         }
     }
 }

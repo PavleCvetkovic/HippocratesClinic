@@ -16,17 +16,20 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         List<IView> views;
 
         Zaposleni user;
-        PacijentKlinickogCentra Patient;
-        Klinika Clinic;
-        KlinickiCentar Center;
+        PacijentKlinickogCentra patient;
+        Klinika clinic;
+        KlinickiCentar center;
         
         public SestraBolnicarModel(Zaposleni user)
         {
             views = new List<IView>();
+            ISession s = DataLayer.GetSession();
             this.user = user;
-            Clinic = user.Klinika;
-            Center = Clinic.KlinickiCentar;
-            Patient = null;
+            s.Refresh(user);
+            clinic = user.Klinika;
+            center = clinic.KlinickiCentar;
+            patient = null;
+            s.Close();
         }
         public void AddView(IView view)
         {
@@ -38,16 +41,41 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             foreach (IView v in views)
                 v.Update();
         }
+        public Zaposleni User
+        {
+            get
+            {
+                return user;
+            }
+        }
+        public PacijentKlinickogCentra Patient
+        {
+            get { return patient; }
+        }
+        public Klinika Klinika
+        {
+            get
+            {
+                return clinic;
+            }
+        }
+        public KlinickiCentar ClinicCenter
+        {
+            get
+            {
+                return center;
+            }
+        }
         public PacijentKlinickogCentra getPatient()
         {
-            return Patient;
+            return patient;
         }
-        public PacijentKlinickogCentra searchPatientsByJMBG(string JMBG) //returns Patient with given JMBG
+        public PacijentKlinickogCentra searchPatientsByJMBG(string JMBG)
         {
             ISession s = DataLayer.GetSession();
             IQuery q = s.CreateQuery("from PacijentKlinickogCentra as p where p.JMBG = '" + JMBG + "'");
             PacijentKlinickogCentra p = q.UniqueResult<PacijentKlinickogCentra>();
-            Patient = p;
+            patient = p;
             s.Close();
             return p;
         }
@@ -57,14 +85,22 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             PacijentiCekaju pc = new PacijentiCekaju()
             {
                 DatumUpisa = DateTime.Now,
-                ListaCekanja = Clinic.ListaCekanja,
+                ListaCekanja = clinic.ListaCekanja,
                 OcekivanoVremeCekanja = ExpectedTime,
                 Pacijent = patient
             };
-            Clinic.ListaCekanja.Pacijenti.Add(pc);
-            s.SaveOrUpdate(Clinic);
+            clinic.ListaCekanja.Pacijenti.Add(pc);
+            s.SaveOrUpdate(clinic);
             s.Flush();
             s.Close();
+        }
+        public IList<BoraviNaKlinici> patientsAtClinic()
+        {
+            ISession s = DataLayer.GetSession();
+            s.Refresh(clinic);
+            IList<BoraviNaKlinici> Patients = clinic.Pacijenti.ToList<BoraviNaKlinici>();
+            s.Close();
+            return Patients;
         }
 
     }

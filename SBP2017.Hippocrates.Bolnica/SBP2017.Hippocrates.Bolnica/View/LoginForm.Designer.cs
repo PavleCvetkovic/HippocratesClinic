@@ -53,7 +53,7 @@
             this.txtUser.CustomButton.Visible = false;
             this.txtUser.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtUser.Lines = new string[0];
-            this.txtUser.Location = new System.Drawing.Point(234, 305);
+            this.txtUser.Location = new System.Drawing.Point(243, 304);
             this.txtUser.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtUser.MaxLength = 32767;
             this.txtUser.Name = "txtUser";
@@ -88,7 +88,7 @@
             this.txtPassword.CustomButton.Visible = false;
             this.txtPassword.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtPassword.Lines = new string[0];
-            this.txtPassword.Location = new System.Drawing.Point(234, 396);
+            this.txtPassword.Location = new System.Drawing.Point(243, 395);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtPassword.MaxLength = 32767;
             this.txtPassword.Name = "txtPassword";
@@ -112,7 +112,7 @@
             this.lblUser.AutoSize = true;
             this.lblUser.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.lblUser.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.lblUser.Location = new System.Drawing.Point(342, 266);
+            this.lblUser.Location = new System.Drawing.Point(351, 265);
             this.lblUser.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUser.Name = "lblUser";
             this.lblUser.Size = new System.Drawing.Size(87, 25);
@@ -126,7 +126,7 @@
             this.lblPassword.AutoSize = true;
             this.lblPassword.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.lblPassword.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.lblPassword.Location = new System.Drawing.Point(342, 357);
+            this.lblPassword.Location = new System.Drawing.Point(351, 356);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(82, 25);
             this.lblPassword.TabIndex = 3;
@@ -136,7 +136,7 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(326, 453);
+            this.btnLogin.Location = new System.Drawing.Point(335, 453);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(112, 42);
             this.btnLogin.Style = MetroFramework.MetroColorStyle.Green;
@@ -149,7 +149,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::SBP2017.Hippocrates.Bolnica.Properties.Resources.logo;
-            this.pictureBox1.Location = new System.Drawing.Point(290, 73);
+            this.pictureBox1.Location = new System.Drawing.Point(298, 73);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(182, 156);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -177,7 +177,7 @@
             this.Text = "Prijava na sistem";
             this.TextAlign = MetroFramework.Forms.MetroFormTextAlign.Center;
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.Load += new System.EventHandler(this.LoginForm_Load);
+            this.VisibleChanged += new System.EventHandler(this.LoginForm_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

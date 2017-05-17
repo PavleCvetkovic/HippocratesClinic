@@ -36,9 +36,19 @@ namespace SBP2017.Hippocrates.Bolnica.View
         {
             model.AddView(this);
         }
-        public void Update()
+        public new void  Update()
         {
-           
+            lblUserName.Text = (controller.getModel() as SestraBolnicarModel).User.Ime +" "+ (controller.getModel() as SestraBolnicarModel).User.Prezime;
+        }
+
+        private void SestraBolnicar_Load(object sender, EventArgs e)
+        {
+            Update();
+        }
+
+        private void TabPagePatienstOnClinic_Enter(object sender, EventArgs e)
+        {
+            dgvPatients.DataSource = (controller as SestraBolnicarController).patientsAtClinic();
         }
     }
 }

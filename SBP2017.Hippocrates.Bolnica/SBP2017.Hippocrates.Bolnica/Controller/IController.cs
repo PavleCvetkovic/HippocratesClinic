@@ -11,5 +11,6 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
     public interface IController
     {
         void AddModel(IModel model);
+        IModel getModel();
     }
 }

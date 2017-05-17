@@ -32,5 +32,9 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             return (model as LoginModel).returnUser();
         }
+        public IModel getModel()
+        {
+            return model;
+        }
     }
 }

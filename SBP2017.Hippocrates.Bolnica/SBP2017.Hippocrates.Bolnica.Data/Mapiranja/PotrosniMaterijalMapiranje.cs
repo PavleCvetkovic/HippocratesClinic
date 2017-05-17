@@ -25,7 +25,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.TipicnaDoza, "TIPICNA_DOZA");
             Map(x => x.NacinAdministracije, "NACIN_ADMINISTRACIJE");
 
-            References(x => x.CentralniMagacin).Column("ID_CENTRALNOG_MAGACINA").LazyLoad();
+            References(x => x.CentralniMagacin).Column("ID_CENTRALNOG_MAGACINA").Not.LazyLoad();
 
             HasMany(x => x.Pacijenti).KeyColumn("ID_LEKA").Cascade.All().Inverse();
 

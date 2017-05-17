@@ -20,9 +20,9 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.Lokacija);
 
             References(x => x.DirektorKlinickogCentra).Column("ID_DIREKTORA");
-            HasMany(x => x.Klinike).KeyColumn("ID_KC").Inverse().Cascade.All().LazyLoad();
-            HasMany(x => x.Ugovori).KeyColumn("ID_KC").Inverse().Cascade.All().LazyLoad();
-            HasMany(x => x.Kreveti).KeyColumn("ID_KC").Inverse().Cascade.All().LazyLoad();
+            HasMany(x => x.Klinike).KeyColumn("ID_KC").Inverse().Cascade.All().Not.LazyLoad();
+            HasMany(x => x.Ugovori).KeyColumn("ID_KC").Inverse().Cascade.All().Not.LazyLoad();
+            HasMany(x => x.Kreveti).KeyColumn("ID_KC").Inverse().Cascade.All().Not.LazyLoad();
             HasOne(x => x.CentralniMagacin).PropertyRef("KlinickiCentar").Cascade.All();
             HasManyToMany(x => x.Dobavljaci)
                 .Table("CENTAR_KUPUJE_OD")

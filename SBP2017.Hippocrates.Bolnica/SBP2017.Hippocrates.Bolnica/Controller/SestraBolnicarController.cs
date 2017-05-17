@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SBP2017.Hippocrates.Bolnica.Model;
+using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 
 namespace SBP2017.Hippocrates.Bolnica.Controller
 {
@@ -13,6 +14,15 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         public void AddModel(IModel model)
         {
             this.model = model;
+        }
+
+        public IModel getModel()
+        {
+            return model;
+        }
+        public IList<BoraviNaKlinici> patientsAtClinic()
+        {
+            return (model as SestraBolnicarModel).patientsAtClinic();
         }
     }
 }

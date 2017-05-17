@@ -42,6 +42,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             q.SetParameter(0,Id);
             q.SetParameter(1, Password);
             IList<Zaposleni> employee = q.List<Zaposleni>();
+            s.Close();
             if (employee.Count == 1)
             {
                 user = employee[0];

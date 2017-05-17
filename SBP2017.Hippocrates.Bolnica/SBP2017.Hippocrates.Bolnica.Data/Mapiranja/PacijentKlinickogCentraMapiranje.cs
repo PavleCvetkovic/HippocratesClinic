@@ -24,12 +24,12 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.Pol, "POL");
             Map(x => x.Adresa, "ADRESA");
 
-            References(x => x.Rodjak).Column("ID_RODJAKA").LazyLoad();
+            References(x => x.Rodjak).Column("ID_RODJAKA").Not.LazyLoad();
 
-            HasMany(x => x.Lekovi).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse().LazyLoad();
-            HasMany(x => x.Pregledi).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse().LazyLoad();
-            HasMany(x => x.Klinike).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse().LazyLoad();
-            HasMany(x => x.ListeCekanja).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse().LazyLoad();
+            HasMany(x => x.Lekovi).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse().Not.LazyLoad();
+            HasMany(x => x.Pregledi).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse().Not.LazyLoad();
+            HasMany(x => x.Klinike).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse().Not.LazyLoad();
+            HasMany(x => x.ListeCekanja).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse().Not.LazyLoad();
         }
     }
 }

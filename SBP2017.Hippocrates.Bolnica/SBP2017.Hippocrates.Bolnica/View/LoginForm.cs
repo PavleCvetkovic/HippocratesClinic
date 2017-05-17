@@ -62,15 +62,17 @@ namespace SBP2017.Hippocrates.Bolnica.View
                         sbform.AttachToModel(sbmodel);
                         sbctl.AddModel(sbmodel);
                         sbmodel.AddView(sbform);
+                        sbform.AddControler(sbctl);
                         this.Hide();
-                        sbform.Show();
+                        sbform.ShowDialog();
+                        this.Show();
                 }
             }
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
+        private void LoginForm_VisibleChanged(object sender, EventArgs e)
         {
-            
+            txtPassword.Clear();
         }
     }
 }
