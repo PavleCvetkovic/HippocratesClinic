@@ -33,6 +33,8 @@
             this.lblUser = new MetroFramework.Controls.MetroLabel();
             this.lblPassword = new MetroFramework.Controls.MetroLabel();
             this.btnLogin = new MetroFramework.Controls.MetroButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtUser
@@ -51,7 +53,7 @@
             this.txtUser.CustomButton.Visible = false;
             this.txtUser.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtUser.Lines = new string[0];
-            this.txtUser.Location = new System.Drawing.Point(188, 124);
+            this.txtUser.Location = new System.Drawing.Point(234, 305);
             this.txtUser.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtUser.MaxLength = 32767;
             this.txtUser.Name = "txtUser";
@@ -86,7 +88,7 @@
             this.txtPassword.CustomButton.Visible = false;
             this.txtPassword.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtPassword.Lines = new string[0];
-            this.txtPassword.Location = new System.Drawing.Point(188, 215);
+            this.txtPassword.Location = new System.Drawing.Point(234, 396);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtPassword.MaxLength = 32767;
             this.txtPassword.Name = "txtPassword";
@@ -110,7 +112,7 @@
             this.lblUser.AutoSize = true;
             this.lblUser.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.lblUser.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.lblUser.Location = new System.Drawing.Point(296, 83);
+            this.lblUser.Location = new System.Drawing.Point(342, 266);
             this.lblUser.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUser.Name = "lblUser";
             this.lblUser.Size = new System.Drawing.Size(87, 25);
@@ -124,7 +126,7 @@
             this.lblPassword.AutoSize = true;
             this.lblPassword.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.lblPassword.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.lblPassword.Location = new System.Drawing.Point(296, 176);
+            this.lblPassword.Location = new System.Drawing.Point(342, 357);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(82, 25);
             this.lblPassword.TabIndex = 3;
@@ -134,7 +136,7 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(285, 291);
+            this.btnLogin.Location = new System.Drawing.Point(326, 453);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(112, 42);
             this.btnLogin.Style = MetroFramework.MetroColorStyle.Green;
@@ -144,10 +146,21 @@
             this.btnLogin.UseSelectable = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::SBP2017.Hippocrates.Bolnica.Properties.Resources.logo;
+            this.pictureBox1.Location = new System.Drawing.Point(290, 73);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(182, 156);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
             // LoginForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(664, 402);
+            this.ClientSize = new System.Drawing.Size(778, 575);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblUser);
@@ -165,6 +178,7 @@
             this.TextAlign = MetroFramework.Forms.MetroFormTextAlign.Center;
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.Load += new System.EventHandler(this.LoginForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,5 +191,6 @@
         private MetroFramework.Controls.MetroLabel lblUser;
         private MetroFramework.Controls.MetroLabel lblPassword;
         private MetroFramework.Controls.MetroButton btnLogin;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

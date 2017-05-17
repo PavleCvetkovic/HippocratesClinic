@@ -12,6 +12,14 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
     {
         private IModel model;
 
+        public LoginController()
+        {
+
+        }
+        public LoginController(IModel model)
+        {
+            this.model = model;
+        }
         public void AddModel(IModel model)
         {
             this.model = model;

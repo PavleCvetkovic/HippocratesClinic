@@ -19,12 +19,13 @@ namespace SBP2017.Hippocrates.Bolnica
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+           
             LoginForm loginForm = new LoginForm();
             IController loginController = new LoginController();
-            IModel loginModel = new LoginModel();
-            loginController.AddModel(loginModel);
+            IModel loginModel = new LoginModel(loginForm);
             loginForm.AddControler(loginController);
-            loginForm.AttachToModel(loginModel);
+            loginController.AddModel(loginModel);
+
             Application.Run(loginForm);
         }
     }

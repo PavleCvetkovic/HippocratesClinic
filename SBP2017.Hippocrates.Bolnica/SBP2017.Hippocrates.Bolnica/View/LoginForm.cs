@@ -21,8 +21,14 @@ namespace SBP2017.Hippocrates.Bolnica.View
     public partial class LoginForm : MetroForm,IView
     {
         private IController controller;
+
         public LoginForm()
         {
+            InitializeComponent();
+        }
+        public LoginForm(IController controller)
+        {
+            this.controller = controller;
             InitializeComponent();
         }
 
@@ -36,6 +42,7 @@ namespace SBP2017.Hippocrates.Bolnica.View
             model.AddView(this);
         }
 
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
             bool success=(controller as LoginController).CheckLogin(Int32.Parse(txtUser.Text), txtPassword.Text);
@@ -45,8 +52,19 @@ namespace SBP2017.Hippocrates.Bolnica.View
             }
             else
             {
-                //otvori odgovarajucu formu.
-                MetroMessageBox.Show(this, "USPESNA PRIJAVA", "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var user=(controller as LoginController).returnUser();
+                Type t = user.GetType();
+                if (t.Equals(typeof(Sestra)))
+                {
+                        SestraBolnicar sbform = new SestraBolnicar();
+                        IController sbctl = new SestraBolnicarController();
+                        IModel sbmodel = new SestraBolnicarModel(user);
+                        sbform.AttachToModel(sbmodel);
+                        sbctl.AddModel(sbmodel);
+                        sbmodel.AddView(sbform);
+                        this.Hide();
+                        sbform.Show();
+                }
             }
         }
 

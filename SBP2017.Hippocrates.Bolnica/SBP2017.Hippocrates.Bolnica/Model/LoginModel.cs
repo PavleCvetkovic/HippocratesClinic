@@ -20,6 +20,11 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         {
             views = new List<IView>();
         }
+        public LoginModel(IView view)
+            :this()
+        {
+            views.Add(view);
+        }
         public void AddView(IView view)
         {
             views.Add(view);
@@ -39,6 +44,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             IList<Zaposleni> employee = q.List<Zaposleni>();
             if (employee.Count == 1)
             {
+                user = employee[0];
                 return true;
             }
             return false;
