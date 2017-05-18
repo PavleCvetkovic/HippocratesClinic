@@ -27,20 +27,20 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 
             References(x => x.CentralniMagacin).Column("ID_CENTRALNOG_MAGACINA").Not.LazyLoad();
 
-            HasMany(x => x.Pacijenti).KeyColumn("ID_LEKA").Cascade.All().Inverse();
+            HasMany(x => x.Pacijenti).KeyColumn("ID_LEKA").Cascade.All().Inverse().Not.LazyLoad();
 
             HasManyToMany(x => x.Magacini)
                 .Table("MAGACIN_KLINIKE_SADRZI")
-                .ParentKeyColumn("ID_POTROSNG_MATERIJALA")
+                .ParentKeyColumn("ID_POTROSNoG_MATERIJALA")
                 .ChildKeyColumn("ID_MAGACINA")
                 .Inverse()
-                .Cascade.All();           
+                .Cascade.All().Not.LazyLoad();
 
             HasManyToMany(x => x.Dobavljaci)
                 .Table("DOBAVLJA")
                 .ParentKeyColumn("ID_MATERIJALA")
                 .ChildKeyColumn("ID_DOBAVLJAC")
-                .Inverse().Cascade.All();
+                .Inverse().Cascade.All().Not.LazyLoad();
 
         }
     }

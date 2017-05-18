@@ -11,5 +11,6 @@ namespace SBP2017.Hippocrates.Bolnica.Model
     {
         void AddView(IView view);
         void UpdateViews();
+        void refreshData();
     }
 }

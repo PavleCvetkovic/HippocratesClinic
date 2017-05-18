@@ -10,7 +10,8 @@ using System.Windows.Forms;
 using MetroFramework.Forms;
 using SBP2017.Hippocrates.Bolnica.Controller;
 using SBP2017.Hippocrates.Bolnica.Model;
-
+using NHibernate;
+using SBP2017.Hippocrates.Bolnica.Data;
 namespace SBP2017.Hippocrates.Bolnica.View
 {
     public partial class SestraBolnicar : MetroForm,IView
@@ -38,7 +39,16 @@ namespace SBP2017.Hippocrates.Bolnica.View
         }
         public new void  Update()
         {
+            controller.refreshData();
+
             lblUserName.Text = (controller.getModel() as SestraBolnicarModel).User.Ime +" "+ (controller.getModel() as SestraBolnicarModel).User.Prezime;
+            dgvPatients.DataSource = (controller as SestraBolnicarController).patientsAtClinic();
+            dgvQueue.DataSource = (controller as SestraBolnicarController).patientsAtQueue();
+            lblAdressClinic.Text = (controller.getModel() as SestraBolnicarModel).User.Klinika.Lokacija.ToString();
+            lblCCName.Text = (controller.getModel() as SestraBolnicarModel).User.Klinika.KlinickiCentar.Ime.ToString();
+            lblClinicName.Text = (controller.getModel() as SestraBolnicarModel).User.Klinika.Naziv;
+            lblCSName.Text = (controller.getModel() as SestraBolnicarModel).User.Klinika.GlavnaSestraKlinike.Ime + " " + (controller.getModel() as SestraBolnicarModel).User.Klinika.GlavnaSestraKlinike.Prezime;
+            lblVacantBeds.Text = (controller as SestraBolnicarController).vacantBeds().ToString();
         }
 
         private void SestraBolnicar_Load(object sender, EventArgs e)
@@ -50,5 +60,12 @@ namespace SBP2017.Hippocrates.Bolnica.View
         {
             dgvPatients.DataSource = (controller as SestraBolnicarController).patientsAtClinic();
         }
+
+        private void TabPageQueue_Enter(object sender, EventArgs e)
+        {
+            dgvQueue.DataSource = (controller as SestraBolnicarController).patientsAtQueue();
+        }
+
+
     }
 }

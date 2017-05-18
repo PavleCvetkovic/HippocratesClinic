@@ -17,10 +17,10 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Id(x => x.Id).Column("ID").GeneratedBy.TriggerIdentity();
             
             Map(x => x.DatumUpisa, "DATUM_UPISA");
-            Map(x => x.OcekivanoVremeCekanja, "OCEKIVANO_VREME");
+            Map(x => x.OcekivanoVremeCekanja, "OCEKIVANO_CEKANJE");
 
-            References(x => x.ListaCekanja).Column("ID_LISTE_CEKANJA");
-            References(x => x.Pacijent).Column("ID_PACIJENTA");
+            References(x => x.ListaCekanja).Column("ID_LISTE_CEKANJA").Not.LazyLoad();
+            References(x => x.Pacijent).Column("ID_PACIJENTA").Not.LazyLoad();
         }
     }
 }

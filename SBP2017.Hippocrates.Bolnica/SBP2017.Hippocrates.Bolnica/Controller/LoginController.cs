@@ -36,5 +36,10 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             return model;
         }
+
+        public void refreshData()
+        {
+            model.refreshData();
+        }
     }
 }

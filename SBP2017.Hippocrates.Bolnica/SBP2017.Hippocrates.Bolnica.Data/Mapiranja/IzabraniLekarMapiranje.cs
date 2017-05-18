@@ -21,7 +21,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.DatumRodjenja).Column("DATUM_RODJENJA");
             Map(x => x.Adresa).Column("ADRESA");
 
-            References(x => x.DomZdravlja).Column("MBRZU");
+            References(x => x.DomZdravlja).Column("MBRZU").Not.LazyLoad();
         }
     }
 }

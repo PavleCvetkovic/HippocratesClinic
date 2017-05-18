@@ -54,5 +54,12 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         {
                 return user;
         }
+
+        public void refreshData()
+        {
+            ISession s = DataLayer.GetSession();
+            s.Refresh(user);
+            s.Close();
+        }
     }
 }

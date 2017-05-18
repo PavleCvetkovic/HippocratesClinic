@@ -23,10 +23,12 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 
             References(x => x.KlinickiCentar).Column("ID_KC").Not.LazyLoad();
 
-            HasOne(x => x.ListaCekanja).PropertyRef("Klinika").Cascade.All();
-            References(x => x.GlavnaSestraKlinike).Column("ID_GLAVNE_SESTRE");
+           
+            References(x => x.GlavnaSestraKlinike).Column("ID_GLAVNE_SESTRE").Not.LazyLoad();
             HasOne(x => x.Magacin).PropertyRef("Klinika").Not.LazyLoad().Cascade.All();
+            HasOne(x => x.ListaCekanja).PropertyRef("Klinika").Not.LazyLoad().Cascade.All();
             HasMany(x => x.Pacijenti).KeyColumn("ID_KLINIKE").Cascade.All().Inverse().Not.LazyLoad();
+            HasMany(x => x.KoristiKrevete).KeyColumn("ID_KLINIKE").Cascade.All().Not.LazyLoad();
         }
     }
 }

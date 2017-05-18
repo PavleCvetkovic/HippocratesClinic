@@ -31,8 +31,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MainTab = new MetroFramework.Controls.MetroTabControl();
             this.TabPagePatienstOnClinic = new MetroFramework.Controls.MetroTabPage();
+            this.btnRelease = new MetroFramework.Controls.MetroButton();
+            this.btnHealthRecords = new MetroFramework.Controls.MetroButton();
             this.dgvPatients = new MetroFramework.Controls.MetroGrid();
             this.TabPagePatientsSearch = new MetroFramework.Controls.MetroTabPage();
             this.btnSearch = new MetroFramework.Controls.MetroButton();
@@ -41,15 +46,28 @@
             this.cmbSearchBy = new MetroFramework.Controls.MetroComboBox();
             this.TabPagePatientView = new MetroFramework.Controls.MetroTabPage();
             this.TabPageQueue = new MetroFramework.Controls.MetroTabPage();
+            this.btnAcceptPatient = new MetroFramework.Controls.MetroButton();
+            this.dgvQueue = new MetroFramework.Controls.MetroGrid();
             this.TabPageInformation = new MetroFramework.Controls.MetroTabPage();
+            this.lblCSName = new MetroFramework.Controls.MetroLabel();
+            this.lblVacantBeds = new MetroFramework.Controls.MetroLabel();
+            this.lblAdressClinic = new MetroFramework.Controls.MetroLabel();
+            this.lblClinicName = new MetroFramework.Controls.MetroLabel();
+            this.lblCCName = new MetroFramework.Controls.MetroLabel();
+            this.lblChiefName = new MetroFramework.Controls.MetroLabel();
+            this.lblVacant = new MetroFramework.Controls.MetroLabel();
+            this.lblAdress = new MetroFramework.Controls.MetroLabel();
+            this.lblClinic = new MetroFramework.Controls.MetroLabel();
+            this.lblClinicCenter = new MetroFramework.Controls.MetroLabel();
             this.lblUserName = new MetroFramework.Controls.MetroLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnHealthRecords = new MetroFramework.Controls.MetroButton();
-            this.btnRelease = new MetroFramework.Controls.MetroButton();
             this.MainTab.SuspendLayout();
             this.TabPagePatienstOnClinic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPatients)).BeginInit();
             this.TabPagePatientsSearch.SuspendLayout();
+            this.TabPageQueue.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvQueue)).BeginInit();
+            this.TabPageInformation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,13 +75,13 @@
             // 
             this.MainTab.Controls.Add(this.TabPagePatienstOnClinic);
             this.MainTab.Controls.Add(this.TabPagePatientsSearch);
-            this.MainTab.Controls.Add(this.TabPagePatientView);
             this.MainTab.Controls.Add(this.TabPageQueue);
+            this.MainTab.Controls.Add(this.TabPagePatientView);
             this.MainTab.Controls.Add(this.TabPageInformation);
             this.MainTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTab.Location = new System.Drawing.Point(20, 60);
             this.MainTab.Name = "MainTab";
-            this.MainTab.SelectedIndex = 1;
+            this.MainTab.SelectedIndex = 4;
             this.MainTab.Size = new System.Drawing.Size(844, 439);
             this.MainTab.Style = MetroFramework.MetroColorStyle.Green;
             this.MainTab.TabIndex = 0;
@@ -90,9 +108,36 @@
             this.TabPagePatienstOnClinic.VerticalScrollbarSize = 10;
             this.TabPagePatienstOnClinic.Enter += new System.EventHandler(this.TabPagePatienstOnClinic_Enter);
             // 
+            // btnRelease
+            // 
+            this.btnRelease.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRelease.Location = new System.Drawing.Point(592, 87);
+            this.btnRelease.Name = "btnRelease";
+            this.btnRelease.Size = new System.Drawing.Size(111, 46);
+            this.btnRelease.Style = MetroFramework.MetroColorStyle.Green;
+            this.btnRelease.TabIndex = 4;
+            this.btnRelease.Text = "Otpusti sa klinike";
+            this.btnRelease.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnRelease.UseSelectable = true;
+            // 
+            // btnHealthRecords
+            // 
+            this.btnHealthRecords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHealthRecords.Location = new System.Drawing.Point(592, 24);
+            this.btnHealthRecords.Name = "btnHealthRecords";
+            this.btnHealthRecords.Size = new System.Drawing.Size(111, 41);
+            this.btnHealthRecords.Style = MetroFramework.MetroColorStyle.Green;
+            this.btnHealthRecords.TabIndex = 3;
+            this.btnHealthRecords.Text = "Uvid u karton";
+            this.btnHealthRecords.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnHealthRecords.UseSelectable = true;
+            // 
             // dgvPatients
             // 
             this.dgvPatients.AllowUserToResizeRows = false;
+            this.dgvPatients.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvPatients.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             this.dgvPatients.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvPatients.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
@@ -115,7 +160,6 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvPatients.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvPatients.Dock = System.Windows.Forms.DockStyle.Left;
             this.dgvPatients.EnableHeadersVisualStyles = false;
             this.dgvPatients.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.dgvPatients.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
@@ -243,6 +287,8 @@
             // 
             // TabPageQueue
             // 
+            this.TabPageQueue.Controls.Add(this.btnAcceptPatient);
+            this.TabPageQueue.Controls.Add(this.dgvQueue);
             this.TabPageQueue.HorizontalScrollbarBarColor = true;
             this.TabPageQueue.HorizontalScrollbarHighlightOnWheel = false;
             this.TabPageQueue.HorizontalScrollbarSize = 10;
@@ -255,9 +301,80 @@
             this.TabPageQueue.VerticalScrollbarBarColor = true;
             this.TabPageQueue.VerticalScrollbarHighlightOnWheel = false;
             this.TabPageQueue.VerticalScrollbarSize = 10;
+            this.TabPageQueue.Enter += new System.EventHandler(this.TabPageQueue_Enter);
+            // 
+            // btnAcceptPatient
+            // 
+            this.btnAcceptPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAcceptPatient.Location = new System.Drawing.Point(608, 28);
+            this.btnAcceptPatient.Name = "btnAcceptPatient";
+            this.btnAcceptPatient.Size = new System.Drawing.Size(225, 50);
+            this.btnAcceptPatient.Style = MetroFramework.MetroColorStyle.Green;
+            this.btnAcceptPatient.TabIndex = 3;
+            this.btnAcceptPatient.Text = "Primi pacijenta na kliniku";
+            this.btnAcceptPatient.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnAcceptPatient.UseSelectable = true;
+            // 
+            // dgvQueue
+            // 
+            this.dgvQueue.AllowUserToResizeRows = false;
+            this.dgvQueue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvQueue.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.dgvQueue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvQueue.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvQueue.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(177)))), ((int)(((byte)(89)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(208)))), ((int)(((byte)(104)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvQueue.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvQueue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(208)))), ((int)(((byte)(104)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvQueue.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvQueue.EnableHeadersVisualStyles = false;
+            this.dgvQueue.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvQueue.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.dgvQueue.Location = new System.Drawing.Point(3, 15);
+            this.dgvQueue.Name = "dgvQueue";
+            this.dgvQueue.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(177)))), ((int)(((byte)(89)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(208)))), ((int)(((byte)(104)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvQueue.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvQueue.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvQueue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvQueue.Size = new System.Drawing.Size(575, 379);
+            this.dgvQueue.Style = MetroFramework.MetroColorStyle.Green;
+            this.dgvQueue.TabIndex = 2;
+            this.dgvQueue.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
             // TabPageInformation
             // 
+            this.TabPageInformation.Controls.Add(this.lblCSName);
+            this.TabPageInformation.Controls.Add(this.lblVacantBeds);
+            this.TabPageInformation.Controls.Add(this.lblAdressClinic);
+            this.TabPageInformation.Controls.Add(this.lblClinicName);
+            this.TabPageInformation.Controls.Add(this.lblCCName);
+            this.TabPageInformation.Controls.Add(this.lblChiefName);
+            this.TabPageInformation.Controls.Add(this.lblVacant);
+            this.TabPageInformation.Controls.Add(this.lblAdress);
+            this.TabPageInformation.Controls.Add(this.lblClinic);
+            this.TabPageInformation.Controls.Add(this.lblClinicCenter);
             this.TabPageInformation.HorizontalScrollbarBarColor = true;
             this.TabPageInformation.HorizontalScrollbarHighlightOnWheel = false;
             this.TabPageInformation.HorizontalScrollbarSize = 10;
@@ -270,6 +387,116 @@
             this.TabPageInformation.VerticalScrollbarBarColor = true;
             this.TabPageInformation.VerticalScrollbarHighlightOnWheel = false;
             this.TabPageInformation.VerticalScrollbarSize = 10;
+            // 
+            // lblCSName
+            // 
+            this.lblCSName.AutoSize = true;
+            this.lblCSName.Location = new System.Drawing.Point(134, 186);
+            this.lblCSName.Name = "lblCSName";
+            this.lblCSName.Size = new System.Drawing.Size(14, 19);
+            this.lblCSName.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblCSName.TabIndex = 11;
+            this.lblCSName.Text = "s";
+            this.lblCSName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblVacantBeds
+            // 
+            this.lblVacantBeds.AutoSize = true;
+            this.lblVacantBeds.Location = new System.Drawing.Point(188, 145);
+            this.lblVacantBeds.Name = "lblVacantBeds";
+            this.lblVacantBeds.Size = new System.Drawing.Size(16, 19);
+            this.lblVacantBeds.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblVacantBeds.TabIndex = 10;
+            this.lblVacantBeds.Text = "0";
+            this.lblVacantBeds.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblAdressClinic
+            // 
+            this.lblAdressClinic.AutoSize = true;
+            this.lblAdressClinic.Location = new System.Drawing.Point(99, 107);
+            this.lblAdressClinic.Name = "lblAdressClinic";
+            this.lblAdressClinic.Size = new System.Drawing.Size(16, 19);
+            this.lblAdressClinic.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblAdressClinic.TabIndex = 9;
+            this.lblAdressClinic.Text = "a";
+            this.lblAdressClinic.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblClinicName
+            // 
+            this.lblClinicName.AutoSize = true;
+            this.lblClinicName.Location = new System.Drawing.Point(93, 65);
+            this.lblClinicName.Name = "lblClinicName";
+            this.lblClinicName.Size = new System.Drawing.Size(18, 19);
+            this.lblClinicName.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblClinicName.TabIndex = 8;
+            this.lblClinicName.Text = "kl";
+            this.lblClinicName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblCCName
+            // 
+            this.lblCCName.AutoSize = true;
+            this.lblCCName.Location = new System.Drawing.Point(134, 24);
+            this.lblCCName.Name = "lblCCName";
+            this.lblCCName.Size = new System.Drawing.Size(21, 19);
+            this.lblCCName.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblCCName.TabIndex = 7;
+            this.lblCCName.Text = "kc";
+            this.lblCCName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblChiefName
+            // 
+            this.lblChiefName.AutoSize = true;
+            this.lblChiefName.Location = new System.Drawing.Point(39, 186);
+            this.lblChiefName.Name = "lblChiefName";
+            this.lblChiefName.Size = new System.Drawing.Size(88, 19);
+            this.lblChiefName.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblChiefName.TabIndex = 6;
+            this.lblChiefName.Text = "Glavna sestra:";
+            this.lblChiefName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblVacant
+            // 
+            this.lblVacant.AutoSize = true;
+            this.lblVacant.Location = new System.Drawing.Point(39, 145);
+            this.lblVacant.Name = "lblVacant";
+            this.lblVacant.Size = new System.Drawing.Size(143, 19);
+            this.lblVacant.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblVacant.TabIndex = 5;
+            this.lblVacant.Text = "Broj slobodnih kreveta:";
+            this.lblVacant.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblAdress
+            // 
+            this.lblAdress.AutoSize = true;
+            this.lblAdress.Location = new System.Drawing.Point(39, 107);
+            this.lblAdress.Name = "lblAdress";
+            this.lblAdress.Size = new System.Drawing.Size(53, 19);
+            this.lblAdress.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblAdress.TabIndex = 4;
+            this.lblAdress.Text = "Adresa:";
+            this.lblAdress.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblClinic
+            // 
+            this.lblClinic.AutoSize = true;
+            this.lblClinic.Location = new System.Drawing.Point(39, 65);
+            this.lblClinic.Name = "lblClinic";
+            this.lblClinic.Size = new System.Drawing.Size(48, 19);
+            this.lblClinic.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblClinic.TabIndex = 3;
+            this.lblClinic.Text = "Klinika:";
+            this.lblClinic.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblClinicCenter
+            // 
+            this.lblClinicCenter.AutoSize = true;
+            this.lblClinicCenter.Location = new System.Drawing.Point(39, 24);
+            this.lblClinicCenter.Name = "lblClinicCenter";
+            this.lblClinicCenter.Size = new System.Drawing.Size(91, 19);
+            this.lblClinicCenter.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblClinicCenter.TabIndex = 2;
+            this.lblClinicCenter.Text = "Klinicki centar:";
+            this.lblClinicCenter.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
             // lblUserName
             // 
@@ -293,28 +520,6 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // btnHealthRecords
-            // 
-            this.btnHealthRecords.Location = new System.Drawing.Point(592, 24);
-            this.btnHealthRecords.Name = "btnHealthRecords";
-            this.btnHealthRecords.Size = new System.Drawing.Size(111, 41);
-            this.btnHealthRecords.Style = MetroFramework.MetroColorStyle.Green;
-            this.btnHealthRecords.TabIndex = 3;
-            this.btnHealthRecords.Text = "Uvid u karton";
-            this.btnHealthRecords.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.btnHealthRecords.UseSelectable = true;
-            // 
-            // btnRelease
-            // 
-            this.btnRelease.Location = new System.Drawing.Point(592, 87);
-            this.btnRelease.Name = "btnRelease";
-            this.btnRelease.Size = new System.Drawing.Size(111, 46);
-            this.btnRelease.Style = MetroFramework.MetroColorStyle.Green;
-            this.btnRelease.TabIndex = 4;
-            this.btnRelease.Text = "Otpusti sa klinike";
-            this.btnRelease.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.btnRelease.UseSelectable = true;
-            // 
             // SestraBolnicar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -333,6 +538,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPatients)).EndInit();
             this.TabPagePatientsSearch.ResumeLayout(false);
             this.TabPagePatientsSearch.PerformLayout();
+            this.TabPageQueue.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvQueue)).EndInit();
+            this.TabPageInformation.ResumeLayout(false);
+            this.TabPageInformation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -356,5 +565,17 @@
         private MetroFramework.Controls.MetroLabel lblSearchBy;
         private MetroFramework.Controls.MetroButton btnRelease;
         private MetroFramework.Controls.MetroButton btnHealthRecords;
+        private MetroFramework.Controls.MetroGrid dgvQueue;
+        private MetroFramework.Controls.MetroButton btnAcceptPatient;
+        private MetroFramework.Controls.MetroLabel lblCSName;
+        private MetroFramework.Controls.MetroLabel lblVacantBeds;
+        private MetroFramework.Controls.MetroLabel lblAdressClinic;
+        private MetroFramework.Controls.MetroLabel lblClinicName;
+        private MetroFramework.Controls.MetroLabel lblCCName;
+        private MetroFramework.Controls.MetroLabel lblChiefName;
+        private MetroFramework.Controls.MetroLabel lblVacant;
+        private MetroFramework.Controls.MetroLabel lblAdress;
+        private MetroFramework.Controls.MetroLabel lblClinic;
+        private MetroFramework.Controls.MetroLabel lblClinicCenter;
     }
 }

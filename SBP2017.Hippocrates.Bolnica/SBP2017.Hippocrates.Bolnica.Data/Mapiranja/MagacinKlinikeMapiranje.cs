@@ -16,12 +16,12 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 
             Id(x => x.Id).GeneratedBy.TriggerIdentity();
 
-            References(x => x.Klinika).Column("ID_KLINIKE");
+            References(x => x.Klinika).Column("ID_KLINIKE").Not.LazyLoad();
 
             HasManyToMany(x => x.PotrosniMaterijal)
                 .Table("MAGACIN_KLINIKE_SADRZI")
                 .ParentKeyColumn("ID_MAGACINA")
-                .ChildKeyColumn("ID_POTROSNOG_MATERIJALA").Cascade.All();
+                .ChildKeyColumn("ID_POTROSNOG_MATERIJALA").Cascade.All().Not.LazyLoad();
         }
     }
 }

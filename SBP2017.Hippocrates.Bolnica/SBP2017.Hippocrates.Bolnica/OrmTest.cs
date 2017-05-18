@@ -127,5 +127,18 @@ namespace SBP2017.Hippocrates.Bolnica
             s.Flush();
             s.Close();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ISession s = DataLayer.GetSession();
+            IQuery q = s.CreateQuery("from ListaCekanja");
+            IList<ListaCekanja> lc = q.List<ListaCekanja>();
+            q = s.CreateQuery("from Klinika");
+            IList<Klinika> k = q.List<Klinika>();
+            foreach(Klinika klin in k)
+            {
+                MessageBox.Show(klin.ListaCekanja.Id.ToString());
+            }
+        }
     }
 }

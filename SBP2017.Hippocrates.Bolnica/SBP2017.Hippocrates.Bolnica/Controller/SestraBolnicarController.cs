@@ -24,5 +24,17 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             return (model as SestraBolnicarModel).patientsAtClinic();
         }
+        public IList<PacijentiCekaju> patientsAtQueue()
+        {
+            return (model as SestraBolnicarModel).patientsAtQueue();
+        }
+        public int vacantBeds()
+        {
+            return (model as SestraBolnicarModel).vacantBeds();
+        }
+        public void refreshData()
+        {
+            model.refreshData();
+        }
     }
 }

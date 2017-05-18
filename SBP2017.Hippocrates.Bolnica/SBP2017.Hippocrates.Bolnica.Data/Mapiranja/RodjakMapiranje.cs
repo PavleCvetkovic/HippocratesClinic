@@ -22,7 +22,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.Adresa, "ADRESA");
             Map(x => x.Telefon, "TELEFON");
 
-            HasMany(x => x.PacijentiUSrodstvu).KeyColumn("ID_RODJAKA").Inverse().Cascade.All();
+            HasMany(x => x.PacijentiUSrodstvu).KeyColumn("ID_RODJAKA").Inverse().Cascade.All().Not.LazyLoad();
         }
     }
 }

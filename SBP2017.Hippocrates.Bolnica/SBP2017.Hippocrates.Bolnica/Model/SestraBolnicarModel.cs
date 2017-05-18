@@ -16,19 +16,12 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         List<IView> views;
 
         Zaposleni user;
-        PacijentKlinickogCentra patient;
-        Klinika clinic;
-        KlinickiCentar center;
         
         public SestraBolnicarModel(Zaposleni user)
         {
             views = new List<IView>();
             ISession s = DataLayer.GetSession();
             this.user = user;
-            s.Refresh(user);
-            clinic = user.Klinika;
-            center = clinic.KlinickiCentar;
-            patient = null;
             s.Close();
         }
         public void AddView(IView view)
@@ -48,36 +41,11 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 return user;
             }
         }
-        public PacijentKlinickogCentra Patient
-        {
-            get { return patient; }
-        }
-        public Klinika Klinika
-        {
-            get
-            {
-                return clinic;
-            }
-        }
-        public KlinickiCentar ClinicCenter
-        {
-            get
-            {
-                return center;
-            }
-        }
-        public PacijentKlinickogCentra getPatient()
-        {
-            return patient;
-        }
-        public PacijentKlinickogCentra searchPatientsByJMBG(string JMBG)
+        public void refreshData()
         {
             ISession s = DataLayer.GetSession();
-            IQuery q = s.CreateQuery("from PacijentKlinickogCentra as p where p.JMBG = '" + JMBG + "'");
-            PacijentKlinickogCentra p = q.UniqueResult<PacijentKlinickogCentra>();
-            patient = p;
+            s.Refresh(user);
             s.Close();
-            return p;
         }
         public void AddPatientToQueue(PacijentKlinickogCentra patient,int ExpectedTime)
         {
@@ -85,22 +53,37 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             PacijentiCekaju pc = new PacijentiCekaju()
             {
                 DatumUpisa = DateTime.Now,
-                ListaCekanja = clinic.ListaCekanja,
+                ListaCekanja = user.Klinika.ListaCekanja,
                 OcekivanoVremeCekanja = ExpectedTime,
                 Pacijent = patient
             };
-            clinic.ListaCekanja.Pacijenti.Add(pc);
-            s.SaveOrUpdate(clinic);
+            user.Klinika.ListaCekanja.Pacijenti.Add(pc);
+            s.SaveOrUpdate(user.Klinika);
             s.Flush();
             s.Close();
         }
         public IList<BoraviNaKlinici> patientsAtClinic()
         {
             ISession s = DataLayer.GetSession();
-            s.Refresh(clinic);
-            IList<BoraviNaKlinici> Patients = clinic.Pacijenti.ToList<BoraviNaKlinici>();
+            IList<BoraviNaKlinici> Patients = user.Klinika.Pacijenti.ToList<BoraviNaKlinici>();
             s.Close();
             return Patients;
+        }
+        public IList<PacijentiCekaju> patientsAtQueue()
+        {
+            ISession s = DataLayer.GetSession();
+            IList<PacijentiCekaju> Patients = user.Klinika.ListaCekanja.Pacijenti.ToList<PacijentiCekaju>();
+            s.Close();
+            return Patients;
+        }
+        public int vacantBeds()
+        {
+            ISession s = DataLayer.GetSession();
+            int sum = user.Klinika.KoristiKrevete.Count;
+            int used = s.QueryOver<BoraviNaKlinici>().Where(x => x.Klinika == user.Klinika).RowCount();
+            sum -= used;
+            s.Close();
+            return sum;
         }
 
     }
