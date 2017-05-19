@@ -51,8 +51,21 @@ namespace SBP2017.Hippocrates.Bolnica
                 Klinika = k,
                 Password = "TEST"
             };
+            Sestra sestra = new Sestra()
+            {
+                Ime = "TestSestra",
+                Prezime = "Prezime",
+                Adresa = "NekaLokacija",
+                Telefon = "381613332221",
+                Pol = "Z",
+                DatumRodjenja = new DateTime(1985, 10, 10),
+                JMBG = "1010985001124",
+                Password = "TEST",
+                Klinika = k
+            };
+            sestra.TipSestre = "MLAĐA";
 
-            Ugovor u = new Ugovor()
+            Ugovor u1 = new Ugovor()
             {
                 BrojSatiNedeljno = 40,
                 KlinickiCentar = kc,
@@ -62,11 +75,25 @@ namespace SBP2017.Hippocrates.Bolnica
                 TipUgovora = "STALNO",
                 Zaposleni = sp
             };
-            sp.Ugovor = u;
-            kc.Ugovori.Add(u);
+
+            Ugovor u2 = new Ugovor()
+            {
+                BrojSatiNedeljno = 40,
+                KlinickiCentar = kc,
+                Plata = 35000,
+                Pozicija = "MLAĐA SESTRA",
+                TipIsplate = "MESEČNO",
+                TipUgovora = "STALNO",
+                Zaposleni = sestra
+            };
+            sp.Ugovor = u1;
+            kc.Ugovori.Add(u1);
+            sestra.Ugovor = u2;
+            kc.Ugovori.Add(u2);
 
             s.Save(kc);
             s.Save(sp);
+            s.Save(sestra);
             s.Flush();
             s.Close();
         }
@@ -153,6 +180,56 @@ namespace SBP2017.Hippocrates.Bolnica
             }
             s.Close();
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ISession s = DataLayer.GetSession();
+
+            PacijentKlinickogCentra pac = new PacijentKlinickogCentra()
+            {
+                Ime = "TestPacijent",
+                Prezime = "TEST",
+                DatumRodjenja = new DateTime(1984, 2, 14),
+                JMBG = "1122334455123",
+                Pol = "M",
+                Adresa = "TEST",
+                BracniStatus = "SLOBODAN"            
+            };
+
+            Klinika kl = s.Load<Klinika>(25);
+            KlinickiCentar kc = kl.KlinickiCentar;
+
+            Krevet krevet = new Krevet()
+            {
+                Klinika = kl,
+                KlinickiCentar = kc
+            };
+            kl.KoristiKrevete.Add(krevet);
+
+            BoraviNaKlinici bnk = new BoraviNaKlinici()
+            {
+                DatumPrijema = new DateTime(2017,4,20),
+                OcekivaniBoravak = 15,
+                KrevetPacijenta = krevet,
+                Pacijent = pac,
+                Klinika = kl 
+            };
+
+            //pac.Klinike.Add(bnk); //<-- glup sam
+            s.Update(kl);            
+            s.Save(pac);                       
+
+            s.Flush();
+            s.Close();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            ISession s = DataLayer.GetSession();
+
+
+            s.Close();        
         }
     }
 }

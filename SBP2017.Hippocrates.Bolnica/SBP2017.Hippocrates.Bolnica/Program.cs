@@ -26,8 +26,8 @@ namespace SBP2017.Hippocrates.Bolnica
             loginForm.AddControler(loginController);
             loginController.AddModel(loginModel);
 
-            Application.Run(loginForm);
-            //Application.Run(new OrmTest());
+            //Application.Run(loginForm);
+            Application.Run(new OrmTest());
         }
     }
 }
