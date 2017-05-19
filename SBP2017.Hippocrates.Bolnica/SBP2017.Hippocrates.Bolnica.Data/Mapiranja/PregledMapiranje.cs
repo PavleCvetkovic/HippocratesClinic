@@ -20,8 +20,8 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.Vreme, "VREME");
             Map(x => x.Prostorija, "PROSTORIJA");
 
-            References(x => x.Specijalista).Column("ID_SPECIJALISTE").Not.LazyLoad();
-            References(x => x.Pacijent).Column("ID_PACIJENTA").Not.LazyLoad();
+            References(x => x.Specijalista).Column("ID_SPECIJALISTE").LazyLoad();
+            References(x => x.Pacijent).Column("ID_PACIJENTA").LazyLoad();
 
         }
     }

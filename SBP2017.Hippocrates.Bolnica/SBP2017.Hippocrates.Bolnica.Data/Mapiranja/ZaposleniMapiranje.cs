@@ -27,13 +27,13 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.JMBG, "JMBG");
             Map(x => x.Password, "PASSWORD");
 
-            References(x => x.Ugovor).Column("ID_UGOVORA").Not.LazyLoad();
-            References(x => x.Klinika, "ID_KLINIKE").Not.LazyLoad();
+            References(x => x.Ugovor).Column("ID_UGOVORA").LazyLoad();
+            References(x => x.Klinika, "ID_KLINIKE").LazyLoad();
 
 
-            HasMany(x => x.Iskustva).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All().Not.LazyLoad();
-            HasMany(x => x.Kvalifikacije).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All().Not.LazyLoad();
-            HasMany(x => x.Smene).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All().Not.LazyLoad();
+            HasMany(x => x.Iskustva).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All().LazyLoad();
+            HasMany(x => x.Kvalifikacije).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All().LazyLoad();
+            HasMany(x => x.Smene).KeyColumn("ID_ZAPOSLENOG").Inverse().Cascade.All().LazyLoad();
         }
     }
     public class SpecijalistaMapiranje : SubclassMap<Specijalista>

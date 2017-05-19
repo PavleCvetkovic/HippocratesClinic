@@ -16,9 +16,9 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 
             Id(x => x.Id).GeneratedBy.TriggerIdentity();
 
-            References(x => x.Klinika).Column("ID_KLINIKE").Not.LazyLoad();
+            References(x => x.Klinika).Column("ID_KLINIKE").LazyLoad();
 
-            HasMany(x => x.Pacijenti).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse().Not.LazyLoad();
+            HasMany(x => x.Pacijenti).KeyColumn("ID_PACIJENTA").Cascade.All().Inverse().LazyLoad();
         }
     }
 }

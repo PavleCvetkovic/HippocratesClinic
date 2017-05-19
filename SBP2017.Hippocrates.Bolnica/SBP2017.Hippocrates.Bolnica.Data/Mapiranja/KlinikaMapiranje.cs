@@ -21,14 +21,14 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.Telefon, "TELEFON");
             Map(x => x.Lokacija, "LOKACIJA");
 
-            References(x => x.KlinickiCentar).Column("ID_KC").Not.LazyLoad();
+            References(x => x.KlinickiCentar).Column("ID_KC").LazyLoad();
 
            
-            References(x => x.GlavnaSestraKlinike).Column("ID_GLAVNE_SESTRE").Not.LazyLoad();
-            HasOne(x => x.Magacin).PropertyRef("Klinika").Not.LazyLoad().Cascade.All();
-            HasOne(x => x.ListaCekanja).PropertyRef("Klinika").Not.LazyLoad().Cascade.All();
-            HasMany(x => x.Pacijenti).KeyColumn("ID_KLINIKE").Cascade.All().Inverse().Not.LazyLoad();
-            HasMany(x => x.KoristiKrevete).KeyColumn("ID_KLINIKE").Cascade.All().Not.LazyLoad();
+            References(x => x.GlavnaSestraKlinike).Column("ID_GLAVNE_SESTRE").LazyLoad();
+            HasOne(x => x.Magacin).PropertyRef("Klinika").LazyLoad().Cascade.All();
+            HasOne(x => x.ListaCekanja).PropertyRef("Klinika").LazyLoad().Cascade.All();
+            HasMany(x => x.Pacijenti).KeyColumn("ID_KLINIKE").Cascade.All().Inverse().LazyLoad();
+            HasMany(x => x.KoristiKrevete).KeyColumn("ID_KLINIKE").Cascade.All().LazyLoad();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SBP2017.Hippocrates.Bolnica.Model;
 using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
+using SBP2017.Hippocrates.Bolnica.Data.EntitetiMySql;
 
 namespace SBP2017.Hippocrates.Bolnica.Controller
 {
@@ -20,21 +21,15 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             return model;
         }
-        public IList<BoraviNaKlinici> patientsAtClinic()
-        {
-            return (model as SestraBolnicarModel).patientsAtClinic();
-        }
-        public IList<PacijentiCekaju> patientsAtQueue()
-        {
-            return (model as SestraBolnicarModel).patientsAtQueue();
-        }
-        public int vacantBeds()
-        {
-            return (model as SestraBolnicarModel).vacantBeds();
-        }
         public void refreshData()
         {
             model.refreshData();
         }
+        public void searchPatientsByJMBG(string jmbg)
+        {
+            (model as SestraBolnicarModel).searchPatientsByJMBG(jmbg);
+        }
+
+       
     }
 }

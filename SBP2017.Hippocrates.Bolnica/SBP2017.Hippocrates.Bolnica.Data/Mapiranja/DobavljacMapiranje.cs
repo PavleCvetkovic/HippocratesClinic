@@ -21,12 +21,12 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             HasManyToMany(x => x.DobavljaMaterijal)
                 .Table("DOBAVLJA")
                 .ParentKeyColumn("ID_DOBAVLJAC")
-                .ChildKeyColumn("ID_MATERIJALA").Cascade.All().Not.LazyLoad();
+                .ChildKeyColumn("ID_MATERIJALA").Cascade.All().LazyLoad();
 
             HasManyToMany(x => x.DobavljaZaKC)
                 .Table("CENTAR_KUPUJE_OD")
                 .ParentKeyColumn("ID_DOBAVLJACA")
-                .ChildKeyColumn("ID_KC").Cascade.All().Not.LazyLoad();
+                .ChildKeyColumn("ID_KC").Cascade.All().LazyLoad();
         }
     }
 }

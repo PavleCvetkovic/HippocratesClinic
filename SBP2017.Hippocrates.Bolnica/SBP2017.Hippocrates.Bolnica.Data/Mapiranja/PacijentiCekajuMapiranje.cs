@@ -19,8 +19,8 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.DatumUpisa, "DATUM_UPISA");
             Map(x => x.OcekivanoVremeCekanja, "OCEKIVANO_CEKANJE");
 
-            References(x => x.ListaCekanja).Column("ID_LISTE_CEKANJA").Not.LazyLoad();
-            References(x => x.Pacijent).Column("ID_PACIJENTA").Not.LazyLoad();
+            References(x => x.ListaCekanja).Column("ID_LISTE_CEKANJA").LazyLoad();
+            References(x => x.Pacijent).Column("ID_PACIJENTA").LazyLoad();
         }
     }
 }

@@ -41,5 +41,10 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             model.refreshData();
         }
+
+        public void CloseSession()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

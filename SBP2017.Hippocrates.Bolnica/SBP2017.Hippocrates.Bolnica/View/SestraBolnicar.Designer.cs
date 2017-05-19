@@ -44,10 +44,10 @@
             this.txtSearch = new MetroFramework.Controls.MetroTextBox();
             this.lblSearchBy = new MetroFramework.Controls.MetroLabel();
             this.cmbSearchBy = new MetroFramework.Controls.MetroComboBox();
-            this.TabPagePatientView = new MetroFramework.Controls.MetroTabPage();
             this.TabPageQueue = new MetroFramework.Controls.MetroTabPage();
             this.btnAcceptPatient = new MetroFramework.Controls.MetroButton();
             this.dgvQueue = new MetroFramework.Controls.MetroGrid();
+            this.TabPagePatientView = new MetroFramework.Controls.MetroTabPage();
             this.TabPageInformation = new MetroFramework.Controls.MetroTabPage();
             this.lblCSName = new MetroFramework.Controls.MetroLabel();
             this.lblVacantBeds = new MetroFramework.Controls.MetroLabel();
@@ -81,7 +81,7 @@
             this.MainTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTab.Location = new System.Drawing.Point(20, 60);
             this.MainTab.Name = "MainTab";
-            this.MainTab.SelectedIndex = 4;
+            this.MainTab.SelectedIndex = 1;
             this.MainTab.Size = new System.Drawing.Size(844, 439);
             this.MainTab.Style = MetroFramework.MetroColorStyle.Green;
             this.MainTab.TabIndex = 0;
@@ -211,6 +211,7 @@
             this.btnSearch.Text = "Pretrazi";
             this.btnSearch.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnSearch.UseSelectable = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // txtSearch
             // 
@@ -269,21 +270,6 @@
             this.cmbSearchBy.TabIndex = 2;
             this.cmbSearchBy.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.cmbSearchBy.UseSelectable = true;
-            // 
-            // TabPagePatientView
-            // 
-            this.TabPagePatientView.HorizontalScrollbarBarColor = true;
-            this.TabPagePatientView.HorizontalScrollbarHighlightOnWheel = false;
-            this.TabPagePatientView.HorizontalScrollbarSize = 10;
-            this.TabPagePatientView.Location = new System.Drawing.Point(4, 38);
-            this.TabPagePatientView.Name = "TabPagePatientView";
-            this.TabPagePatientView.Size = new System.Drawing.Size(836, 397);
-            this.TabPagePatientView.TabIndex = 2;
-            this.TabPagePatientView.Text = "Karton pacijenta";
-            this.TabPagePatientView.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.TabPagePatientView.VerticalScrollbarBarColor = true;
-            this.TabPagePatientView.VerticalScrollbarHighlightOnWheel = false;
-            this.TabPagePatientView.VerticalScrollbarSize = 10;
             // 
             // TabPageQueue
             // 
@@ -362,6 +348,21 @@
             this.dgvQueue.Style = MetroFramework.MetroColorStyle.Green;
             this.dgvQueue.TabIndex = 2;
             this.dgvQueue.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // TabPagePatientView
+            // 
+            this.TabPagePatientView.HorizontalScrollbarBarColor = true;
+            this.TabPagePatientView.HorizontalScrollbarHighlightOnWheel = false;
+            this.TabPagePatientView.HorizontalScrollbarSize = 10;
+            this.TabPagePatientView.Location = new System.Drawing.Point(4, 38);
+            this.TabPagePatientView.Name = "TabPagePatientView";
+            this.TabPagePatientView.Size = new System.Drawing.Size(836, 397);
+            this.TabPagePatientView.TabIndex = 2;
+            this.TabPagePatientView.Text = "Karton pacijenta";
+            this.TabPagePatientView.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.TabPagePatientView.VerticalScrollbarBarColor = true;
+            this.TabPagePatientView.VerticalScrollbarHighlightOnWheel = false;
+            this.TabPagePatientView.VerticalScrollbarSize = 10;
             // 
             // TabPageInformation
             // 

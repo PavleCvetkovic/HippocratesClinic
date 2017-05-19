@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using NHibernate;
 using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 using SBP2017.Hippocrates.Bolnica.Data;
+using SBP2017.Hippocrates.Bolnica.Data.EntitetiMySql;
 
 namespace SBP2017.Hippocrates.Bolnica
 {
@@ -139,6 +140,20 @@ namespace SBP2017.Hippocrates.Bolnica
             {
                 MessageBox.Show(klin.ListaCekanja.Id.ToString());
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            ISession s = DataLayer.GetSession();
+            IQuery q = s.CreateQuery("from Zaposleni");
+            IList<Zaposleni> zap = q.List<Zaposleni>();
+            foreach(Zaposleni z in zap)
+            {
+                MessageBox.Show(z.Ime);
+            }
+            s.Close();
+            s.Dispose();
+
         }
     }
 }

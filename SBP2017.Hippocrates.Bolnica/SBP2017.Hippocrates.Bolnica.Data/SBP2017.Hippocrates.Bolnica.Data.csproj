@@ -56,12 +56,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataLayer.cs" />
+    <Compile Include="DataLayerMySQL.cs" />
+    <Compile Include="EntitetiMySql\Dijagnostifikovano.cs" />
+    <Compile Include="EntitetiMySql\DijagnostifikovanoId.cs" />
+    <Compile Include="EntitetiMySql\Dijagnoza.cs" />
+    <Compile Include="EntitetiMySql\DomZdravlja.cs" />
+    <Compile Include="EntitetiMySql\IzabraniLekar.cs" />
+    <Compile Include="EntitetiMySql\Pacijent.cs" />
+    <Compile Include="EntitetiMySql\PrimioVakcinu.cs" />
+    <Compile Include="EntitetiMySql\PrimioVakcinuId.cs" />
+    <Compile Include="EntitetiMySql\Terapija.cs" />
+    <Compile Include="EntitetiMySql\Vakcina.cs" />
     <Compile Include="Entiteti\BoraviNaKlinici.cs" />
     <Compile Include="Entiteti\CentralniMagacin.cs" />
     <Compile Include="Entiteti\Dobavljac.cs" />
-    <Compile Include="Entiteti\DomZdravlja.cs" />
     <Compile Include="Entiteti\Iskustvo.cs" />
-    <Compile Include="Entiteti\IzabraniLekar.cs" />
     <Compile Include="Entiteti\KlinickiCentar.cs" />
     <Compile Include="Entiteti\Klinika.cs" />
     <Compile Include="Entiteti\Krevet.cs" />
@@ -72,8 +81,14 @@
     <Compile Include="Entiteti\PacijentiCekaju.cs" />
     <Compile Include="Entiteti\PacijentKlinickogCentra.cs" />
     <Compile Include="Entiteti\PacijentUzimaLekove.cs" />
-    <Compile Include="Mapiranja\DomZdravljaMapiranje.cs" />
-    <Compile Include="Mapiranja\IzabraniLekarMapiranje.cs" />
+    <Compile Include="MapiranjaMySql\DijagnostifikovanoMapiranja.cs" />
+    <Compile Include="MapiranjaMySql\DijagnozaMapiranja.cs" />
+    <Compile Include="MapiranjaMySql\DomZdravljaMapiranja.cs" />
+    <Compile Include="MapiranjaMySql\IzabraniLekarMapiranja.cs" />
+    <Compile Include="MapiranjaMySql\PacijentMapiranja.cs" />
+    <Compile Include="MapiranjaMySql\PrimioVakcinuMapiranja.cs" />
+    <Compile Include="MapiranjaMySql\TerapijaMapiranja.cs" />
+    <Compile Include="MapiranjaMySql\VakcinaMapiranja.cs" />
     <Compile Include="Mapiranja\ListaCekanjaMapiranje.cs" />
     <Compile Include="Mapiranja\PacijentiCekajuMapiranje.cs" />
     <Compile Include="Mapiranja\PacijentKlinickogCentraMapiranje.cs" />
@@ -106,6 +121,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -21,7 +21,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.Institucija, "INSTITUCIJA");
             Map(x => x.Pozicija, "POZICIJA");
 
-            References(x => x.Zaposleni, "ID_ZAPOSLENOG").Not.LazyLoad();
+            References(x => x.Zaposleni, "ID_ZAPOSLENOG").LazyLoad();
 
         }
     }

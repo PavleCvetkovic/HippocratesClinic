@@ -66,6 +66,9 @@ namespace SBP2017.Hippocrates.Bolnica.View
             dgvQueue.DataSource = (controller as SestraBolnicarController).patientsAtQueue();
         }
 
-
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            (controller as SestraBolnicarController).searchPatientsByJMBG("0110970112870");
+        }
     }
 }

@@ -19,8 +19,8 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.DatumOd, "DATUM_OD");
             Map(x => x.DatumDo, "DATUM_DO");
 
-            References(x => x.Pacijent).Column("ID_PACIJENTA").Not.LazyLoad();
-            References(x => x.Lek).Column("ID_LEKA").Not.LazyLoad();
+            References(x => x.Pacijent).Column("ID_PACIJENTA").LazyLoad();
+            References(x => x.Lek).Column("ID_LEKA").LazyLoad();
         }
     }
 }

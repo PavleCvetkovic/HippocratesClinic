@@ -20,7 +20,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.Vrsta, "VRSTA");
             Map(x => x.Datum, "DATUM");
 
-            References(x => x.Zaposleni, "ID_ZAPOSLENOG").Not.LazyLoad();
+            References(x => x.Zaposleni, "ID_ZAPOSLENOG").LazyLoad();
         }
     }
 }
