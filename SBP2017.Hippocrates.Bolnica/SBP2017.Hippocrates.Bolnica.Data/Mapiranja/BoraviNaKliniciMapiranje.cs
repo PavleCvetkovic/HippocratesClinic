@@ -15,13 +15,15 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
         {
             Table("BORAVI_NA_KLINICI");
 
-            Id(x => x.Id).Column("ID");
+            Id(x => x.Id).Column("ID").GeneratedBy.TriggerIdentity();
             Map(x => x.DatumPrijema, "DATUM_PRIJEMA");
-            Map(x => x.OcekivaniBoravak, "DATUM_OTPUSTA");
+            Map(x => x.OcekivaniBoravak, "OCEKIVANI_BORAVAK");
             Map(x => x.DatumOtpusta, "DATUM_OTPUSTA");
+            Map(x => x.BrojKreveta, "BROJ_KREVETA");
+
             References(x => x.Klinika).Column("ID_KLINIKE").LazyLoad();
             References(x => x.Pacijent).Column("ID_PACIJENTA").LazyLoad();
-            References(x => x.KrevetPacijenta).Column("BROJ_KREVETA").LazyLoad();
+            
         }
     }
 }

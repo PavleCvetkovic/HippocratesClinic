@@ -209,16 +209,17 @@ namespace SBP2017.Hippocrates.Bolnica
 
             BoraviNaKlinici bnk = new BoraviNaKlinici()
             {
-                DatumPrijema = new DateTime(2017,4,20),
+                DatumPrijema = new DateTime(2017, 4, 20),
                 OcekivaniBoravak = 15,
-                KrevetPacijenta = krevet,
+                BrojKreveta = 130,
                 Pacijent = pac,
                 Klinika = kl 
             };
 
-            //pac.Klinike.Add(bnk); //<-- glup sam
-            s.Update(kl);
-            s.Save(pac);
+            pac.Klinike.Add(bnk); 
+
+            s.SaveOrUpdate(kl);            
+            s.Save(pac);                       
 
             s.Flush();
             s.Close();
