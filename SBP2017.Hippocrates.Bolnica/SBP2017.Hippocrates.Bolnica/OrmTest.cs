@@ -217,8 +217,8 @@ namespace SBP2017.Hippocrates.Bolnica
             };
 
             //pac.Klinike.Add(bnk); //<-- glup sam
-            s.Update(kl);            
-            s.Save(pac);                       
+            s.Update(kl);
+            s.Save(pac);
 
             s.Flush();
             s.Close();
@@ -228,8 +228,52 @@ namespace SBP2017.Hippocrates.Bolnica
         {
             ISession s = DataLayer.GetSession();
 
+            Klinika kl = s.Load<Klinika>(25);
+            PotrosniMaterijal pm = s.Load<PotrosniMaterijal>(1);
 
+            Narudzbenica nar = new Narudzbenica()
+            {
+                Naziv = "TEST",
+                Opis = "TEST",
+                ImeKlinike = kl.Naziv,
+                DatumNarudzbine = new DateTime(2017,5,1),
+                DatumIsporuke = new DateTime(2017,5,8),
+                Klinika = kl,
+                Cena = 25000,
+                NaruceniMaterijal = pm,
+                ImeZaposlenog = "Mira"
+            };
+            
+            s.Save(nar);
+            s.Flush();        
             s.Close();        
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            ISession s = DataLayer.GetSession();
+            KlinickiCentar kc = s.Load<KlinickiCentar>(41);
+
+            Dobavljac d1 = new Dobavljac()
+            {
+                Ime = "TEST",              
+            };
+            d1.DobavljaMaterijal.Add(s.Load<PotrosniMaterijal>(1));
+            d1.DobavljaZaKC.Add(kc);
+            s.Save(d1);
+            s.Flush();
+            s.Close();
+
+            ISession s1 = DataLayer.GetSession();
+            KlinickiCentar kc1 = s1.Load<KlinickiCentar>(41);
+
+            foreach (Dobavljac d in kc1.Dobavljaci)
+            {
+                MessageBox.Show("Dobavljac: " + d.Ime);
+            }
+
+            s1.Close();
+
         }
     }
 }
