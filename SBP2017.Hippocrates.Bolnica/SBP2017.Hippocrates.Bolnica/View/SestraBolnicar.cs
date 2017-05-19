@@ -12,15 +12,17 @@ using SBP2017.Hippocrates.Bolnica.Controller;
 using SBP2017.Hippocrates.Bolnica.Model;
 using NHibernate;
 using SBP2017.Hippocrates.Bolnica.Data;
+using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 namespace SBP2017.Hippocrates.Bolnica.View
 {
     public partial class SestraBolnicar : MetroForm,IView
     {
         private IController controller;
-
+        public ISession s;
         public SestraBolnicar()
         {
             InitializeComponent();
+            s = DataLayer.GetSession();
         }
         public SestraBolnicar(IController controller)
             : this()
@@ -39,16 +41,7 @@ namespace SBP2017.Hippocrates.Bolnica.View
         }
         public new void  Update()
         {
-            controller.refreshData();
 
-            lblUserName.Text = (controller.getModel() as SestraBolnicarModel).User.Ime +" "+ (controller.getModel() as SestraBolnicarModel).User.Prezime;
-            dgvPatients.DataSource = (controller as SestraBolnicarController).patientsAtClinic();
-            dgvQueue.DataSource = (controller as SestraBolnicarController).patientsAtQueue();
-            lblAdressClinic.Text = (controller.getModel() as SestraBolnicarModel).User.Klinika.Lokacija.ToString();
-            lblCCName.Text = (controller.getModel() as SestraBolnicarModel).User.Klinika.KlinickiCentar.Ime.ToString();
-            lblClinicName.Text = (controller.getModel() as SestraBolnicarModel).User.Klinika.Naziv;
-            lblCSName.Text = (controller.getModel() as SestraBolnicarModel).User.Klinika.GlavnaSestraKlinike.Ime + " " + (controller.getModel() as SestraBolnicarModel).User.Klinika.GlavnaSestraKlinike.Prezime;
-            lblVacantBeds.Text = (controller as SestraBolnicarController).vacantBeds().ToString();
         }
 
         private void SestraBolnicar_Load(object sender, EventArgs e)
@@ -58,17 +51,20 @@ namespace SBP2017.Hippocrates.Bolnica.View
 
         private void TabPagePatienstOnClinic_Enter(object sender, EventArgs e)
         {
-            dgvPatients.DataSource = (controller as SestraBolnicarController).patientsAtClinic();
+            IQuery q = s.CreateQuery("from BoraviNaKlinici");
+            IList<BoraviNaKlinici> bk = q.List<BoraviNaKlinici>();
+            dgvPatients.DataSource = bk;
+            s.Close();
         }
 
         private void TabPageQueue_Enter(object sender, EventArgs e)
         {
-            dgvQueue.DataSource = (controller as SestraBolnicarController).patientsAtQueue();
+            
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            (controller as SestraBolnicarController).searchPatientsByJMBG("0110970112870");
+
         }
     }
 }

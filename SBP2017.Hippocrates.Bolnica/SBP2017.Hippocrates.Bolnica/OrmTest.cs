@@ -152,7 +152,6 @@ namespace SBP2017.Hippocrates.Bolnica
                 MessageBox.Show(z.Ime);
             }
             s.Close();
-            s.Dispose();
 
         }
     }
