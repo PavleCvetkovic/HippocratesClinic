@@ -61,15 +61,5 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             s.Refresh(user);
             s.Close();
         }
-
-        public void OpenSession()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CloseSession()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

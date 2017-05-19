@@ -18,11 +18,9 @@ namespace SBP2017.Hippocrates.Bolnica.View
     public partial class SestraBolnicar : MetroForm,IView
     {
         private IController controller;
-        public ISession s;
         public SestraBolnicar()
         {
             InitializeComponent();
-            s = DataLayer.GetSession();
         }
         public SestraBolnicar(IController controller)
             : this()
@@ -51,10 +49,17 @@ namespace SBP2017.Hippocrates.Bolnica.View
 
         private void TabPagePatienstOnClinic_Enter(object sender, EventArgs e)
         {
-            IQuery q = s.CreateQuery("from BoraviNaKlinici");
-            IList<BoraviNaKlinici> bk = q.List<BoraviNaKlinici>();
-            dgvPatients.DataSource = bk;
-            s.Close();
+            (controller as SestraBolnicarController).patientsAtClinic();
+            DataSet ds = new DataSet("patients");
+            DataTable patinets = new DataTable("patients");
+            patinets.Columns.Add("Name");
+            patinets.Columns.Add("Datum");
+            patinets.Columns.Add("Ime");
+            foreach (BoraviNaKlinici b in(controller.getModel() as SestraBolnicarModel).User.Klinika.Pacijenti)
+            {
+                patinets.Rows.Add(b.Id, b.DatumPrijema,b.Pacijent.Ime);
+            }
+            dgvPatients.DataSource = patinets;
         }
 
         private void TabPageQueue_Enter(object sender, EventArgs e)
