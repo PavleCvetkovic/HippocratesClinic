@@ -54,7 +54,17 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 return vacantbeds;
             }
         }
-       
+        public void patientsAtClinic()
+        {
+            ISession s = DataLayer.GetSession();
+            s.Refresh(user);
+            NHibernateUtil.Initialize(user.Klinika.Pacijenti);
+            foreach(BoraviNaKlinici b in user.Klinika.Pacijenti)
+            {
+                NHibernateUtil.Initialize(b.Pacijent);
+            }
+            s.Close();
+        }
         public void vacantBeds()
         {
             int sum = user.Klinika.KoristiKrevete.Count;
