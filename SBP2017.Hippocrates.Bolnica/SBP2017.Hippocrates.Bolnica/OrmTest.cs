@@ -261,19 +261,10 @@ namespace SBP2017.Hippocrates.Bolnica
             };
             d1.DobavljaMaterijal.Add(s.Load<PotrosniMaterijal>(1));
             d1.DobavljaZaKC.Add(kc);
+            kc.Dobavljaci.Add(d1);
             s.Save(d1);
             s.Flush();
             s.Close();
-
-            ISession s1 = DataLayer.GetSession();
-            KlinickiCentar kc1 = s1.Load<KlinickiCentar>(41);
-
-            foreach (Dobavljac d in kc1.Dobavljaci)
-            {
-                MessageBox.Show("Dobavljac: " + d.Ime);
-            }
-
-            s1.Close();
 
         }
     }
