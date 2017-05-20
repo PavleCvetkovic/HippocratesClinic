@@ -20,6 +20,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         Zaposleni user;
 
         Pacijent patient;//search patient (MySQL)
+        PacijentKlinickogCentra clinicPatient;
         DataTable clinicPatients;
         DataTable clinicQueue;
         
@@ -73,9 +74,50 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 return clinicQueue;
             }
         }
- 
-        public void searchPatientsByJMBG(string jmbg)
+        public Pacijent Patient
         {
+            get
+            {
+                return patient;
+            }
+        }
+        public PacijentKlinickogCentra ClinicPatient
+        {
+            get
+            {
+                return clinicPatient;
+            }
+        }
+ 
+        public bool searchPatientsByJMBG(string jmbg)
+        {
+            ISession ss = DataLayerMySQL.GetSession();
+            Pacijent pac = ss.QueryOver<Pacijent>().Where(x => x.Jmbg == jmbg).SingleOrDefault<Pacijent>();
+            if (pac != null)
+                patient = pac;
+            else
+                return false;
+            NHibernateUtil.Initialize(patient.PrimioVakcinuVakcine);
+            NHibernateUtil.Initialize(patient.DijagnostifikovanoDijagnoze);
+            NHibernateUtil.Initialize(patient.Lekar);
+            NHibernateUtil.Initialize(patient.Lekar.RadiUDomuZdravlja);
+
+            ISession s = DataLayer.GetSession();
+            PacijentKlinickogCentra pkc= s.QueryOver<PacijentKlinickogCentra>()
+                .Where(x => x.JMBG == patient.Jmbg)
+                .SingleOrDefault<PacijentKlinickogCentra>();
+            if (pkc != null)
+            {
+                NHibernateUtil.Initialize(pkc.Klinike);
+                NHibernateUtil.Initialize(pkc.Lekovi);
+                NHibernateUtil.Initialize(pkc.Rodjak);
+            }
+            clinicPatient = pkc;
+
+            s.Close();
+            ss.Close();
+            UpdateViews();
+            return true;
         }
 
         public void refreshData()

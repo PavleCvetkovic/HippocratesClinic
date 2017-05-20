@@ -61,12 +61,25 @@
             this.lblUserName = new MetroFramework.Controls.MetroLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtSearch = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.lblPatientName = new MetroFramework.Controls.MetroLabel();
+            this.lblPatientBirthDate = new MetroFramework.Controls.MetroLabel();
+            this.lblPatientSurname = new MetroFramework.Controls.MetroLabel();
+            this.lblDoctor = new MetroFramework.Controls.MetroLabel();
+            this.lblHC = new MetroFramework.Controls.MetroLabel();
+            this.lblCousin = new MetroFramework.Controls.MetroLabel();
             this.MainTab.SuspendLayout();
             this.TabPagePatienstOnClinic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPatients)).BeginInit();
             this.TabPagePatientsSearch.SuspendLayout();
             this.TabPageQueue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvQueue)).BeginInit();
+            this.TabPagePatientView.SuspendLayout();
             this.TabPageInformation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -81,7 +94,7 @@
             this.MainTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTab.Location = new System.Drawing.Point(20, 60);
             this.MainTab.Name = "MainTab";
-            this.MainTab.SelectedIndex = 1;
+            this.MainTab.SelectedIndex = 3;
             this.MainTab.Size = new System.Drawing.Size(844, 439);
             this.MainTab.Style = MetroFramework.MetroColorStyle.Green;
             this.MainTab.TabIndex = 0;
@@ -322,6 +335,18 @@
             // 
             // TabPagePatientView
             // 
+            this.TabPagePatientView.Controls.Add(this.lblCousin);
+            this.TabPagePatientView.Controls.Add(this.lblHC);
+            this.TabPagePatientView.Controls.Add(this.lblDoctor);
+            this.TabPagePatientView.Controls.Add(this.lblPatientSurname);
+            this.TabPagePatientView.Controls.Add(this.lblPatientBirthDate);
+            this.TabPagePatientView.Controls.Add(this.lblPatientName);
+            this.TabPagePatientView.Controls.Add(this.metroLabel1);
+            this.TabPagePatientView.Controls.Add(this.metroLabel8);
+            this.TabPagePatientView.Controls.Add(this.metroLabel9);
+            this.TabPagePatientView.Controls.Add(this.metroLabel10);
+            this.TabPagePatientView.Controls.Add(this.metroLabel11);
+            this.TabPagePatientView.Controls.Add(this.metroLabel12);
             this.TabPagePatientView.HorizontalScrollbarBarColor = true;
             this.TabPagePatientView.HorizontalScrollbarHighlightOnWheel = false;
             this.TabPagePatientView.HorizontalScrollbarSize = 10;
@@ -525,6 +550,138 @@
             this.txtSearch.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearch_KeyPress);
             // 
+            // metroLabel8
+            // 
+            this.metroLabel8.AutoSize = true;
+            this.metroLabel8.Location = new System.Drawing.Point(3, 128);
+            this.metroLabel8.Name = "metroLabel8";
+            this.metroLabel8.Size = new System.Drawing.Size(90, 19);
+            this.metroLabel8.Style = MetroFramework.MetroColorStyle.Green;
+            this.metroLabel8.TabIndex = 16;
+            this.metroLabel8.Text = "Dom zdravlja:";
+            this.metroLabel8.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel9
+            // 
+            this.metroLabel9.AutoSize = true;
+            this.metroLabel9.Location = new System.Drawing.Point(3, 98);
+            this.metroLabel9.Name = "metroLabel9";
+            this.metroLabel9.Size = new System.Drawing.Size(91, 19);
+            this.metroLabel9.Style = MetroFramework.MetroColorStyle.Green;
+            this.metroLabel9.TabIndex = 15;
+            this.metroLabel9.Text = "Izabrani lekar:";
+            this.metroLabel9.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel10
+            // 
+            this.metroLabel10.AutoSize = true;
+            this.metroLabel10.Location = new System.Drawing.Point(3, 69);
+            this.metroLabel10.Name = "metroLabel10";
+            this.metroLabel10.Size = new System.Drawing.Size(103, 19);
+            this.metroLabel10.Style = MetroFramework.MetroColorStyle.Green;
+            this.metroLabel10.TabIndex = 14;
+            this.metroLabel10.Text = "Datum rodjenja:";
+            this.metroLabel10.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel11
+            // 
+            this.metroLabel11.AutoSize = true;
+            this.metroLabel11.Location = new System.Drawing.Point(3, 40);
+            this.metroLabel11.Name = "metroLabel11";
+            this.metroLabel11.Size = new System.Drawing.Size(60, 19);
+            this.metroLabel11.Style = MetroFramework.MetroColorStyle.Green;
+            this.metroLabel11.TabIndex = 13;
+            this.metroLabel11.Text = "Prezime:";
+            this.metroLabel11.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel12
+            // 
+            this.metroLabel12.AutoSize = true;
+            this.metroLabel12.Location = new System.Drawing.Point(3, 10);
+            this.metroLabel12.Name = "metroLabel12";
+            this.metroLabel12.Size = new System.Drawing.Size(34, 19);
+            this.metroLabel12.Style = MetroFramework.MetroColorStyle.Green;
+            this.metroLabel12.TabIndex = 12;
+            this.metroLabel12.Text = "Ime:";
+            this.metroLabel12.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.Location = new System.Drawing.Point(3, 157);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(52, 19);
+            this.metroLabel1.Style = MetroFramework.MetroColorStyle.Green;
+            this.metroLabel1.TabIndex = 17;
+            this.metroLabel1.Text = "Rodjak:";
+            this.metroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblPatientName
+            // 
+            this.lblPatientName.AutoSize = true;
+            this.lblPatientName.Location = new System.Drawing.Point(43, 10);
+            this.lblPatientName.Name = "lblPatientName";
+            this.lblPatientName.Size = new System.Drawing.Size(24, 19);
+            this.lblPatientName.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblPatientName.TabIndex = 18;
+            this.lblPatientName.Text = "im";
+            this.lblPatientName.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblPatientBirthDate
+            // 
+            this.lblPatientBirthDate.AutoSize = true;
+            this.lblPatientBirthDate.Location = new System.Drawing.Point(112, 69);
+            this.lblPatientBirthDate.Name = "lblPatientBirthDate";
+            this.lblPatientBirthDate.Size = new System.Drawing.Size(41, 19);
+            this.lblPatientBirthDate.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblPatientBirthDate.TabIndex = 19;
+            this.lblPatientBirthDate.Text = "drodj";
+            this.lblPatientBirthDate.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblPatientSurname
+            // 
+            this.lblPatientSurname.AutoSize = true;
+            this.lblPatientSurname.Location = new System.Drawing.Point(69, 40);
+            this.lblPatientSurname.Name = "lblPatientSurname";
+            this.lblPatientSurname.Size = new System.Drawing.Size(29, 19);
+            this.lblPatientSurname.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblPatientSurname.TabIndex = 20;
+            this.lblPatientSurname.Text = "pre";
+            this.lblPatientSurname.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblDoctor
+            // 
+            this.lblDoctor.AutoSize = true;
+            this.lblDoctor.Location = new System.Drawing.Point(100, 98);
+            this.lblDoctor.Name = "lblDoctor";
+            this.lblDoctor.Size = new System.Drawing.Size(37, 19);
+            this.lblDoctor.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblDoctor.TabIndex = 21;
+            this.lblDoctor.Text = "lekar";
+            this.lblDoctor.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblHC
+            // 
+            this.lblHC.AutoSize = true;
+            this.lblHC.Location = new System.Drawing.Point(99, 128);
+            this.lblHC.Name = "lblHC";
+            this.lblHC.Size = new System.Drawing.Size(23, 19);
+            this.lblHC.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblHC.TabIndex = 22;
+            this.lblHC.Text = "dz";
+            this.lblHC.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // lblCousin
+            // 
+            this.lblCousin.AutoSize = true;
+            this.lblCousin.Location = new System.Drawing.Point(62, 156);
+            this.lblCousin.Name = "lblCousin";
+            this.lblCousin.Size = new System.Drawing.Size(30, 19);
+            this.lblCousin.Style = MetroFramework.MetroColorStyle.Green;
+            this.lblCousin.TabIndex = 23;
+            this.lblCousin.Text = "rod";
+            this.lblCousin.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
             // SestraBolnicar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -545,6 +702,8 @@
             this.TabPagePatientsSearch.PerformLayout();
             this.TabPageQueue.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvQueue)).EndInit();
+            this.TabPagePatientView.ResumeLayout(false);
+            this.TabPagePatientView.PerformLayout();
             this.TabPageInformation.ResumeLayout(false);
             this.TabPageInformation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -582,5 +741,17 @@
         private MetroFramework.Controls.MetroLabel lblClinic;
         private MetroFramework.Controls.MetroLabel lblClinicCenter;
         private MetroFramework.Controls.MetroTextBox txtSearch;
+        private MetroFramework.Controls.MetroLabel metroLabel8;
+        private MetroFramework.Controls.MetroLabel metroLabel9;
+        private MetroFramework.Controls.MetroLabel metroLabel10;
+        private MetroFramework.Controls.MetroLabel metroLabel11;
+        private MetroFramework.Controls.MetroLabel metroLabel12;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
+        private MetroFramework.Controls.MetroLabel lblCousin;
+        private MetroFramework.Controls.MetroLabel lblHC;
+        private MetroFramework.Controls.MetroLabel lblDoctor;
+        private MetroFramework.Controls.MetroLabel lblPatientSurname;
+        private MetroFramework.Controls.MetroLabel lblPatientBirthDate;
+        private MetroFramework.Controls.MetroLabel lblPatientName;
     }
 }

@@ -25,9 +25,9 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             model.refreshData();
         }
-        public void searchPatientsByJMBG(string jmbg)
+        public bool searchPatientsByJMBG(string jmbg)
         {
-            (model as SestraBolnicarModel).searchPatientsByJMBG(jmbg);
+            return (model as SestraBolnicarModel).searchPatientsByJMBG(jmbg);
         }
        
     }

@@ -50,8 +50,15 @@ namespace SBP2017.Hippocrates.Bolnica.View
             lblCSName.Text = m.User.Klinika.GlavnaSestraKlinike.Ime + " " + m.User.Klinika.GlavnaSestraKlinike.Prezime;
             lblAdressClinic.Text = m.User.Klinika.Lokacija;
             lblVacantBeds.Text = m.VacantBeds.ToString();
-            
 
+            if (m.Patient != null) //trazen je pacijent
+            {
+                lblPatientName.Text = m.Patient.Ime;
+                lblPatientSurname.Text = m.Patient.Prezime;
+                lblPatientBirthDate.Text = m.Patient.Datum_rodjenja.ToString("dd/MM/yyyy");
+                lblDoctor.Text = m.Patient.Lekar.Ime + " " + m.Patient.Lekar.Prezime;
+                lblHC.Text = m.Patient.Lekar.RadiUDomuZdravlja.Ime;
+            }
         }
 
         private void SestraBolnicar_Load(object sender, EventArgs e)
@@ -73,7 +80,10 @@ namespace SBP2017.Hippocrates.Bolnica.View
             }
             if (cmbSearchBy.SelectedIndex == 0)
             {
-                (controller as SestraBolnicarController).searchPatientsByJMBG(txtSearch.Text);
+                if (!(controller as SestraBolnicarController).searchPatientsByJMBG(txtSearch.Text))
+                    MetroMessageBox.Show(this, "Ne postoji taj pacijent.", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                    MainTab.SelectedTab = TabPagePatientView;
             }
             else
             {
