@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
+using MetroFramework;
 using SBP2017.Hippocrates.Bolnica.Controller;
 using SBP2017.Hippocrates.Bolnica.Model;
 using NHibernate;
@@ -39,6 +40,17 @@ namespace SBP2017.Hippocrates.Bolnica.View
         }
         public new void  Update()
         {
+            SestraBolnicarModel m = (controller.getModel() as SestraBolnicarModel);
+            controller.refreshData();
+            lblUserName.Text = m.User.Ime +" "+ m.User.Prezime;
+            dgvPatients.DataSource = m.ClinicPatients;
+            dgvQueue.DataSource = m.ClinicQueue;
+            lblCCName.Text = m.User.Klinika.KlinickiCentar.Ime;
+            lblClinicName.Text = m.User.Klinika.Naziv;
+            lblCSName.Text = m.User.Klinika.GlavnaSestraKlinike.Ime + " " + m.User.Klinika.GlavnaSestraKlinike.Prezime;
+            lblAdressClinic.Text = m.User.Klinika.Lokacija;
+            lblVacantBeds.Text = m.VacantBeds.ToString();
+            
 
         }
 
@@ -47,29 +59,41 @@ namespace SBP2017.Hippocrates.Bolnica.View
             Update();
         }
 
-        private void TabPagePatienstOnClinic_Enter(object sender, EventArgs e)
-        {
-            (controller as SestraBolnicarController).patientsAtClinic();
-            DataSet ds = new DataSet("patients");
-            DataTable patinets = new DataTable("patients");
-            patinets.Columns.Add("Name");
-            patinets.Columns.Add("Datum");
-            patinets.Columns.Add("Ime");
-            foreach (BoraviNaKlinici b in(controller.getModel() as SestraBolnicarModel).User.Klinika.Pacijenti)
-            {
-                patinets.Rows.Add(b.Id, b.DatumPrijema,b.Pacijent.Ime);
-            }
-            dgvPatients.DataSource = patinets;
-        }
-
-        private void TabPageQueue_Enter(object sender, EventArgs e)
-        {
-            
-        }
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            if (cmbSearchBy.SelectedIndex==-1)
+            {
+                MetroMessageBox.Show(this, "Izaberite nacin pretrage", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if(txtSearch.Text=="")
+            {
+                MetroMessageBox.Show(this, "Polje za pretragu je prazno.","Obavestenje",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
+            if (cmbSearchBy.SelectedIndex == 0)
+            {
+                (controller as SestraBolnicarController).searchPatientsByJMBG(txtSearch.Text);
+            }
+            else
+            {
+                if (cmbSearchBy.SelectedIndex == 1)
+                {
 
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsNumber(e.KeyChar)&&!char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
