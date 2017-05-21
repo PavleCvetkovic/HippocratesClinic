@@ -23,12 +23,22 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         PacijentKlinickogCentra clinicPatient;
         DataTable clinicPatients;
         DataTable clinicQueue;
+        DataTable patientVaccines;
+        DataTable patientTherapies;
+        DataTable patientDiagnosis;
+        DataTable patientClinics;
+        DataTable patientMedicines;
         
 
         private SestraBolnicarModel()
         {
             clinicPatients = new DataTable("Pacijenti na klinici");
             clinicQueue = new DataTable("Pacijenti na listi cekanja");
+            patientVaccines = new DataTable("Vakcine pacijenta");
+            patientTherapies = new DataTable("Terapije pacijenta");
+            patientDiagnosis = new DataTable("Dijagnoze pacijenta");
+            patientClinics = new DataTable("Klinike pacijenta");
+            patientMedicines = new DataTable("Lekovi pacijenta");
         }
         public SestraBolnicarModel(Zaposleni user)
             :this()
@@ -74,6 +84,34 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 return clinicQueue;
             }
         }
+        public DataTable PatientDiagnosis
+        {
+            get
+            {
+                return patientDiagnosis;
+            }
+        }
+        public DataTable PatientTherapies
+        {
+            get
+            {
+                return patientTherapies;
+            }
+        }
+        public DataTable PatientClinics
+        {
+            get
+            {
+                return patientClinics;
+            }
+        }
+        public DataTable PatientsVaccines
+        {
+            get
+            {
+                return patientVaccines;
+            }
+        }
         public Pacijent Patient
         {
             get
@@ -88,6 +126,13 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 return clinicPatient;
             }
         }
+        public DataTable PatientMedicines
+        {
+            get
+            {
+                return patientMedicines;
+            }
+        }
  
         public bool searchPatientsByJMBG(string jmbg)
         {
@@ -97,21 +142,11 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 patient = pac;
             else
                 return false;
-            NHibernateUtil.Initialize(patient.PrimioVakcinuVakcine);
-            NHibernateUtil.Initialize(patient.DijagnostifikovanoDijagnoze);
-            NHibernateUtil.Initialize(patient.Lekar);
-            NHibernateUtil.Initialize(patient.Lekar.RadiUDomuZdravlja);
-
+            //proveri da li postoji u sistemu za klinicke centre
             ISession s = DataLayer.GetSession();
             PacijentKlinickogCentra pkc= s.QueryOver<PacijentKlinickogCentra>()
                 .Where(x => x.JMBG == patient.Jmbg)
                 .SingleOrDefault<PacijentKlinickogCentra>();
-            if (pkc != null)
-            {
-                NHibernateUtil.Initialize(pkc.Klinike);
-                NHibernateUtil.Initialize(pkc.Lekovi);
-                NHibernateUtil.Initialize(pkc.Rodjak);
-            }
             clinicPatient = pkc;
 
             s.Close();
@@ -119,14 +154,64 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             UpdateViews();
             return true;
         }
-
-        public void refreshData()
+        public bool searchPatientsByLBO(string lbo)
+        {
+            ISession ss = DataLayerMySQL.GetSession();
+            Pacijent pac = ss.QueryOver<Pacijent>().Where(x => x.Lbo == lbo).SingleOrDefault<Pacijent>();
+            if (pac != null)
+                patient = pac;
+            else
+                return false;
+            ss.Close();
+            ISession s = DataLayer.GetSession();
+            PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == patient.Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
+            clinicPatient = pkc;
+            s.Close();
+            UpdateViews();
+            return true;
+        }
+        public bool searchPatientsByBedNo(string number)
         {
             ISession s = DataLayer.GetSession();
             s.Refresh(user);
-            //tabela za trenutne pacijente na klinici
+            BoraviNaKlinici bk = s.QueryOver<BoraviNaKlinici>()
+                .Where(x => x.BrojKreveta == Int32.Parse(number))
+                .Where(x => x.DatumOtpusta == null)
+                .JoinQueryOver(x=>x.Klinika).Where(x => x.Naziv == user.Klinika.Naziv)
+                .SingleOrDefault<BoraviNaKlinici>();
+            if (bk != null)
+            {
+                PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.Id == bk.Pacijent.Id).SingleOrDefault<PacijentKlinickogCentra>();
+                clinicPatient = pkc;
+                ISession ss = DataLayerMySQL.GetSession();
+                patient = ss.QueryOver<Pacijent>().Where(x => x.Jmbg == pkc.JMBG).SingleOrDefault<Pacijent>();
+                ss.Close();
+            }
+            else
+                return false;
+            s.Close();
+            UpdateViews();
+            return true;
+        }
+
+        public void refreshData()
+        {
+            //ocistim sve tabele
             clinicPatients.Rows.Clear();
             clinicPatients.Columns.Clear();
+            clinicQueue.Rows.Clear();
+            clinicQueue.Columns.Clear();
+            patientVaccines.Rows.Clear();
+            patientVaccines.Columns.Clear();
+            patientDiagnosis.Columns.Clear();
+            patientDiagnosis.Rows.Clear();
+            patientTherapies.Columns.Clear();
+            patientTherapies.Rows.Clear();
+            patientClinics.Columns.Clear();
+            patientClinics.Rows.Clear();
+            ISession s = DataLayer.GetSession();
+            s.Refresh(user);
+            //tabela za trenutne pacijente na klinici
             clinicPatients.Columns.Add("JMBG");
             clinicPatients.Columns.Add("IME");
             clinicPatients.Columns.Add("PREZIME");
@@ -144,8 +229,6 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             sum -= used;
             vacantbeds = sum;
             //tabela za listu cekanja
-            clinicQueue.Rows.Clear();
-            clinicQueue.Columns.Clear();
             clinicQueue.Columns.Add("JMBG");
             clinicQueue.Columns.Add("IME");
             clinicQueue.Columns.Add("PREZIME");
@@ -157,7 +240,62 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             //eksplicitno ucitavanje klinike , kc i glavne sestre
             NHibernateUtil.Initialize(user.Klinika.KlinickiCentar);
             NHibernateUtil.Initialize(user.Klinika.GlavnaSestraKlinike);
-            //
+            //trazeni pacijent iz Doma zdravlja(mySql)
+            if (patient != null)
+            {
+                ISession ss = DataLayerMySQL.GetSession();
+                ss.Refresh(patient);
+                patientVaccines.Columns.Add("SIFRA VAKCINE");
+                patientVaccines.Columns.Add("IME");
+                patientVaccines.Columns.Add("DATUM PRIMANJA");
+                foreach(PrimioVakcinu vak in patient.PrimioVakcinuVakcine)
+                {
+                    patientVaccines.Rows.Add(vak.Id.PrimioVakcina.Sifra, vak.Id.PrimioVakcina.Ime, vak.Datum.ToString("dd/MM/yyyy"));
+                }
+
+                patientDiagnosis.Columns.Add("SIFRA DIJAGNOZE");
+                patientDiagnosis.Columns.Add("IME");
+                patientDiagnosis.Columns.Add("DATUM");
+                patientDiagnosis.Columns.Add("LEKAR");
+                foreach(Dijagnostifikovano dij in patient.DijagnostifikovanoDijagnoze)
+                {
+                    patientDiagnosis.Rows.Add(dij.Id.DijagnozaDijagnoza.Sifra, dij.Id.DijagnozaDijagnoza.Ime, dij.Datum.ToString("dd/MM/yyyy"), dij.Id.DijagnozaLekar.Ime + " " + dij.Id.DijagnozaLekar.Prezime);
+                }
+
+                patientTherapies.Columns.Add("OPIS");
+                patientTherapies.Columns.Add("DATUM_OD");
+                patientTherapies.Columns.Add("DATUM_DO");
+                patientTherapies.Columns.Add("LEKAR");
+                foreach(Terapija ter in patient.Terapije)
+                {
+                    patientTherapies.Rows.Add(ter.Opis, ter.Datum_od.ToString("dd/MM/yyyy"), ter.Datum_do.ToString("dd/MM/yyyy"), ter.TerapijaLekar.Ime + " " + ter.TerapijaLekar.Prezime);
+                }
+                NHibernateUtil.Initialize(patient.Lekar);
+                NHibernateUtil.Initialize(patient.Lekar.RadiUDomuZdravlja);
+                ss.Close();
+            }
+            if (clinicPatient != null)
+            {
+                s.Refresh(clinicPatient);
+                patientClinics.Columns.Add("NAZIV KLINIKE");
+                patientClinics.Columns.Add("DATUM_PRIJEMA");
+                patientClinics.Columns.Add("DATUM_OTPUSTA");
+                foreach(BoraviNaKlinici bk in clinicPatient.Klinike)
+                {
+                    patientClinics.Rows.Add(bk.Klinika.Naziv,bk.DatumPrijema.ToString("dd/MM/yyyy"),bk.DatumOtpusta.ToString());
+                }
+                NHibernateUtil.Initialize(clinicPatient.Rodjak);
+
+                patientMedicines.Columns.Clear();
+                patientMedicines.Rows.Clear();
+                patientMedicines.Columns.Add("LEK");
+                patientMedicines.Columns.Add("DATUM OD");
+                patientMedicines.Columns.Add("DATUM_DO");
+                foreach(PacijentUzimaLekove pul in clinicPatient.Lekovi)
+                {
+                    patientMedicines.Rows.Add(pul.Lek.Naziv, pul.DatumOd.ToString("dd/MM/yyyy"), pul.DatumDo.ToString("dd/MM/yyyy"));
+                }
+            }
 
             s.Close();
         }

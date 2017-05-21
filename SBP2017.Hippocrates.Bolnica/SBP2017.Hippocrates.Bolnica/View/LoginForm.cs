@@ -61,7 +61,6 @@ namespace SBP2017.Hippocrates.Bolnica.View
                         IModel sbmodel = new SestraBolnicarModel(user);
                         sbform.AttachToModel(sbmodel);
                         sbctl.AddModel(sbmodel);
-                        sbmodel.AddView(sbform);
                         sbform.AddControler(sbctl);
                         this.Hide();
                         sbform.ShowDialog();

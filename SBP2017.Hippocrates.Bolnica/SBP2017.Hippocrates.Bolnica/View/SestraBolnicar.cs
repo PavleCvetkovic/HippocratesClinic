@@ -58,6 +58,17 @@ namespace SBP2017.Hippocrates.Bolnica.View
                 lblPatientBirthDate.Text = m.Patient.Datum_rodjenja.ToString("dd/MM/yyyy");
                 lblDoctor.Text = m.Patient.Lekar.Ime + " " + m.Patient.Lekar.Prezime;
                 lblHC.Text = m.Patient.Lekar.RadiUDomuZdravlja.Ime;
+                lblPhone.Text = m.Patient.Telefon;
+                dgvTherapies.DataSource = m.PatientTherapies;
+                dgvVaccines.DataSource = m.PatientsVaccines;
+                dgvDiagnosis.DataSource = m.PatientDiagnosis;
+            }
+            if(m.ClinicPatient!=null)//Ima ga i u evidinciji klinickog
+            {
+                dgvClinics.DataSource = m.PatientClinics;
+                if(m.ClinicPatient.Rodjak!=null) //moze pacijent da nema rodjaka
+                    lblCousin.Text = m.ClinicPatient.Rodjak.Ime +" "+ m.ClinicPatient.Rodjak.Prezime +" "+ m.ClinicPatient.Rodjak.Telefon;
+                dgvMedicines.DataSource = m.PatientMedicines;
             }
         }
 
@@ -84,16 +95,25 @@ namespace SBP2017.Hippocrates.Bolnica.View
                     MetroMessageBox.Show(this, "Ne postoji taj pacijent.", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 else
                     MainTab.SelectedTab = TabPagePatientView;
+                return;
             }
             else
             {
                 if (cmbSearchBy.SelectedIndex == 1)
                 {
-
+                    if (!(controller as SestraBolnicarController).searchPatientsByLBO(txtSearch.Text))
+                        MetroMessageBox.Show(this, "Ne postoji taj pacijent.", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    else
+                        MainTab.SelectedTab = TabPagePatientView;
+                    return;
                 }
                 else
                 {
-
+                    if (!(controller as SestraBolnicarController).searchPatientsByBedNo(txtSearch.Text))
+                        MetroMessageBox.Show(this, "Ne postoji taj pacijent.", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    else
+                        MainTab.SelectedTab = TabPagePatientView;
+                    return;
                 }
             }
         }
@@ -103,6 +123,19 @@ namespace SBP2017.Hippocrates.Bolnica.View
             if (!char.IsNumber(e.KeyChar)&&!char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void btnGoToSearch_Click(object sender, EventArgs e)
+        {
+            MainTab.SelectedTab = TabPagePatientsSearch;
+        }
+
+        private void btnHealthRecords_Click(object sender, EventArgs e)
+        {
+            if (dgvPatients.SelectedRows.Count == 0)
+            {
+                MetroMessageBox.Show(this, "Izaberite pacijenta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }
