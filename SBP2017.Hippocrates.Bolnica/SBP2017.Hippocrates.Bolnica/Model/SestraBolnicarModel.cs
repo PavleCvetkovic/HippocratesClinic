@@ -193,6 +193,55 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             UpdateViews();
             return true;
         }
+        public void dischargePatient(string Jmbg)
+        {
+            ISession s = DataLayer.GetSession();
+            BoraviNaKlinici bk = s.QueryOver<BoraviNaKlinici>().Where(x => x.DatumOtpusta == null).Where(x=>x.Klinika==user.Klinika).JoinQueryOver(x => x.Pacijent).Where(x => x.JMBG == Jmbg).SingleOrDefault<BoraviNaKlinici>();
+            bk.DatumOtpusta = DateTime.Now;
+            s.SaveOrUpdate(bk);
+            s.Flush();
+            s.Close();
+            UpdateViews();
+        }
+        public bool acceptPatient(string Jmbg)
+        {
+            refreshData();
+            if (vacantbeds <= 0)
+                return false;
+            ISession s = DataLayer.GetSession();
+            ISession ss = DataLayer.GetSession();
+            PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
+            if (pkc == null)//nema ga u bazi za kc, znaci da treba da se doda
+            {
+                Pacijent pac = ss.QueryOver<Pacijent>().Where(x => x.Jmbg == Jmbg).SingleOrDefault<Pacijent>();
+                pkc = new PacijentKlinickogCentra
+                {
+                    Ime = pac.Ime,
+                    DatumRodjenja = pac.Datum_rodjenja,
+                    JMBG = pac.Jmbg,
+                    Prezime = pac.Prezime,
+                    //treba da se izmeni
+                    Adresa = "nadji u kodu kod sestre",
+                    Pol = "M",
+                    BracniStatus = "SLOBODAN"
+                    //********
+                };
+                s.Save(pkc);
+                s.Flush();
+                //treba forma za broj kreveta...
+                BoraviNaKlinici bk=new BoraviNaKlinici
+                {
+                    
+                };
+            }
+
+            return true;
+        }
+
+        public void addToQueue(string Jmbg)
+        {
+
+        }
 
         public void refreshData()
         {
@@ -221,7 +270,8 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
             foreach (BoraviNaKlinici b in user.Klinika.Pacijenti)
             {
-                clinicPatients.Rows.Add(b.Pacijent.JMBG, b.Pacijent.Ime, b.Pacijent.Prezime, b.BrojKreveta, b.DatumPrijema, b.OcekivaniBoravak);
+                if(b.DatumOtpusta==null)
+                    clinicPatients.Rows.Add(b.Pacijent.JMBG, b.Pacijent.Ime, b.Pacijent.Prezime, b.BrojKreveta, b.DatumPrijema, b.OcekivaniBoravak);
             }
             //slobodan broj kreveta
             int sum = user.Klinika.KoristiKrevete.Count;

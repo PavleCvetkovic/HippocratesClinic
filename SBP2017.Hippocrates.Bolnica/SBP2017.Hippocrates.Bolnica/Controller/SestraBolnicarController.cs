@@ -37,6 +37,10 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             return (model as SestraBolnicarModel).searchPatientsByBedNo(No);
         }
+        public void dischargePatient(string jmbg)
+        {
+            (model as SestraBolnicarModel).dischargePatient(jmbg);
+        }
        
     }
 }

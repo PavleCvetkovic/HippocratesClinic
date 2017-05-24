@@ -93,6 +93,12 @@
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\SestraBolnicarModel.cs" />
+    <Compile Include="Pomocne forme\PrimiNaKliniku.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pomocne forme\PrimiNaKliniku.Designer.cs">
+      <DependentUpon>PrimiNaKliniku.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\IView.cs" />
     <Compile Include="View\LoginForm.cs">
       <SubType>Form</SubType>
@@ -114,6 +120,9 @@
     <Compile Include="View\SestraBolnicar.Designer.cs">
       <DependentUpon>SestraBolnicar.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Pomocne forme\PrimiNaKliniku.resx">
+      <DependentUpon>PrimiNaKliniku.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

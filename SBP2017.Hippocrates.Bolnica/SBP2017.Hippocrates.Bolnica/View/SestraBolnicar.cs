@@ -137,6 +137,42 @@ namespace SBP2017.Hippocrates.Bolnica.View
             {
                 MetroMessageBox.Show(this, "Izaberite pacijenta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+            else
+            {
+                (controller as SestraBolnicarController).searchPatientsByJMBG(dgvPatients.SelectedRows[0].Cells["JMBG"].Value.ToString());
+            }
+            MainTab.SelectedTab = TabPagePatientView;
+        }
+
+        private void btnRelease_Click(object sender, EventArgs e)
+        {
+
+            if (dgvPatients.SelectedRows.Count == 0)
+            {
+                MetroMessageBox.Show(this, "Izaberite pacijenta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                (controller as SestraBolnicarController).dischargePatient(dgvPatients.SelectedRows[0].Cells["JMBG"].Value.ToString());
+            }
+        }
+
+        private void btnShowMedicalRecords_Click(object sender, EventArgs e)
+        {
+            if (dgvQueue.SelectedRows.Count == 0)
+            {
+                MetroMessageBox.Show(this, "Izaberite pacijenta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                (controller as SestraBolnicarController).searchPatientsByJMBG(dgvQueue.SelectedRows[0].Cells["JMBG"].Value.ToString());
+            }
+            MainTab.SelectedTab = TabPagePatientView;
+        }
+
+        private void btnAcceptPatient_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
