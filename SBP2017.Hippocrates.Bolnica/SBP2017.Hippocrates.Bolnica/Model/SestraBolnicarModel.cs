@@ -203,13 +203,14 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             s.Close();
             UpdateViews();
         }
-        public bool acceptPatient(string Jmbg)
+        
+        public bool acceptPatient(string Jmbg,Rodjak r,string bracnistatus,string pol,string adresa,int brojkreveta,int boravak)
         {
             refreshData();
             if (vacantbeds <= 0)
                 return false;
             ISession s = DataLayer.GetSession();
-            ISession ss = DataLayer.GetSession();
+            ISession ss = DataLayerMySQL.GetSession();
             PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
             if (pkc == null)//nema ga u bazi za kc, znaci da treba da se doda
             {
@@ -220,27 +221,98 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                     DatumRodjenja = pac.Datum_rodjenja,
                     JMBG = pac.Jmbg,
                     Prezime = pac.Prezime,
-                    //treba da se izmeni
-                    Adresa = "nadji u kodu kod sestre",
-                    Pol = "M",
-                    BracniStatus = "SLOBODAN"
-                    //********
+                    Adresa = adresa,
+                    Pol = pol,
+                    BracniStatus = bracnistatus
                 };
                 s.Save(pkc);
                 s.Flush();
-                //treba forma za broj kreveta...
-                BoraviNaKlinici bk=new BoraviNaKlinici
-                {
-                    
-                };
             }
+            BoraviNaKlinici bk = new BoraviNaKlinici
+            {
+                BrojKreveta = brojkreveta,
+                DatumPrijema = DateTime.Now,
+                DatumOtpusta = null,
+                Klinika = user.Klinika,
+                OcekivaniBoravak = boravak,
+                Pacijent = pkc
+            };
+            Rodjak rodj = new Rodjak()
+            {
+                Ime = r.Ime,
+                Prezime = r.Prezime,
+                Adresa = r.Adresa,
+                Srodstvo = r.Srodstvo,
+                Telefon = r.Telefon,
+            };
+            rodj.PacijentiUSrodstvu.Add(pkc);
+            pkc.Rodjak = rodj;
+            pkc.Klinike.Add(bk);
+            s.SaveOrUpdate(rodj);
+            s.SaveOrUpdate(pkc);
+            s.Flush();
+            s.Close();
+            ss.Close();
+            clinicPatient = pkc;
+            UpdateViews();
 
             return true;
         }
-
-        public void addToQueue(string Jmbg)
+        public bool acceptFromQueue(string Jmbg,int brojkreveta,int boravak)
         {
+            refreshData();
+            if (vacantbeds <= 0)
+                return false;
+            ISession s = DataLayer.GetSession();
+            PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
+            BoraviNaKlinici bk = new BoraviNaKlinici
+            {
+                BrojKreveta = brojkreveta,
+                DatumPrijema = DateTime.Now,
+                DatumOtpusta = null,
+                Klinika = user.Klinika,
+                OcekivaniBoravak = boravak,
+                Pacijent = pkc
+            };
+            pkc.Klinike.Add(bk);
+            s.SaveOrUpdate(pkc);
+            s.Flush();
+            s.Close();
+            return true;
+        }
 
+        public void addToQueue(string Jmbg, Rodjak r, string bracnistatus, string pol, string adresa)
+        {
+            ISession s = DataLayer.GetSession();
+            ISession ss = DataLayerMySQL.GetSession();
+            PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
+            if (pkc == null)//nema ga u bazi za kc, znaci da treba da se doda
+            {
+                Pacijent pac = ss.QueryOver<Pacijent>().Where(x => x.Jmbg == Jmbg).SingleOrDefault<Pacijent>();
+                pkc = new PacijentKlinickogCentra
+                {
+                    Ime = pac.Ime,
+                    DatumRodjenja = pac.Datum_rodjenja,
+                    JMBG = pac.Jmbg,
+                    Prezime = pac.Prezime,
+                    Adresa = adresa,
+                    Pol = pol,
+                    BracniStatus = bracnistatus
+                };
+                s.Save(pkc);
+                s.Flush();
+                Rodjak rodj = new Rodjak()
+                {
+                    Ime = r.Ime,
+                    Prezime = r.Prezime,
+                    Adresa = r.Adresa,
+                    Srodstvo = r.Srodstvo,
+                    Telefon = r.Telefon,
+                };
+                s.Save(rodj);
+                s.Flush();
+
+            }
         }
 
         public void refreshData()
@@ -258,6 +330,8 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             patientTherapies.Rows.Clear();
             patientClinics.Columns.Clear();
             patientClinics.Rows.Clear();
+            patientMedicines.Rows.Clear();
+            patientMedicines.Columns.Clear();
             ISession s = DataLayer.GetSession();
             s.Refresh(user);
             //tabela za trenutne pacijente na klinici

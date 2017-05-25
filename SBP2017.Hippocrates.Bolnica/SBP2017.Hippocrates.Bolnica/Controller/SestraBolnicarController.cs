@@ -41,6 +41,15 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             (model as SestraBolnicarModel).dischargePatient(jmbg);
         }
-       
+        public bool acceptPatient(string Jmbg, Rodjak r, string bracnistatus, string pol, string adresa, int brojkreveta,int boravak)
+        {
+            return (model as SestraBolnicarModel).acceptPatient(Jmbg, r, bracnistatus, pol, adresa,brojkreveta,boravak);
+        }
+        public bool acceptFromQueue(string Jmbg,int brojkreveta,int boravak)
+        {
+            return (model as SestraBolnicarModel).acceptFromQueue(Jmbg, brojkreveta, boravak);
+        }
+
+
     }
 }

@@ -14,6 +14,7 @@ using SBP2017.Hippocrates.Bolnica.Model;
 using NHibernate;
 using SBP2017.Hippocrates.Bolnica.Data;
 using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
+using SBP2017.Hippocrates.Bolnica.Pomocne_forme;
 namespace SBP2017.Hippocrates.Bolnica.View
 {
     public partial class SestraBolnicar : MetroForm,IView
@@ -172,7 +173,33 @@ namespace SBP2017.Hippocrates.Bolnica.View
 
         private void btnAcceptPatient_Click(object sender, EventArgs e)
         {
+            
+        }
 
+        private void btnAddPatientToClinic_Click(object sender, EventArgs e)
+        {
+            PrimiNaKliniku prim = new PrimiNaKliniku((controller.getModel() as SestraBolnicarModel).User);
+            prim.ShowDialog();
+            if (prim.BrojKreveta != "")
+            {
+                Rodjak r = new Rodjak()
+                {
+                    Ime = prim.Ime,
+                    Prezime = prim.Prezime,
+                    Adresa = prim.AdresaRodjak,
+                    Srodstvo = prim.Srodstvo,
+                    Telefon = prim.TelefonRodjak
+                };
+                if (!(controller as SestraBolnicarController).acceptPatient((controller.getModel() as SestraBolnicarModel).Patient.Jmbg, r, prim.BracniStatus, prim.Pol, prim.AdresaPacijent, Int32.Parse(prim.BrojKreveta), Int32.Parse(prim.Boravak)))
+                {
+                    MetroMessageBox.Show(this, "Nema slobodnih mesta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    MetroMessageBox.Show(this, "Uspesno smesten na kliniku", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            prim.Dispose();
         }
     }
 }
