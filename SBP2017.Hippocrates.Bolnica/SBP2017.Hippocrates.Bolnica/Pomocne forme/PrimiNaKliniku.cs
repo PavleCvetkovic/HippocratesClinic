@@ -18,9 +18,11 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
     {
         Zaposleni user;
         string ime, prezime, srodstvo, adresa, telefon, pol, adresapac, bstatus, borvak, krevet;
-        public PrimiNaKliniku(Zaposleni user) : this()
+        string jmbg;
+        public PrimiNaKliniku(Zaposleni user,String jmbg) : this()
         {
             this.user = user;
+            this.jmbg = jmbg;
         }
         public string Ime
         {
@@ -69,6 +71,24 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
         private void PrimiNaKliniku_Load(object sender, EventArgs e)
         {
             ISession s = DataLayer.GetSession();
+            //popunjavanje textboxova
+            PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == jmbg).SingleOrDefault<PacijentKlinickogCentra>();
+            if (pkc != null)
+            {
+                txtPol.Text = pkc.Pol;
+                txtAdresaPac.Text = pkc.Adresa;
+                txtBoravak.Text = pkc.BracniStatus;
+                if (pkc.Rodjak != null)
+                {
+                    txtAdresa.Text = pkc.Rodjak.Adresa;
+                    txtIme.Text = pkc.Rodjak.Ime;
+                    txtPrezime.Text = pkc.Rodjak.Prezime;
+                    txtTelefon.Text = pkc.Rodjak.Telefon;
+                    txtSrodstvo.Text = pkc.Rodjak.Srodstvo;
+                }
+            }
+            
+            //slobodni kreveti
             s.Refresh(user);
             IList<Krevet> kreveti = s.QueryOver<Krevet>().Where(x => x.Klinika == user.Klinika).List<Krevet>();
             IList<BoraviNaKlinici> iskorisceno = s.QueryOver<BoraviNaKlinici>().Where(x => x.DatumOtpusta == null).List<BoraviNaKlinici>();

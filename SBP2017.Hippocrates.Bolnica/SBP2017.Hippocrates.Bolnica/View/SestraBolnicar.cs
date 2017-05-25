@@ -140,9 +140,13 @@ namespace SBP2017.Hippocrates.Bolnica.View
             }
             else
             {
-                (controller as SestraBolnicarController).searchPatientsByJMBG(dgvPatients.SelectedRows[0].Cells["JMBG"].Value.ToString());
+                if(!(controller as SestraBolnicarController).searchPatientsByJMBG(dgvPatients.SelectedRows[0].Cells["JMBG"].Value.ToString()))
+                    MetroMessageBox.Show(this, "Greska u sistemu, pacijent ga ima u evidinciji KC a nema u DZ", "GRESKA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    MainTab.SelectedTab = TabPagePatientView;
+                }
             }
-            MainTab.SelectedTab = TabPagePatientView;
         }
 
         private void btnRelease_Click(object sender, EventArgs e)
@@ -155,6 +159,7 @@ namespace SBP2017.Hippocrates.Bolnica.View
             else
             {
                 (controller as SestraBolnicarController).dischargePatient(dgvPatients.SelectedRows[0].Cells["JMBG"].Value.ToString());
+                MetroMessageBox.Show(this, "Uspesno otpusten sa klinike", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -173,12 +178,28 @@ namespace SBP2017.Hippocrates.Bolnica.View
 
         private void btnAcceptPatient_Click(object sender, EventArgs e)
         {
-            
+            if (dgvQueue.SelectedRows.Count == 0)
+            {
+                MetroMessageBox.Show(this, "Izaberite pacijenta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                PrimiNaKliniku prim = new PrimiNaKliniku((controller.getModel() as SestraBolnicarModel).User, dgvQueue.SelectedRows[0].Cells["JMBG"].Value.ToString());
+                prim.ShowDialog();
+                if(!(controller as SestraBolnicarController).acceptFromQueue(dgvQueue.SelectedRows[0].Cells["JMBG"].Value.ToString(),Int32.Parse(prim.BrojKreveta),Int32.Parse(prim.Boravak)))
+                {
+                    MetroMessageBox.Show(this, "Nema slobodnih mesta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    MetroMessageBox.Show(this, "Uspesno smesten na kliniku", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         private void btnAddPatientToClinic_Click(object sender, EventArgs e)
         {
-            PrimiNaKliniku prim = new PrimiNaKliniku((controller.getModel() as SestraBolnicarModel).User);
+            PrimiNaKliniku prim = new PrimiNaKliniku((controller.getModel() as SestraBolnicarModel).User, (controller.getModel() as SestraBolnicarModel).Patient.Jmbg);
             prim.ShowDialog();
             if (prim.BrojKreveta != "")
             {
