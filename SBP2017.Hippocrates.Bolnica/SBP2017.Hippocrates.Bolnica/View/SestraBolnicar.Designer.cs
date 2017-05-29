@@ -61,7 +61,6 @@
             this.cmbSearchBy = new MetroFramework.Controls.MetroComboBox();
             this.TabPageQueue = new MetroFramework.Controls.MetroTabPage();
             this.btnShowMedicalRecords = new MetroFramework.Controls.MetroButton();
-            this.btnAcceptPatient = new MetroFramework.Controls.MetroButton();
             this.dgvQueue = new MetroFramework.Controls.MetroGrid();
             this.TabPagePatientView = new MetroFramework.Controls.MetroTabPage();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
@@ -129,7 +128,7 @@
             this.MainTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTab.Location = new System.Drawing.Point(20, 60);
             this.MainTab.Name = "MainTab";
-            this.MainTab.SelectedIndex = 3;
+            this.MainTab.SelectedIndex = 1;
             this.MainTab.Size = new System.Drawing.Size(846, 639);
             this.MainTab.Style = MetroFramework.MetroColorStyle.Green;
             this.MainTab.TabIndex = 0;
@@ -329,7 +328,6 @@
             // TabPageQueue
             // 
             this.TabPageQueue.Controls.Add(this.btnShowMedicalRecords);
-            this.TabPageQueue.Controls.Add(this.btnAcceptPatient);
             this.TabPageQueue.Controls.Add(this.dgvQueue);
             this.TabPageQueue.HorizontalScrollbarBarColor = true;
             this.TabPageQueue.HorizontalScrollbarHighlightOnWheel = false;
@@ -347,7 +345,7 @@
             // btnShowMedicalRecords
             // 
             this.btnShowMedicalRecords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnShowMedicalRecords.Location = new System.Drawing.Point(443, 111);
+            this.btnShowMedicalRecords.Location = new System.Drawing.Point(437, 31);
             this.btnShowMedicalRecords.Name = "btnShowMedicalRecords";
             this.btnShowMedicalRecords.Size = new System.Drawing.Size(225, 47);
             this.btnShowMedicalRecords.TabIndex = 4;
@@ -355,19 +353,6 @@
             this.btnShowMedicalRecords.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.btnShowMedicalRecords.UseSelectable = true;
             this.btnShowMedicalRecords.Click += new System.EventHandler(this.btnShowMedicalRecords_Click);
-            // 
-            // btnAcceptPatient
-            // 
-            this.btnAcceptPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAcceptPatient.Location = new System.Drawing.Point(443, 28);
-            this.btnAcceptPatient.Name = "btnAcceptPatient";
-            this.btnAcceptPatient.Size = new System.Drawing.Size(225, 50);
-            this.btnAcceptPatient.Style = MetroFramework.MetroColorStyle.Green;
-            this.btnAcceptPatient.TabIndex = 3;
-            this.btnAcceptPatient.Text = "Primi pacijenta na kliniku";
-            this.btnAcceptPatient.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.btnAcceptPatient.UseSelectable = true;
-            this.btnAcceptPatient.Click += new System.EventHandler(this.btnAcceptPatient_Click);
             // 
             // dgvQueue
             // 
@@ -1177,7 +1162,6 @@
         private MetroFramework.Controls.MetroButton btnRelease;
         private MetroFramework.Controls.MetroButton btnHealthRecords;
         private MetroFramework.Controls.MetroGrid dgvQueue;
-        private MetroFramework.Controls.MetroButton btnAcceptPatient;
         private MetroFramework.Controls.MetroLabel lblCSName;
         private MetroFramework.Controls.MetroLabel lblVacantBeds;
         private MetroFramework.Controls.MetroLabel lblAdressClinic;

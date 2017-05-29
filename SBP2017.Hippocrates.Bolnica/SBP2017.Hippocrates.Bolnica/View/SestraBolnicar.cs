@@ -199,26 +199,51 @@ namespace SBP2017.Hippocrates.Bolnica.View
 
         private void btnAddPatientToClinic_Click(object sender, EventArgs e)
         {
-            PrimiNaKliniku prim = new PrimiNaKliniku((controller.getModel() as SestraBolnicarModel).User, (controller.getModel() as SestraBolnicarModel).Patient.Jmbg);
-            prim.ShowDialog();
-            if (prim.BrojKreveta != "")
+            if((controller.getModel() as SestraBolnicarModel).Patient == null)
             {
-                Rodjak r = new Rodjak()
+                MetroMessageBox.Show(this, "Mora biti otvoren karton nekog pacijenta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if((controller.getModel() as SestraBolnicarModel).VacantBeds <= 0)
+            {
+                PrimiNaKliniku primlista = new PrimiNaKliniku((controller.getModel() as SestraBolnicarModel).User, (controller.getModel() as SestraBolnicarModel).Patient.Jmbg,true);
+                primlista.ShowDialog();
+                Rodjak rlista = new Rodjak()
                 {
-                    Ime = prim.Ime,
-                    Prezime = prim.Prezime,
-                    Adresa = prim.AdresaRodjak,
-                    Srodstvo = prim.Srodstvo,
-                    Telefon = prim.TelefonRodjak
+                    Ime = primlista.Ime,
+                    Prezime = primlista.Prezime,
+                    Adresa = primlista.AdresaRodjak,
+                    Srodstvo = primlista.Srodstvo,
+                    Telefon = primlista.TelefonRodjak
                 };
-                if (!(controller as SestraBolnicarController).acceptPatient((controller.getModel() as SestraBolnicarModel).Patient.Jmbg, r, prim.BracniStatus, prim.Pol, prim.AdresaPacijent, Int32.Parse(prim.BrojKreveta), Int32.Parse(prim.Boravak)))
+                if (!(controller as SestraBolnicarController).addToQueue((controller.getModel() as SestraBolnicarModel).Patient.Jmbg, rlista, primlista.BracniStatus, primlista.Pol, primlista.AdresaPacijent))
                 {
-                    MetroMessageBox.Show(this, "Nema slobodnih mesta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MetroMessageBox.Show(this, "Vec postoji u listi cekanja", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                 {
-                    MetroMessageBox.Show(this, "Uspesno smesten na kliniku", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MetroMessageBox.Show(this, "Uspesno smesten na listu cekanja", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                primlista.Dispose();
+                return;
+            }
+            PrimiNaKliniku prim = new PrimiNaKliniku((controller.getModel() as SestraBolnicarModel).User, (controller.getModel() as SestraBolnicarModel).Patient.Jmbg);
+            prim.ShowDialog();
+            Rodjak r = new Rodjak()
+            {
+                Ime = prim.Ime,
+                Prezime = prim.Prezime,
+                Adresa = prim.AdresaRodjak,
+                Srodstvo = prim.Srodstvo,
+                Telefon = prim.TelefonRodjak
+            };
+            if (!(controller as SestraBolnicarController).acceptPatient((controller.getModel() as SestraBolnicarModel).Patient.Jmbg, r, prim.BracniStatus, prim.Pol, prim.AdresaPacijent, Int32.Parse(prim.BrojKreveta), Int32.Parse(prim.Boravak)))
+            {
+                MetroMessageBox.Show(this, "Pacijent je vec na klinici", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                MetroMessageBox.Show(this, "Uspesno smesten na kliniku", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             prim.Dispose();
         }

@@ -42,7 +42,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             q.SetParameter(0,Id);
             q.SetParameter(1, Password);
             IList<Zaposleni> employee = q.List<Zaposleni>();
-            s.Close();
+            s.Close();s.Dispose();
             if (employee.Count == 1)
             {
                 user = employee[0];
@@ -59,7 +59,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         {
             ISession s = DataLayer.GetSession();
             s.Refresh(user);
-            s.Close();
+            s.Close();s.Dispose();
         }
     }
 }

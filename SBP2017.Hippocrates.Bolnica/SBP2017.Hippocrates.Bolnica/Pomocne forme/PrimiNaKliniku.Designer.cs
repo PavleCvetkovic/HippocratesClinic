@@ -503,6 +503,7 @@
             this.metroButton2.Text = "Otkazi";
             this.metroButton2.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroButton2.UseSelectable = true;
+            this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
             // 
             // PrimiNaKliniku
             // 

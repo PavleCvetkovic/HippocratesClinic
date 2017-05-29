@@ -149,8 +149,8 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 .SingleOrDefault<PacijentKlinickogCentra>();
             clinicPatient = pkc;
 
-            s.Close();
-            ss.Close();
+            s.Close();s.Dispose();
+            ss.Close();s.Dispose();
             UpdateViews();
             return true;
         }
@@ -162,11 +162,11 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 patient = pac;
             else
                 return false;
-            ss.Close();
+            ss.Close();ss.Dispose();
             ISession s = DataLayer.GetSession();
             PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == patient.Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
             clinicPatient = pkc;
-            s.Close();
+            s.Close();s.Dispose();
             UpdateViews();
             return true;
         }
@@ -185,11 +185,11 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 clinicPatient = pkc;
                 ISession ss = DataLayerMySQL.GetSession();
                 patient = ss.QueryOver<Pacijent>().Where(x => x.Jmbg == pkc.JMBG).SingleOrDefault<Pacijent>();
-                ss.Close();
+                ss.Close();s.Dispose();
             }
             else
                 return false;
-            s.Close();
+            s.Close();s.Dispose();
             UpdateViews();
             return true;
         }
@@ -200,7 +200,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             bk.DatumOtpusta = DateTime.Now;
             s.SaveOrUpdate(bk);
             s.Flush();
-            s.Close();
+            s.Close();s.Dispose();
             UpdateViews();
         }
         
@@ -208,9 +208,14 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         {
             refreshData();
             if (vacantbeds <= 0)
-                return false;
+                return false;        //nema mesta
             ISession s = DataLayer.GetSession();
             ISession ss = DataLayerMySQL.GetSession();
+            foreach(BoraviNaKlinici bkl in user.Klinika.Pacijenti)
+            {
+                if (bkl.DatumOtpusta == null && bkl.Pacijent.JMBG == Jmbg)
+                    return false; //vec je na klinici
+            }
             PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
             if (pkc == null)//nema ga u bazi za kc, znaci da treba da se doda
             {
@@ -225,7 +230,18 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                     Pol = pol,
                     BracniStatus = bracnistatus
                 };
+                Rodjak rodj = new Rodjak()
+                {
+                    Ime = r.Ime,
+                    Prezime = r.Prezime,
+                    Adresa = r.Adresa,
+                    Srodstvo = r.Srodstvo,
+                    Telefon = r.Telefon,
+                };
                 s.Save(pkc);
+                rodj.PacijentiUSrodstvu.Add(pkc);
+                pkc.Rodjak = rodj;
+                s.SaveOrUpdate(rodj);
                 s.Flush();
             }
             BoraviNaKlinici bk = new BoraviNaKlinici
@@ -237,22 +253,12 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 OcekivaniBoravak = boravak,
                 Pacijent = pkc
             };
-            Rodjak rodj = new Rodjak()
-            {
-                Ime = r.Ime,
-                Prezime = r.Prezime,
-                Adresa = r.Adresa,
-                Srodstvo = r.Srodstvo,
-                Telefon = r.Telefon,
-            };
-            rodj.PacijentiUSrodstvu.Add(pkc);
-            pkc.Rodjak = rodj;
             pkc.Klinike.Add(bk);
-            s.SaveOrUpdate(rodj);
+
             s.SaveOrUpdate(pkc);
             s.Flush();
-            s.Close();
-            ss.Close();
+            s.Close();s.Dispose();
+            ss.Close();ss.Dispose();
             clinicPatient = pkc;
             UpdateViews();
 
@@ -277,14 +283,20 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             pkc.Klinike.Add(bk);
             s.SaveOrUpdate(pkc);
             s.Flush();
-            s.Close();
+            s.Close();s.Dispose();
             return true;
         }
 
-        public void addToQueue(string Jmbg, Rodjak r, string bracnistatus, string pol, string adresa)
+        public bool addToQueue(string Jmbg, Rodjak r, string bracnistatus, string pol, string adresa)
         {
             ISession s = DataLayer.GetSession();
+            s.Refresh(user);
             ISession ss = DataLayerMySQL.GetSession();
+            foreach (PacijentiCekaju pac in user.Klinika.ListaCekanja.Pacijenti)
+            {
+                if (pac.Pacijent.JMBG == Jmbg)
+                    return false; //ima ga vec na listi cekanja
+            }
             PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
             if (pkc == null)//nema ga u bazi za kc, znaci da treba da se doda
             {
@@ -309,10 +321,22 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                     Srodstvo = r.Srodstvo,
                     Telefon = r.Telefon,
                 };
-                s.Save(rodj);
+                pkc.Rodjak = rodj;
+                rodj.PacijentiUSrodstvu.Add(pkc);
+                s.SaveOrUpdate(rodj);
                 s.Flush();
-
             }
+            PacijentiCekaju pc = new PacijentiCekaju()
+            {
+                ListaCekanja = user.Klinika.ListaCekanja,
+                DatumUpisa = DateTime.Now,
+                OcekivanoVremeCekanja = user.Klinika.ListaCekanja.Pacijenti.Count * 2,
+                Pacijent = pkc
+            };
+            s.Save(pc);
+            s.Close();
+            s.Dispose();
+            return true;
         }
 
         public void refreshData()
@@ -396,7 +420,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 }
                 NHibernateUtil.Initialize(patient.Lekar);
                 NHibernateUtil.Initialize(patient.Lekar.RadiUDomuZdravlja);
-                ss.Close();
+                ss.Close();ss.Dispose();
             }
             if (clinicPatient != null)
             {
@@ -421,7 +445,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 }
             }
 
-            s.Close();
+            s.Close();s.Dispose();
         }
     }
 }

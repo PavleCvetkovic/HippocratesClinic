@@ -11,6 +11,7 @@ using MetroFramework.Forms;
 using NHibernate;
 using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 using SBP2017.Hippocrates.Bolnica.Data;
+using MetroFramework;
 
 namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
 {
@@ -19,10 +20,17 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
         Zaposleni user;
         string ime, prezime, srodstvo, adresa, telefon, pol, adresapac, bstatus, borvak, krevet;
         string jmbg;
+        bool nobeds = false;
         public PrimiNaKliniku(Zaposleni user,String jmbg) : this()
         {
             this.user = user;
             this.jmbg = jmbg;
+        }
+        public PrimiNaKliniku(Zaposleni user, String jmbg,bool noVacantBeds):this()
+        {
+            this.user = user;
+            this.jmbg = jmbg;
+            nobeds = noVacantBeds;
         }
         public string Ime
         {
@@ -53,8 +61,25 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
             }
         }
 
+        private void metroButton2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void metroButton1_Click(object sender, EventArgs e)
         {
+            if (!nobeds)
+                if (txtIme.Text == "" || txtPrezime.Text == "" || txtSrodstvo.Text == "" || txtAdresa.Text == "" || txtTelefon.Text == "" || txtAdresaPac.Text == "" || txtBracniStatus.Text == "" || txtBoravak.Text == "" || listBeds.SelectedIndex == -1)
+                {
+                    MetroMessageBox.Show(this, "Nesto nije lepo popunjeno", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            if (nobeds)
+                if (txtIme.Text == "" || txtPrezime.Text == "" || txtSrodstvo.Text == "" || txtAdresa.Text == "" || txtTelefon.Text == "" || txtAdresaPac.Text == "" || txtBracniStatus.Text == "")
+                {
+                    MetroMessageBox.Show(this, "Nesto nije lepo popunjeno", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             ime = txtIme.Text;
             prezime = txtPrezime.Text;
             srodstvo = txtSrodstvo.Text;
@@ -64,7 +89,8 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
             adresapac = txtAdresaPac.Text;
             bstatus = txtBracniStatus.Text;
             borvak = txtBoravak.Text;
-            krevet = listBeds.SelectedItems[0].ToString();
+            if(!nobeds)
+                krevet = listBeds.SelectedItems[0].ToString();
             this.Close();
         }
 
@@ -77,7 +103,7 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
             {
                 txtPol.Text = pkc.Pol;
                 txtAdresaPac.Text = pkc.Adresa;
-                txtBoravak.Text = pkc.BracniStatus;
+                txtBracniStatus.Text = pkc.BracniStatus;
                 if (pkc.Rodjak != null)
                 {
                     txtAdresa.Text = pkc.Rodjak.Adresa;
@@ -105,7 +131,7 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
             {
                 listBeds.Items.Add(kr.Id.ToString());
             }
-            s.Close();
+            s.Close();s.Dispose();
         }
 
         public string Srodstvo {

@@ -95,7 +95,7 @@ namespace SBP2017.Hippocrates.Bolnica
             s.Save(sp);
             s.Save(sestra);
             s.Flush();
-            s.Close();
+            s.Close();s.Dispose();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -134,7 +134,7 @@ namespace SBP2017.Hippocrates.Bolnica
             }
 
             s.Flush();
-            s.Close();
+            s.Close();s.Dispose();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -153,7 +153,7 @@ namespace SBP2017.Hippocrates.Bolnica
 
             }
             s.Flush();
-            s.Close();
+            s.Close();s.Dispose();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -178,7 +178,7 @@ namespace SBP2017.Hippocrates.Bolnica
             {
                 MessageBox.Show(z.Ime);
             }
-            s.Close();
+            s.Close();s.Dispose();
 
         }
 
@@ -222,7 +222,7 @@ namespace SBP2017.Hippocrates.Bolnica
             s.Save(pac);                       
 
             s.Flush();
-            s.Close();
+            s.Close();s.Dispose();
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -247,7 +247,7 @@ namespace SBP2017.Hippocrates.Bolnica
             
             s.Save(nar);
             s.Flush();        
-            s.Close();        
+            s.Close();s.Dispose();        
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -264,7 +264,7 @@ namespace SBP2017.Hippocrates.Bolnica
             kc.Dobavljaci.Add(d1);
             s.Save(d1);
             s.Flush();
-            s.Close();
+            s.Close();s.Dispose();
 
         }
     }
