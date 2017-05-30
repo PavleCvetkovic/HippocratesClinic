@@ -85,6 +85,7 @@
             this.txtIme.UseSelectable = true;
             this.txtIme.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtIme.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtIme.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIme_KeyPress);
             // 
             // txtPrezime
             // 
@@ -117,6 +118,7 @@
             this.txtPrezime.UseSelectable = true;
             this.txtPrezime.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtPrezime.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtPrezime.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrezime_KeyPress);
             // 
             // txtSrodstvo
             // 
@@ -149,6 +151,7 @@
             this.txtSrodstvo.UseSelectable = true;
             this.txtSrodstvo.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtSrodstvo.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtSrodstvo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSrodstvo_KeyPress);
             // 
             // txtAdresa
             // 
@@ -245,6 +248,7 @@
             this.txtPol.UseSelectable = true;
             this.txtPol.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtPol.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtPol.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPol_KeyPress);
             // 
             // txtAdresaPac
             // 
@@ -309,6 +313,7 @@
             this.txtBracniStatus.UseSelectable = true;
             this.txtBracniStatus.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtBracniStatus.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtBracniStatus.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBracniStatus_KeyPress);
             // 
             // metroLabel1
             // 

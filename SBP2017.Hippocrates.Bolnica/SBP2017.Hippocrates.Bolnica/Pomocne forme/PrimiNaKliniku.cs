@@ -21,6 +21,7 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
         string ime, prezime, srodstvo, adresa, telefon, pol, adresapac, bstatus, borvak, krevet;
         string jmbg;
         bool nobeds = false;
+        public bool canceled = false;
         public PrimiNaKliniku(Zaposleni user,String jmbg) : this()
         {
             this.user = user;
@@ -60,10 +61,48 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
                 return krevet;
             }
         }
+        public bool Canceled
+        {
+            get
+            {
+                return canceled;
+            }
+        }
 
         private void metroButton2_Click(object sender, EventArgs e)
         {
+            canceled = true;
             this.Close();
+        }
+
+        private void txtIme_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsNumber(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void txtPrezime_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsNumber(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void txtSrodstvo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsNumber(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void txtPol_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsNumber(e.KeyChar)||txtPol.Text.Length==2)
+                e.Handled = true;
+        }
+
+        private void txtBracniStatus_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsNumber(e.KeyChar))
+                e.Handled = true;
         }
 
         private void metroButton1_Click(object sender, EventArgs e)
