@@ -18,6 +18,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
         int vacantbeds;
         protected Zaposleni user;
+        
 
         Pacijent patient;//search patient (MySQL)
         PacijentKlinickogCentra clinicPatient;

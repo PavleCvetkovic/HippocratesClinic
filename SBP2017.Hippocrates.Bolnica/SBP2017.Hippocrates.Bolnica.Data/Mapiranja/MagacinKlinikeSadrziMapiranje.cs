@@ -8,17 +8,16 @@ using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 
 namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 {
-    public class MagacinKlinikeMapiranje : ClassMap<MagacinKlinike>
+    public class MagacinKlinikeSadrziMapiranje:ClassMap<MagacinKlinikeSadrzi>
     {
-        public MagacinKlinikeMapiranje()
+        public MagacinKlinikeSadrziMapiranje()
         {
-            Table("MAGACIN_KLINIKE");
-
             Id(x => x.Id).GeneratedBy.TriggerIdentity();
 
-            References(x => x.Klinika).Column("ID_KLINIKE").LazyLoad();
+            Map(x => x.Kolicina).Column("KOLICINA");
 
-            HasMany(x => x.PotrosniMaterijal).KeyColumn("ID_POTROSNOG_MATERIJALA").Cascade.All().Inverse();
+            References(x => x.MagacinKlinike).Column("ID_MAGACINA");
+            References(x => x.PotrosniMaterijal).Column("ID_POTROSNOG_MATERIJALA");
         }
     }
 }

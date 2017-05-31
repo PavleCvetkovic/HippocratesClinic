@@ -11,11 +11,11 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual int Id { get; protected set; }
         public virtual Klinika Klinika { get; set; }
 
-        public virtual IList<PotrosniMaterijal> PotrosniMaterijal { get; set; }
+        public virtual IList<MagacinKlinikeSadrzi> PotrosniMaterijal { get; set; }
 
         public MagacinKlinike()
         {
-            PotrosniMaterijal = new List<PotrosniMaterijal>();
+            PotrosniMaterijal = new List<MagacinKlinikeSadrzi>();
         }
 
     }
