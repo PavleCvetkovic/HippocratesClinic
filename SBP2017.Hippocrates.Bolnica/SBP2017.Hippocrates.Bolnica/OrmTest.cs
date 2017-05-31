@@ -100,7 +100,7 @@ namespace SBP2017.Hippocrates.Bolnica
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ISession s = DataLayer.GetSession();
+            /*ISession s = DataLayer.GetSession();
             IList<Klinika> k = s.QueryOver<Klinika>().Where(x => x.Telefon == "121414").List<Klinika>();
             if (k.Count > 0)
             {
@@ -134,7 +134,7 @@ namespace SBP2017.Hippocrates.Bolnica
             }
 
             s.Flush();
-            s.Close();s.Dispose();
+            s.Close();s.Dispose();*/
         }
 
         private void button3_Click(object sender, EventArgs e)

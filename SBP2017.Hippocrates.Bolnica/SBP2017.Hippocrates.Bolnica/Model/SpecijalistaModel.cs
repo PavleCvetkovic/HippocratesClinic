@@ -39,13 +39,13 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             ISession s = DataLayer.GetSession();
             s.Refresh(user);
 
-            //doctorExams
+            /*//doctorExams
             IQueryOver<Pregled> query =
                 QueryOver.Of<Pregled>().Where(c => c.Specijalista.Id == user.Id && c.Datum == datumPretragePregleda);
             foreach (Pregled pregled in query)
             {
                 doctorExams.Rows.Add(pregled.Id, pregled.Datum, pregled.Vreme, pregled.Prostorija);
-            }
+            }*/
 
         }
     }

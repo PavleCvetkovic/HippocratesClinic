@@ -77,6 +77,7 @@
     <Compile Include="Entiteti\Kvalifikacija.cs" />
     <Compile Include="Entiteti\ListaCekanja.cs" />
     <Compile Include="Entiteti\MagacinKlinike.cs" />
+    <Compile Include="Entiteti\MagacinKlinikeSadrzi.cs" />
     <Compile Include="Entiteti\Narudzbenica.cs" />
     <Compile Include="Entiteti\PacijentiCekaju.cs" />
     <Compile Include="Entiteti\PacijentKlinickogCentra.cs" />
