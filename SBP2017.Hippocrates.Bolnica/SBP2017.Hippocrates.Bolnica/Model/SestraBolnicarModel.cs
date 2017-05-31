@@ -14,21 +14,21 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 {
     public class SestraBolnicarModel : IModel
     {
-        List<IView> views;
+        protected List<IView> views;
 
-        int vacantbeds;
+        protected int vacantbeds;
         protected Zaposleni user;
         
 
-        Pacijent patient;//search patient (MySQL)
-        PacijentKlinickogCentra clinicPatient;
-        DataTable clinicPatients;
-        DataTable clinicQueue;
-        DataTable patientVaccines;
-        DataTable patientTherapies;
-        DataTable patientDiagnosis;
-        DataTable patientClinics;
-        DataTable patientMedicines;
+        protected Pacijent patient;//search patient (MySQL)
+        protected PacijentKlinickogCentra clinicPatient;
+        protected DataTable clinicPatients;
+        protected DataTable clinicQueue;
+        protected DataTable patientVaccines;
+        protected DataTable patientTherapies;
+        protected DataTable patientDiagnosis;
+        protected DataTable patientClinics;
+        protected DataTable patientMedicines;
         
 
         public SestraBolnicarModel()

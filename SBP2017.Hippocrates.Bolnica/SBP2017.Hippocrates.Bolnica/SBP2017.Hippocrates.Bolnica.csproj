@@ -94,6 +94,7 @@
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\SestraBolnicarModel.cs" />
+    <Compile Include="Model\SpecijalistaModel.cs" />
     <Compile Include="Pomocne forme\PrimiNaKliniku.cs">
       <SubType>Form</SubType>
     </Compile>
