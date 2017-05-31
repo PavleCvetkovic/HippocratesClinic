@@ -264,13 +264,27 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
             return true;
         }
-        public bool acceptFromQueue(string Jmbg,int brojkreveta,int boravak)
+        public bool acceptFromQueue(string Jmbg,int brojkreveta,int boravak) //nije testirana
         {
             refreshData();
             if (vacantbeds <= 0)
                 return false;
             ISession s = DataLayer.GetSession();
             PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
+            //izbrisi sa liste cekanja
+            IList<PacijentiCekaju> lista = pkc.ListeCekanja;
+            foreach(PacijentiCekaju pcek in lista)
+            {
+                if (pcek.ListaCekanja.Klinika.Id == user.Klinika.Id)
+                {
+                    pkc.ListeCekanja.Remove(pcek);
+                    user.Klinika.ListaCekanja.Pacijenti.Remove(pcek);
+                    s.Delete(pcek);
+                    s.Flush();
+                    break;
+                }
+            }
+
             BoraviNaKlinici bk = new BoraviNaKlinici
             {
                 BrojKreveta = brojkreveta,
@@ -284,6 +298,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             s.SaveOrUpdate(pkc);
             s.Flush();
             s.Close();s.Dispose();
+            UpdateViews();
             return true;
         }
 
@@ -336,6 +351,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             s.Save(pc);
             s.Close();
             s.Dispose();
+            UpdateViews();
             return true;
         }
 

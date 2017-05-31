@@ -186,6 +186,8 @@ namespace SBP2017.Hippocrates.Bolnica.View
             {
                 PrimiNaKliniku prim = new PrimiNaKliniku((controller.getModel() as SestraBolnicarModel).User, dgvQueue.SelectedRows[0].Cells["JMBG"].Value.ToString());
                 prim.ShowDialog();
+                if (prim.canceled)
+                    return;
                 if(!(controller as SestraBolnicarController).acceptFromQueue(dgvQueue.SelectedRows[0].Cells["JMBG"].Value.ToString(),Int32.Parse(prim.BrojKreveta),Int32.Parse(prim.Boravak)))
                 {
                     MetroMessageBox.Show(this, "Nema slobodnih mesta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -208,6 +210,8 @@ namespace SBP2017.Hippocrates.Bolnica.View
             {
                 PrimiNaKliniku primlista = new PrimiNaKliniku((controller.getModel() as SestraBolnicarModel).User, (controller.getModel() as SestraBolnicarModel).Patient.Jmbg,true);
                 primlista.ShowDialog();
+                if (primlista.canceled)
+                    return;
                 Rodjak rlista = new Rodjak()
                 {
                     Ime = primlista.Ime,
@@ -229,6 +233,8 @@ namespace SBP2017.Hippocrates.Bolnica.View
             }
             PrimiNaKliniku prim = new PrimiNaKliniku((controller.getModel() as SestraBolnicarModel).User, (controller.getModel() as SestraBolnicarModel).Patient.Jmbg);
             prim.ShowDialog();
+            if (prim.canceled)
+                return;
             Rodjak r = new Rodjak()
             {
                 Ime = prim.Ime,
@@ -246,6 +252,11 @@ namespace SBP2017.Hippocrates.Bolnica.View
                 MetroMessageBox.Show(this, "Uspesno smesten na kliniku", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             prim.Dispose();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            (controller as SestraBolnicarController).acceptFromQueue(dgvQueue.SelectedRows[0].Cells["JMBG"].Value.ToString(), 40, 10);
         }
     }
 }
