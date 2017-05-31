@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBP2017.Hippocrates.Bolnica", "SBP2017.Hippocrates.Bolnica\SBP2017.Hippocrates.Bolnica.csproj", "{400C75A8-D54F-47E3-AFDF-22A306C4EB39}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF62751A-6CA3-4805-9C38-6A30807D06A9} = {DF62751A-6CA3-4805-9C38-6A30807D06A9}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBP2017.Hippocrates.Bolnica.Data", "SBP2017.Hippocrates.Bolnica.Data\SBP2017.Hippocrates.Bolnica.Data.csproj", "{DF62751A-6CA3-4805-9C38-6A30807D06A9}"
 EndProject

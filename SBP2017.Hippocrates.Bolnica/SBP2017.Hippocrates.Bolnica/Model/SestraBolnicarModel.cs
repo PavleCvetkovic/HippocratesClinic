@@ -12,12 +12,12 @@ using System.Data;
 
 namespace SBP2017.Hippocrates.Bolnica.Model
 {
-    class SestraBolnicarModel : IModel
+    public class SestraBolnicarModel : IModel
     {
         List<IView> views;
 
         int vacantbeds;
-        Zaposleni user;
+        protected Zaposleni user;
 
         Pacijent patient;//search patient (MySQL)
         PacijentKlinickogCentra clinicPatient;
@@ -30,7 +30,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         DataTable patientMedicines;
         
 
-        private SestraBolnicarModel()
+        public SestraBolnicarModel()
         {
             clinicPatients = new DataTable("Pacijenti na klinici");
             clinicQueue = new DataTable("Pacijenti na listi cekanja");
@@ -339,7 +339,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             return true;
         }
 
-        public void refreshData()
+        public virtual void refreshData()
         {
             //ocistim sve tabele
             clinicPatients.Rows.Clear();

@@ -90,6 +90,7 @@
     <Compile Include="Controller\IController.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\SestraBolnicarController.cs" />
+    <Compile Include="Model\GlavnaSestraModel.cs" />
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\SestraBolnicarModel.cs" />
