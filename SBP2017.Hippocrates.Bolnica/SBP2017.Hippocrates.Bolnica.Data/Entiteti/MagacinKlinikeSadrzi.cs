@@ -8,9 +8,9 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
 {
     public class MagacinKlinikeSadrzi
     {
-        public int Id { get; protected set; }
-        public PotrosniMaterijal PotrosniMaterijal { get; set; }
-        public MagacinKlinike MagacinKlinike { get; set; }
-        public int Kolicina { get; set; }
+        public virtual int Id { get; protected set; }
+        public virtual PotrosniMaterijal PotrosniMaterijal { get; set; }
+        public virtual MagacinKlinike MagacinKlinike { get; set; }
+        public virtual int Kolicina { get; set; }
     }
 }
