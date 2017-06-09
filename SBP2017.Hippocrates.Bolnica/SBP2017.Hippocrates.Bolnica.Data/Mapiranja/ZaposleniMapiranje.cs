@@ -42,6 +42,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
         {
             DiscriminatorValue("SPECIJALISTA");
             Map(x => x.BrojOrdinacije).Column("BROJ_ORDINACIJE");
+            HasMany(x => x.Pregledi).KeyColumn("ID_SPECIJALISTE");
         }
     }
     public class SestraMapiranje : SubclassMap<Sestra>

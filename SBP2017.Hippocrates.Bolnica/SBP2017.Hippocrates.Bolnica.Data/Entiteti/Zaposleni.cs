@@ -37,6 +37,11 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
     public class Specijalista : Zaposleni
     {
         public virtual string BrojOrdinacije { get; set; }
+        public virtual IList<Pregled> Pregledi { get; set; }
+        public Specijalista():base()
+        {
+            Pregledi = new List<Pregled>();
+        }
     }
     public class Sestra : Zaposleni
     {
