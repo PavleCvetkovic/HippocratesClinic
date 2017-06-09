@@ -9,9 +9,9 @@ using SBP2017.Hippocrates.Bolnica.Data.EntitetiMySql;
 
 namespace SBP2017.Hippocrates.Bolnica.Controller
 {
-    class SestraBolnicarController : IController
+    public class SestraBolnicarController : IController
     {
-        private IModel model;
+        protected IModel model;
         public void AddModel(IModel model)
         {
             this.model = model;

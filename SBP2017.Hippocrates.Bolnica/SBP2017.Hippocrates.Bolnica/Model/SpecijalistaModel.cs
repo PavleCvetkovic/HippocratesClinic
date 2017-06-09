@@ -8,12 +8,13 @@ using NHibernate;
 using NHibernate.Criterion;
 using SBP2017.Hippocrates.Bolnica.Data;
 using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
+using SBP2017.Hippocrates.Bolnica.View;
 
 namespace SBP2017.Hippocrates.Bolnica.Model
 {
     public class SpecijalistaModel : SestraBolnicarModel
     {
-        private Specijalista user; //sakriva zaposlenog iz osnovne klase specijalistom
+        new private Specijalista user; //sakriva zaposlenog iz osnovne klase specijalistom
         private DataTable doctorExams;
         private List<int> doctorAvailableTimes;        
         private DateTime datumPretragePregleda; //uvek ce da predstavlja trenutno izabrani datum
@@ -33,7 +34,13 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             //Slobodni termini za zakazivanje
             doctorAvailableTimes = new List<int>();
             
-        }    
+        }
+
+        public SpecijalistaModel(Specijalista sp) : this()
+        {
+            views = new List<IView>();
+            this.user = sp;
+        }
 
         public override void refreshData()
         {

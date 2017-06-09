@@ -90,6 +90,7 @@
     <Compile Include="Controller\IController.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\SestraBolnicarController.cs" />
+    <Compile Include="Controller\SpecijalistaController.cs" />
     <Compile Include="Model\GlavnaSestraModel.cs" />
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
@@ -122,6 +123,12 @@
     <Compile Include="View\SestraBolnicar.Designer.cs">
       <DependentUpon>SestraBolnicar.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\SpecijalistaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\SpecijalistaForm.Designer.cs">
+      <DependentUpon>SpecijalistaForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Pomocne forme\PrimiNaKliniku.resx">
       <DependentUpon>PrimiNaKliniku.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,6 +151,9 @@
     <EmbeddedResource Include="View\SestraBolnicar.resx">
       <DependentUpon>SestraBolnicar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\SpecijalistaForm.resx">
+      <DependentUpon>SpecijalistaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -156,7 +166,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\logo.jpg" />

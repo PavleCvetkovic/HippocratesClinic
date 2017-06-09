@@ -186,7 +186,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 clinicPatient = pkc;
                 ISession ss = DataLayerMySQL.GetSession();
                 patient = ss.QueryOver<Pacijent>().Where(x => x.Jmbg == pkc.JMBG).SingleOrDefault<Pacijent>();
-                ss.Close();s.Dispose();
+                ss.Close();ss.Dispose();
             }
             else
                 return false;
