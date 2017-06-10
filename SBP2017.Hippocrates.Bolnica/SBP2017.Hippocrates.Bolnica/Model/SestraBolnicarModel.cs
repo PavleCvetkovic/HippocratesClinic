@@ -151,7 +151,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             clinicPatient = pkc;
 
             s.Close();s.Dispose();
-            ss.Close();s.Dispose();
+            ss.Close();ss.Dispose();
             UpdateViews();
             return true;
         }
@@ -182,14 +182,18 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 .SingleOrDefault<BoraviNaKlinici>();
             if (bk != null)
             {
-                PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.Id == bk.Pacijent.Id).SingleOrDefault<PacijentKlinickogCentra>();
+                PacijentKlinickogCentra pkc =
+                    s.QueryOver<PacijentKlinickogCentra>().Where(x => x.Id == bk.Pacijent.Id).SingleOrDefault<PacijentKlinickogCentra>();
                 clinicPatient = pkc;
                 ISession ss = DataLayerMySQL.GetSession();
                 patient = ss.QueryOver<Pacijent>().Where(x => x.Jmbg == pkc.JMBG).SingleOrDefault<Pacijent>();
                 ss.Close();ss.Dispose();
             }
             else
+            {
+                s.Close(); s.Dispose();
                 return false;
+            }
             s.Close();s.Dispose();
             UpdateViews();
             return true;
