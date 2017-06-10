@@ -64,5 +64,20 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             s.Refresh(user);
             s.Close();s.Dispose();
         }
+
+        public bool searchPatientsByJMBG(string jmbg)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool searchPatientsByLBO(string lbo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool searchPatientsByBedNo(string No)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

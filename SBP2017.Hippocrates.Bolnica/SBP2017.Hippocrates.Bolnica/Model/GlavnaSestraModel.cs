@@ -13,20 +13,20 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 {
     public class GlavnaSestraModel : SestraBolnicarModel 
     {
-        DataTable clinicEmployeeShifts;
-        DataTable clinicEmpolyees;
-        DataTable clinicBeds;
-        DataTable clinicMedicalStorage;
+        protected DataTable clinicEmployeeShifts;
+        protected DataTable clinicEmployees;
+        protected DataTable clinicBeds;
+        protected DataTable clinicMedicalStorage;
 
         public GlavnaSestraModel() : base()
         {
             //Zaposleni
-            clinicEmpolyees = new DataTable("Zaposleni na klinici");
-            clinicEmpolyees.Columns.Add("ID");
-            clinicEmpolyees.Columns.Add("Ime");
-            clinicEmpolyees.Columns.Add("Prezime");
-            clinicEmpolyees.Columns.Add("Datum rodjenja");
-            clinicEmpolyees.Columns.Add("Tip zaposlenog");
+            clinicEmployees = new DataTable("Zaposleni na klinici");
+            clinicEmployees.Columns.Add("ID");
+            clinicEmployees.Columns.Add("Ime");
+            clinicEmployees.Columns.Add("Prezime");
+            clinicEmployees.Columns.Add("Datum rodjenja");
+            clinicEmployees.Columns.Add("Tip zaposlenog");
             //Smene       
             clinicEmployeeShifts = new DataTable("Smene zaposlenih na klinici");
             clinicEmployeeShifts.Columns.Add("ID");
@@ -58,7 +58,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         {
             get
             {
-                return clinicEmpolyees;
+                return clinicEmployees;
             }
         }
         public DataTable Shifts
@@ -168,7 +168,9 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         public override void refreshData()
         {
             base.refreshData();
-            clinicEmpolyees.Rows.Clear();
+            clinicEmployees.Rows.Clear();
+            clinicEmployeeShifts.Rows.Clear();
+            clinicBeds.Rows.Clear();
             clinicEmployeeShifts.Rows.Clear();
 
             ISession s = DataLayer.GetSession();            
@@ -177,7 +179,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             foreach (Ugovor u in user.Klinika.KlinickiCentar.Ugovori)
             {
                 if (u.Zaposleni.Klinika == user.Klinika)
-                    clinicEmpolyees.Rows.Add(u.Zaposleni.Id.ToString(), u.Zaposleni.Ime, u.Zaposleni.Prezime,
+                    clinicEmployees.Rows.Add(u.Zaposleni.Id.ToString(), u.Zaposleni.Ime, u.Zaposleni.Prezime,
                         u.Zaposleni.DatumRodjenja.ToString("dd/MM/yyyy"), u.Zaposleni.TipZaposlenog);
             }
             //clinicEmployeeShifts
@@ -190,18 +192,21 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             {
                 bool empty = true;
                 string patientJMBG = "";
-                foreach(BoraviNaKlinici bk in user.Klinika.Pacijenti)
+                foreach (BoraviNaKlinici bk in user.Klinika.Pacijenti)
                 {
                     if (k.Id == bk.BrojKreveta)
                     {
                         empty = false;
                         patientJMBG = bk.Pacijent.JMBG;
                     }
+                    else
+                        empty = true;
                 }
                 if (empty)
-                    clinicBeds.Rows.Add(k.Id.ToString(), "DA");
+                     clinicBeds.Rows.Add(k.Id.ToString(), "DA");
                 else
-                    clinicBeds.Rows.Add(k.Id.ToString(), patientJMBG);
+                     clinicBeds.Rows.Add(k.Id.ToString(), patientJMBG);
+                
             }
             //magacin
             foreach(MagacinKlinikeSadrzi pm in user.Klinika.Magacin.PotrosniMaterijal)
@@ -209,7 +214,8 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 clinicMedicalStorage.Rows.Add(pm.PotrosniMaterijal.Naziv, pm.PotrosniMaterijal.Opis, pm.PotrosniMaterijal.TipMaterijala, pm.PotrosniMaterijal.NacinUzimanja, pm.PotrosniMaterijal.TipicnaDoza, pm.PotrosniMaterijal.KriticniNivoZaNarucivanje.ToString(), pm.PotrosniMaterijal.CenaPoJedinici.ToString(),pm.Kolicina.ToString());
             }
 
-
+            s.Close();
+            s.Dispose();
         }
     }
 }

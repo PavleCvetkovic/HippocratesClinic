@@ -12,6 +12,8 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
     {
         public MagacinKlinikeSadrziMapiranje()
         {
+            Table("MAGACIN_KLINIKE_SADRZI");
+
             Id(x => x.Id).GeneratedBy.TriggerIdentity();
 
             Map(x => x.Kolicina).Column("KOLICINA");

@@ -13,5 +13,8 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         void AddModel(IModel model);
         IModel getModel();
         void refreshData();
+        bool searchPatientsByJMBG(string jmbg);
+        bool searchPatientsByLBO(string lbo);
+        bool searchPatientsByBedNo(string No);
     }
 }

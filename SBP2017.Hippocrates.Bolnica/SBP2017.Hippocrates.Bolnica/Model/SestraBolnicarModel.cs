@@ -228,7 +228,11 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             foreach(BoraviNaKlinici bkl in user.Klinika.Pacijenti)
             {
                 if (bkl.DatumOtpusta == null && bkl.Pacijent.JMBG == Jmbg)
+                {
+                    ss.Close();ss.Dispose();
+                    s.Close();s.Dispose();
                     return false; //vec je na klinici
+                }
             }
             PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
             if (pkc == null)//nema ga u bazi za kc, znaci da treba da se doda

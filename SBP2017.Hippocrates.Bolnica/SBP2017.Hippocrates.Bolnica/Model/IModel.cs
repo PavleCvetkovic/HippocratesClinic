@@ -13,5 +13,8 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         void AddView(IView view);
         void UpdateViews();
         void refreshData();
+        bool searchPatientsByJMBG(string jmbg);
+        bool searchPatientsByLBO(string lbo);
+        bool searchPatientsByBedNo(string No);
     }
 }
