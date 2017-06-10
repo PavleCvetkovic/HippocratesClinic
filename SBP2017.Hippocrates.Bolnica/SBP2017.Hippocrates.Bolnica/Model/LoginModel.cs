@@ -42,12 +42,15 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             q.SetParameter(0,Id);
             q.SetParameter(1, Password);
             IList<Zaposleni> employee = q.List<Zaposleni>();
-            s.Close();s.Dispose();
+            
             if (employee.Count == 1)
             {
                 user = employee[0];
+                NHibernateUtil.Initialize(user.Klinika.GlavnaSestraKlinike);
+                s.Close(); s.Dispose();
                 return true;
             }
+            s.Close(); s.Dispose();
             return false;
         }
         public Zaposleni returnUser()

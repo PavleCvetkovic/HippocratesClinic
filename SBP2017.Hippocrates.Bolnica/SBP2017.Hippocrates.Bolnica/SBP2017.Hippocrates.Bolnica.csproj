@@ -87,6 +87,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\GlavnaSestraController.cs" />
     <Compile Include="Controller\IController.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\SestraBolnicarController.cs" />
@@ -101,6 +102,12 @@
     </Compile>
     <Compile Include="Pomocne forme\PrimiNaKliniku.Designer.cs">
       <DependentUpon>PrimiNaKliniku.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\GlavnaSestraForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\GlavnaSestraForm.Designer.cs">
+      <DependentUpon>GlavnaSestraForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\IView.cs" />
     <Compile Include="View\LoginForm.cs">
@@ -131,6 +138,9 @@
     </Compile>
     <EmbeddedResource Include="Pomocne forme\PrimiNaKliniku.resx">
       <DependentUpon>PrimiNaKliniku.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\GlavnaSestraForm.resx">
+      <DependentUpon>GlavnaSestraForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

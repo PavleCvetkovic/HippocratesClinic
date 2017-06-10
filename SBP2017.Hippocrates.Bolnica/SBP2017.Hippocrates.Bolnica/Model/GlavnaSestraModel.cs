@@ -11,7 +11,7 @@ using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 
 namespace SBP2017.Hippocrates.Bolnica.Model
 {
-    public class GlavnaSestraModel : SestraBolnicarModel
+    public class GlavnaSestraModel : SestraBolnicarModel 
     {
         DataTable clinicEmployeeShifts;
         DataTable clinicEmpolyees;
@@ -49,19 +49,61 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             clinicMedicalStorage.Columns.Add("KOLICINA");
 
         }
+        public GlavnaSestraModel(Zaposleni user) : this()
+        {
+            this.user = user;
+        }
+
+        public DataTable Employees
+        {
+            get
+            {
+                return clinicEmpolyees;
+            }
+        }
+        public DataTable Shifts
+        {
+            get
+            {
+                return Shifts;
+            }
+        }
+        public DataTable BedsAtClinic
+        {
+            get
+            {
+                return clinicBeds;
+            }
+        }
+        public DataTable ClinicStorage
+        {
+            get
+            {
+                return clinicMedicalStorage;
+            }
+        }
+
         public bool addShift(int EmployeeId, DateTime startDate, DateTime endDate, string ShiftType)
         {
             if (startDate > endDate)
-                return false; //pocetni datum je posle startnog
+                return false; //pocetni datum je posle krajnjeg
             ISession s = DataLayer.GetSession();
 
             Zaposleni z = s.QueryOver<Zaposleni>().Where(x => x.Id == EmployeeId).SingleOrDefault<Zaposleni>();
             if (z == null)
+            {
+                s.Close();
+                s.Dispose();
                 return false; //nema ga zaposleni sa tim ID-jem
+            }
             foreach(Smena shift in z.Smene)
             {
                 if (shift.DatumDo > startDate)
+                {
+                    s.Close();
+                    s.Dispose();
                     return false; //nije moguce dodati smenu pre zavrsetka poslednje smene
+                }
             }
             Smena shiftadd = new Smena()
             {
@@ -85,13 +127,25 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             ISession s = DataLayer.GetSession();
             Krevet k = s.QueryOver<Krevet>().Where(x => x.Id == BedID).SingleOrDefault<Krevet>();
             if (k == null) //ne postoji krevet sa tim ID-jem
+            {
+                s.Close();
+                s.Dispose();
                 return false;
-            if (k.Klinika.Id == user.Klinika.Id) //krevet je vec na klinici
-                return false;
+            }
+            if (k.Klinika.Id == user.Klinika.Id)
+            {
+                s.Close();
+                s.Dispose();
+                return false;//krevet je vec na klinici
+            }
             foreach(BoraviNaKlinici bk in k.Klinika.Pacijenti)
             {
                 if (bk.BrojKreveta == k.Id)
+                {
+                    s.Close();
+                    s.Dispose();
                     return false; //krevet je zauzet
+                }
             }
             k.Klinika = user.Klinika;
             user.Klinika.KoristiKrevete.Add(k);

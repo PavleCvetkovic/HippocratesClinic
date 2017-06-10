@@ -57,16 +57,32 @@ namespace SBP2017.Hippocrates.Bolnica.View
                 Type t = user.GetType();                
                 if (t.Equals(typeof(Sestra))) //A switch expression or case label must be a bool, char, string, integral, enum, or corresponding nullable type
                 {
-                    SestraBolnicar sbform = new SestraBolnicar();
-                    IController sbctl = new SestraBolnicarController();
-                    IModel sbmodel = new SestraBolnicarModel(user);
-                    sbform.AttachToModel(sbmodel);
-                    sbctl.AddModel(sbmodel);
-                    sbform.AddControler(sbctl);
-                    this.Hide();
-                    Cursor.Current = Cursors.Default;
-                    sbform.ShowDialog();
-                    this.Show();
+                    if (user.Klinika.GlavnaSestraKlinike.Id==user.Id)
+                    {
+                        GlavnaSestraForm gsform = new GlavnaSestraForm();
+                        IController gsctl = new GlavnaSestraController();
+                        IModel gsmodel = new GlavnaSestraModel(user);
+                        gsform.AttachToModel(gsmodel);
+                        gsctl.AddModel(gsmodel);
+                        gsform.AddControler(gsctl);
+                        this.Hide();
+                        Cursor.Current = Cursors.Default;
+                        gsform.ShowDialog();
+                        this.Show();
+                    }
+                    else
+                    {
+                        SestraBolnicar sbform = new SestraBolnicar();
+                        IController sbctl = new SestraBolnicarController();
+                        IModel sbmodel = new SestraBolnicarModel(user);
+                        sbform.AttachToModel(sbmodel);
+                        sbctl.AddModel(sbmodel);
+                        sbform.AddControler(sbctl);
+                        this.Hide();
+                        Cursor.Current = Cursors.Default;
+                        sbform.ShowDialog();
+                        this.Show();
+                    }
                 }
                 else if (t.Equals(typeof(Specijalista)))
                 {

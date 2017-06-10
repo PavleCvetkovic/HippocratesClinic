@@ -33,6 +33,8 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
         public SestraBolnicarModel()
         {
+            views = new List<IView>();
+
             clinicPatients = new DataTable("Pacijenti na klinici");
             clinicQueue = new DataTable("Pacijenti na listi cekanja");
             patientVaccines = new DataTable("Vakcine pacijenta");
@@ -44,7 +46,6 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         public SestraBolnicarModel(Zaposleni user)
             :this()
         {
-            views = new List<IView>();
             this.user = user;
         }
         public void AddView(IView view)
@@ -142,7 +143,11 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             if (pac != null)
                 patient = pac;
             else
+            {
+                ss.Close();
+                ss.Dispose();
                 return false;
+            }
             //proveri da li postoji u sistemu za klinicke centre
             ISession s = DataLayer.GetSession();
             PacijentKlinickogCentra pkc= s.QueryOver<PacijentKlinickogCentra>()
@@ -162,7 +167,11 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             if (pac != null)
                 patient = pac;
             else
+            {
+                ss.Close();
+                ss.Dispose();
                 return false;
+            }
             ss.Close();ss.Dispose();
             ISession s = DataLayer.GetSession();
             PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == patient.Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
@@ -315,7 +324,11 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             foreach (PacijentiCekaju pac in user.Klinika.ListaCekanja.Pacijenti)
             {
                 if (pac.Pacijent.JMBG == Jmbg)
+                {
+                    ss.Close();
+                    ss.Dispose();
                     return false; //ima ga vec na listi cekanja
+                }
             }
             PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
             if (pkc == null)//nema ga u bazi za kc, znaci da treba da se doda
