@@ -130,7 +130,7 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
             borvak = txtBoravak.Text;
             if(!nobeds)
                 krevet = listBeds.SelectedItems[0].ToString();
-            this.Close();
+            this.Hide();
         }
 
         private void PrimiNaKliniku_Load(object sender, EventArgs e)

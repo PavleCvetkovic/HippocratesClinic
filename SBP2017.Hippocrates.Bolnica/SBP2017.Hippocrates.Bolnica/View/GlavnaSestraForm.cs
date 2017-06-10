@@ -190,7 +190,7 @@ namespace SBP2017.Hippocrates.Bolnica.View
                     Srodstvo = primlista.Srodstvo,
                     Telefon = primlista.TelefonRodjak
                 };
-                if (!(controller as SestraBolnicarController).addToQueue((controller.getModel() as GlavnaSestraModel).Patient.Jmbg, rlista, primlista.BracniStatus, primlista.Pol, primlista.AdresaPacijent))
+                if (!(controller as GlavnaSestraController).addToQueue((controller.getModel() as GlavnaSestraModel).Patient.Jmbg, rlista, primlista.BracniStatus, primlista.Pol, primlista.AdresaPacijent))
                 {
                     MetroMessageBox.Show(this, "Vec postoji u listi cekanja", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -213,7 +213,7 @@ namespace SBP2017.Hippocrates.Bolnica.View
                 Srodstvo = prim.Srodstvo,
                 Telefon = prim.TelefonRodjak
             };
-            if (!(controller as SestraBolnicarController).acceptPatient((controller.getModel() as GlavnaSestraModel).Patient.Jmbg, r, prim.BracniStatus, prim.Pol, prim.AdresaPacijent, Int32.Parse(prim.BrojKreveta), Int32.Parse(prim.Boravak)))
+            if (!(controller as GlavnaSestraController).acceptPatient((controller.getModel() as GlavnaSestraModel).Patient.Jmbg, r, prim.BracniStatus, prim.Pol, prim.AdresaPacijent, Int32.Parse(prim.BrojKreveta), Int32.Parse(prim.Boravak)))
             {
                 MetroMessageBox.Show(this, "Pacijent je vec na klinici", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
