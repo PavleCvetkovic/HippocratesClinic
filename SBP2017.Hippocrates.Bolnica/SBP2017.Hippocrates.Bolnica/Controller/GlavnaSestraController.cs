@@ -56,5 +56,9 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             return (model as GlavnaSestraModel).addShift(EId, start, end, ShiftType);
         }
+        public bool DeleteShift(string ShiftId)
+        {
+            return (model as GlavnaSestraModel).deleteShift(ShiftId);
+        }
     }
 }

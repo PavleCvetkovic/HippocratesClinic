@@ -49,6 +49,8 @@ namespace SBP2017.Hippocrates.Bolnica.View
             dgvEmployees.DataSource = m.Employees;
             dgvShifts.DataSource = m.Shifts;
             dgvStorage.DataSource = m.ClinicStorage;
+            dgvClinicMedicines.DataSource = m.ClinicMedicines;
+            dgvOrders.DataSource = m.Orders;
 
             lblCCName.Text = m.User.Klinika.KlinickiCentar.Ime;
             lblClinicName.Text = m.User.Klinika.Naziv;
@@ -254,6 +256,19 @@ namespace SBP2017.Hippocrates.Bolnica.View
             {
                 MetroMessageBox.Show(this, "", "Uspesno ste dodali smenu", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void btnDeleteShift_Click(object sender, EventArgs e)
+        {
+            if (dgvShifts.SelectedRows.Count == 0)
+            {
+                MetroMessageBox.Show(this, "Izaberite smenu", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if((controller as GlavnaSestraController).DeleteShift(dgvShifts.SelectedRows[0].Cells["ID"].Value.ToString()))
+                MetroMessageBox.Show(this, "Smena uspesno obrisana", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MetroMessageBox.Show(this, "Doslo je do greske", "EROR!!1", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

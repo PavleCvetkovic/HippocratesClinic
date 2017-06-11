@@ -21,6 +21,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
         protected DataTable orders;
         protected DataTable otherBeds;
+        protected DataTable centralStorage;
 
         public GlavnaSestraModel() : base()
         {
@@ -60,12 +61,43 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             clinicMedicines.Columns.Add("PREZIME");
             clinicMedicines.Columns.Add("DATUM OD");
             clinicMedicines.Columns.Add("DATUM DO");
+            //narudzbenice
+            orders = new DataTable("NARUDZBENICE");
+            orders.Columns.Add("ID");
+            orders.Columns.Add("NAZIV");
+            orders.Columns.Add("OPIS");
+            orders.Columns.Add("KLINIKA");
+            orders.Columns.Add("DATUM");
+            orders.Columns.Add("DATUM ISPORUKE");
+            orders.Columns.Add("CENA");
+            orders.Columns.Add("KOLICINA");
+            //svi slobodni kreveti u okviru KC
+            otherBeds = new DataTable("SLOBODNI KREVETI");
+            otherBeds.Columns.Add("BROJ");
+            otherBeds.Columns.Add("KLINIKA");
+            //CENTRALNI MAGACIN
+            centralStorage = new DataTable("CENTRALNI MAGACIN");
+            centralStorage.Columns.Add("ID");
+            centralStorage.Columns.Add("NAZIV");
+            centralStorage.Columns.Add("OPIS");
+            centralStorage.Columns.Add("CENA PO JEDINICI");
+            centralStorage.Columns.Add("KRITICNI NIVO ZA NARUCIVANJE");
+            centralStorage.Columns.Add("TIP MATERIJALA");
+            centralStorage.Columns.Add("NACIN UZIMANJA");
+            centralStorage.Columns.Add("TIPICNA DOZA");
         }
         public GlavnaSestraModel(Zaposleni user) : this()
         {
             this.user = user;
         }
 
+        public DataTable Orders
+        {
+            get
+            {
+                return orders;
+            }
+        }
         public DataTable Employees
         {
             get
@@ -92,6 +124,13 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             get
             {
                 return clinicMedicalStorage;
+            }
+        }
+        public DataTable ClinicMedicines
+        {
+            get
+            {
+                return clinicMedicines;
             }
         }
 
@@ -169,6 +208,17 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             UpdateViews();
             return true;
         }
+        public bool deleteShift(string ShiftId)
+        {
+            ISession s = DataLayer.GetSession();
+            Smena smena = s.Get<Smena>(Int32.Parse(ShiftId));
+            s.Delete(smena);
+            s.Flush();
+            s.Close();
+            s.Dispose();
+            UpdateViews();
+            return true;
+        }
 
         public bool AddMedicalSupplies(int Id,int quantity)
         {
@@ -176,10 +226,10 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
             return true;
         }
-        public void refreshOtherBeds()
+       /* public void refreshOtherBeds()
         {
             otherBeds.Rows.Clear();
-        }
+        }*/
         public override void refreshData()
         {
             base.refreshData();
@@ -188,6 +238,9 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             clinicBeds.Rows.Clear();
             clinicEmployeeShifts.Rows.Clear();
             clinicMedicines.Rows.Clear();
+            otherBeds.Rows.Clear();
+            centralStorage.Rows.Clear();
+            orders.Rows.Clear();
 
             ISession s = DataLayer.GetSession();            
             s.Refresh(user);
@@ -238,6 +291,35 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 {
                     clinicMedicines.Rows.Add(pul.Lek.Naziv, bk.Pacijent.Ime, bk.Pacijent.Prezime, pul.DatumOd.ToString("dd/MM/yyyy"), pul.DatumDo.ToString("dd/MM/yyyy"));
                 }
+            }
+            //narudzbenice
+            foreach(Narudzbenica nar in user.Klinika.Narudzbenice)
+            {
+                orders.Rows.Add(nar.Id, nar.Naziv, nar.Opis, nar.ImeKlinike, nar.DatumNarudzbine.ToString("dd/MM/yyyy"), nar.DatumIsporuke.ToString("dd/MM/yyyy"), nar.Cena, nar.Kolicina);
+            }
+            //svi slobodni kreveti u okviru KC
+            bool slobodan = true;
+            foreach(Klinika k in user.Klinika.KlinickiCentar.Klinike)
+            {
+                if (k.Id != user.Klinika.Id)
+                {
+                    foreach(Krevet krev in k.KoristiKrevete)
+                    {
+                        slobodan = true;
+                        foreach(BoraviNaKlinici bkk in k.Pacijenti)
+                        {
+                            if (krev.Id == bkk.BrojKreveta)
+                                slobodan = false;
+                        }
+                        if (slobodan)
+                            otherBeds.Rows.Add(krev.Id, k.Naziv);
+                    }
+                }
+            }
+            //CENTRALNI MAGACIN
+            foreach(PotrosniMaterijal pm in user.Klinika.KlinickiCentar.CentralniMagacin.Materijal)
+            {
+                centralStorage.Rows.Add(pm.Id, pm.Naziv, pm.Opis, pm.CenaPoJedinici, pm.KriticniNivoZaNarucivanje, pm.TipMaterijala, pm.NacinUzimanja, pm.TipicnaDoza);
             }
 
             s.Close();

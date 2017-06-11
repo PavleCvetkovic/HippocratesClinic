@@ -58,6 +58,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MainTab = new MetroFramework.Controls.MetroTabControl();
             this.TabPagePatientsSearch = new MetroFramework.Controls.MetroTabPage();
             this.btnSearch = new MetroFramework.Controls.MetroButton();
@@ -130,6 +136,9 @@
             this.dtpTo = new MetroFramework.Controls.MetroDateTime();
             this.TabPageBeds = new MetroFramework.Controls.MetroTabPage();
             this.TabPageAddBeds = new MetroFramework.Controls.MetroTabPage();
+            this.btnDeleteShift = new MetroFramework.Controls.MetroButton();
+            this.dgvClinicMedicines = new MetroFramework.Controls.MetroGrid();
+            this.dgvOrders = new MetroFramework.Controls.MetroGrid();
             this.MainTab.SuspendLayout();
             this.TabPagePatientsSearch.SuspendLayout();
             this.TabPagePatienstOnClinic.SuspendLayout();
@@ -148,8 +157,12 @@
             this.TabPageStorage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStorage)).BeginInit();
             this.TabPageShifts.SuspendLayout();
+            this.TabPageMedicines.SuspendLayout();
+            this.TabPageOrders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShifts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvClinicMedicines)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTab
@@ -170,7 +183,7 @@
             this.MainTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTab.Location = new System.Drawing.Point(20, 60);
             this.MainTab.Name = "MainTab";
-            this.MainTab.SelectedIndex = 12;
+            this.MainTab.SelectedIndex = 10;
             this.MainTab.Size = new System.Drawing.Size(846, 639);
             this.MainTab.Style = MetroFramework.MetroColorStyle.Green;
             this.MainTab.TabIndex = 0;
@@ -1314,6 +1327,7 @@
             // 
             // TabPageShifts
             // 
+            this.TabPageShifts.Controls.Add(this.btnDeleteShift);
             this.TabPageShifts.Controls.Add(this.dgvShifts);
             this.TabPageShifts.HorizontalScrollbarBarColor = true;
             this.TabPageShifts.HorizontalScrollbarHighlightOnWheel = false;
@@ -1331,14 +1345,17 @@
             // 
             // TabPageMedicines
             // 
+            this.TabPageMedicines.Controls.Add(this.dgvClinicMedicines);
             this.TabPageMedicines.HorizontalScrollbarBarColor = true;
             this.TabPageMedicines.HorizontalScrollbarHighlightOnWheel = false;
             this.TabPageMedicines.HorizontalScrollbarSize = 10;
             this.TabPageMedicines.Location = new System.Drawing.Point(4, 38);
             this.TabPageMedicines.Name = "TabPageMedicines";
             this.TabPageMedicines.Size = new System.Drawing.Size(838, 597);
+            this.TabPageMedicines.Style = MetroFramework.MetroColorStyle.Green;
             this.TabPageMedicines.TabIndex = 8;
             this.TabPageMedicines.Text = "Lekovi u upotrebi";
+            this.TabPageMedicines.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.TabPageMedicines.VerticalScrollbarBarColor = true;
             this.TabPageMedicines.VerticalScrollbarHighlightOnWheel = false;
             this.TabPageMedicines.VerticalScrollbarSize = 10;
@@ -1359,14 +1376,17 @@
             // 
             // TabPageOrders
             // 
+            this.TabPageOrders.Controls.Add(this.dgvOrders);
             this.TabPageOrders.HorizontalScrollbarBarColor = true;
             this.TabPageOrders.HorizontalScrollbarHighlightOnWheel = false;
             this.TabPageOrders.HorizontalScrollbarSize = 10;
             this.TabPageOrders.Location = new System.Drawing.Point(4, 38);
             this.TabPageOrders.Name = "TabPageOrders";
             this.TabPageOrders.Size = new System.Drawing.Size(838, 597);
+            this.TabPageOrders.Style = MetroFramework.MetroColorStyle.Green;
             this.TabPageOrders.TabIndex = 10;
             this.TabPageOrders.Text = "Narudzbenice";
+            this.TabPageOrders.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.TabPageOrders.VerticalScrollbarBarColor = true;
             this.TabPageOrders.VerticalScrollbarHighlightOnWheel = false;
             this.TabPageOrders.VerticalScrollbarSize = 10;
@@ -1528,6 +1548,113 @@
             this.TabPageAddBeds.VerticalScrollbarHighlightOnWheel = false;
             this.TabPageAddBeds.VerticalScrollbarSize = 10;
             // 
+            // btnDeleteShift
+            // 
+            this.btnDeleteShift.Location = new System.Drawing.Point(631, 43);
+            this.btnDeleteShift.Name = "btnDeleteShift";
+            this.btnDeleteShift.Size = new System.Drawing.Size(105, 50);
+            this.btnDeleteShift.Style = MetroFramework.MetroColorStyle.Green;
+            this.btnDeleteShift.TabIndex = 3;
+            this.btnDeleteShift.Text = "Obrisi smenu";
+            this.btnDeleteShift.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btnDeleteShift.UseSelectable = true;
+            this.btnDeleteShift.Click += new System.EventHandler(this.btnDeleteShift_Click);
+            // 
+            // dgvClinicMedicines
+            // 
+            this.dgvClinicMedicines.AllowUserToAddRows = false;
+            this.dgvClinicMedicines.AllowUserToDeleteRows = false;
+            this.dgvClinicMedicines.AllowUserToResizeColumns = false;
+            this.dgvClinicMedicines.AllowUserToResizeRows = false;
+            this.dgvClinicMedicines.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.dgvClinicMedicines.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvClinicMedicines.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvClinicMedicines.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(177)))), ((int)(((byte)(89)))));
+            dataGridViewCellStyle31.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(208)))), ((int)(((byte)(104)))));
+            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvClinicMedicines.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle31;
+            this.dgvClinicMedicines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle32.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(208)))), ((int)(((byte)(104)))));
+            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvClinicMedicines.DefaultCellStyle = dataGridViewCellStyle32;
+            this.dgvClinicMedicines.EnableHeadersVisualStyles = false;
+            this.dgvClinicMedicines.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvClinicMedicines.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.dgvClinicMedicines.Location = new System.Drawing.Point(3, 6);
+            this.dgvClinicMedicines.Name = "dgvClinicMedicines";
+            this.dgvClinicMedicines.ReadOnly = true;
+            this.dgvClinicMedicines.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle33.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(177)))), ((int)(((byte)(89)))));
+            dataGridViewCellStyle33.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(208)))), ((int)(((byte)(104)))));
+            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvClinicMedicines.RowHeadersDefaultCellStyle = dataGridViewCellStyle33;
+            this.dgvClinicMedicines.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvClinicMedicines.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvClinicMedicines.Size = new System.Drawing.Size(651, 591);
+            this.dgvClinicMedicines.Style = MetroFramework.MetroColorStyle.Green;
+            this.dgvClinicMedicines.TabIndex = 2;
+            this.dgvClinicMedicines.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // dgvOrders
+            // 
+            this.dgvOrders.AllowUserToResizeRows = false;
+            this.dgvOrders.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.dgvOrders.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvOrders.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvOrders.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle34.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(173)))));
+            dataGridViewCellStyle34.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle34.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(201)))), ((int)(((byte)(206)))));
+            dataGridViewCellStyle34.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvOrders.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle34;
+            this.dgvOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle35.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle35.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(201)))), ((int)(((byte)(206)))));
+            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvOrders.DefaultCellStyle = dataGridViewCellStyle35;
+            this.dgvOrders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvOrders.EnableHeadersVisualStyles = false;
+            this.dgvOrders.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.dgvOrders.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.dgvOrders.Location = new System.Drawing.Point(0, 0);
+            this.dgvOrders.Name = "dgvOrders";
+            this.dgvOrders.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle36.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(173)))));
+            dataGridViewCellStyle36.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle36.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle36.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(201)))), ((int)(((byte)(206)))));
+            dataGridViewCellStyle36.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvOrders.RowHeadersDefaultCellStyle = dataGridViewCellStyle36;
+            this.dgvOrders.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvOrders.Size = new System.Drawing.Size(838, 597);
+            this.dgvOrders.Style = MetroFramework.MetroColorStyle.Teal;
+            this.dgvOrders.TabIndex = 2;
+            this.dgvOrders.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
             // GlavnaSestraForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1564,8 +1691,12 @@
             this.TabPageStorage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStorage)).EndInit();
             this.TabPageShifts.ResumeLayout(false);
+            this.TabPageMedicines.ResumeLayout(false);
+            this.TabPageOrders.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShifts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvClinicMedicines)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1645,5 +1776,8 @@
         private MetroFramework.Controls.MetroLabel metroLabel6;
         private MetroFramework.Controls.MetroTabPage TabPageBeds;
         private MetroFramework.Controls.MetroTabPage TabPageAddBeds;
+        private MetroFramework.Controls.MetroButton btnDeleteShift;
+        private MetroFramework.Controls.MetroGrid dgvClinicMedicines;
+        private MetroFramework.Controls.MetroGrid dgvOrders;
     }
 }
