@@ -47,6 +47,8 @@ namespace SBP2017.Hippocrates.Bolnica.View
             dgvPatients.DataSource = m.ClinicPatients;
             dgvQueue.DataSource = m.ClinicQueue;
             dgvEmployees.DataSource = m.Employees;
+            dgvShifts.DataSource = m.Shifts;
+            dgvStorage.DataSource = m.ClinicStorage;
 
             lblCCName.Text = m.User.Klinika.KlinickiCentar.Ime;
             lblClinicName.Text = m.User.Klinika.Naziv;
@@ -229,6 +231,28 @@ namespace SBP2017.Hippocrates.Bolnica.View
             if (!char.IsNumber(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void btnAddShift_Click(object sender, EventArgs e)
+        {
+            if (dgvEmployees.SelectedRows.Count == 0)
+            {
+                MetroMessageBox.Show(this, "", "Izaberitie zaposlenog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cmbShift.SelectedIndex == -1)
+            {
+                MetroMessageBox.Show(this, "", "Izaberitie tip smene", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if(!(controller as GlavnaSestraController).AddShift(Int32.Parse(dgvEmployees.SelectedRows[0].Cells["ID"].Value.ToString()), dtpFrom.Value, dtpTo.Value, (cmbShift.SelectedIndex+1).ToString()))
+            {
+                MetroMessageBox.Show(this, "", "Nije moguce dodati smenu, proverite da li vec postoji ili da li su datumi validni!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MetroMessageBox.Show(this, "", "Uspesno ste dodali smenu", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

@@ -52,5 +52,9 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             return (model as GlavnaSestraModel).acceptPatient(Jmbg, r, bracnistatus, pol, adresa, brojkreveta, boravak);
         }
+        public bool AddShift(int EId,DateTime start,DateTime end,string ShiftType)
+        {
+            return (model as GlavnaSestraModel).addShift(EId, start, end, ShiftType);
+        }
     }
 }

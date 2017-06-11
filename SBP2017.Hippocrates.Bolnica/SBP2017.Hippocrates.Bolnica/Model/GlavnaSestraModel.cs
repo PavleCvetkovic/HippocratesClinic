@@ -17,6 +17,10 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         protected DataTable clinicEmployees;
         protected DataTable clinicBeds;
         protected DataTable clinicMedicalStorage;
+        protected DataTable clinicMedicines;
+
+        protected DataTable orders;
+        protected DataTable otherBeds;
 
         public GlavnaSestraModel() : base()
         {
@@ -30,6 +34,8 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             //Smene       
             clinicEmployeeShifts = new DataTable("Smene zaposlenih na klinici");
             clinicEmployeeShifts.Columns.Add("ID");
+            clinicEmployeeShifts.Columns.Add("IME");
+            clinicEmployeeShifts.Columns.Add("PREZIME");
             clinicEmployeeShifts.Columns.Add("Datum od");
             clinicEmployeeShifts.Columns.Add("Datum do");
             clinicEmployeeShifts.Columns.Add("Tip smene");
@@ -47,7 +53,13 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             clinicMedicalStorage.Columns.Add("KRITICNI NIVO ZA NARUCIVANJE");
             clinicMedicalStorage.Columns.Add("CENA PO JEDINICI");
             clinicMedicalStorage.Columns.Add("KOLICINA");
-
+            //Lekovi koji se koriste na klinici
+            clinicMedicines = new DataTable("LEKOVI NA KLINICI");
+            clinicMedicines.Columns.Add("LEK");
+            clinicMedicines.Columns.Add("IME");
+            clinicMedicines.Columns.Add("PREZIME");
+            clinicMedicines.Columns.Add("DATUM OD");
+            clinicMedicines.Columns.Add("DATUM DO");
         }
         public GlavnaSestraModel(Zaposleni user) : this()
         {
@@ -65,7 +77,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         {
             get
             {
-                return Shifts;
+                return clinicEmployeeShifts;
             }
         }
         public DataTable BedsAtClinic
@@ -85,7 +97,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
         public bool addShift(int EmployeeId, DateTime startDate, DateTime endDate, string ShiftType)
         {
-            if (startDate > endDate)
+            if (startDate.Date > endDate.Date)
                 return false; //pocetni datum je posle krajnjeg
             ISession s = DataLayer.GetSession();
 
@@ -98,7 +110,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             }
             foreach(Smena shift in z.Smene)
             {
-                if (shift.DatumDo > startDate)
+                if (shift.DatumDo.Date > startDate.Date)
                 {
                     s.Close();
                     s.Dispose();
@@ -119,7 +131,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             s.Flush();
             s.Close();
             s.Dispose();
-
+            UpdateViews();
             return true;
         }
         public bool addBed(int BedID) 
@@ -154,7 +166,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             s.Flush();
             s.Close();
             s.Dispose();
-
+            UpdateViews();
             return true;
         }
 
@@ -164,7 +176,10 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
             return true;
         }
-
+        public void refreshOtherBeds()
+        {
+            otherBeds.Rows.Clear();
+        }
         public override void refreshData()
         {
             base.refreshData();
@@ -172,6 +187,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             clinicEmployeeShifts.Rows.Clear();
             clinicBeds.Rows.Clear();
             clinicEmployeeShifts.Rows.Clear();
+            clinicMedicines.Rows.Clear();
 
             ISession s = DataLayer.GetSession();            
             s.Refresh(user);
@@ -183,9 +199,11 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                         u.Zaposleni.DatumRodjenja.ToString("dd/MM/yyyy"), u.Zaposleni.TipZaposlenog);
             }
             //clinicEmployeeShifts
-            foreach (Smena smena in user.Smene)
-            {
-                clinicEmployeeShifts.Rows.Add(smena.Id.ToString(), smena.DatumOd.ToString("dd/MM/yyyy"), smena.DatumDo.ToString("dd/MM/yyyy"), smena.TipSmene);
+            foreach (Ugovor zap in user.Klinika.KlinickiCentar.Ugovori) {
+                foreach (Smena smena in zap.Zaposleni.Smene)
+                {
+                    clinicEmployeeShifts.Rows.Add(smena.Id.ToString(), smena.Zaposleni.Ime, smena.Zaposleni.Prezime, smena.DatumOd.ToString("dd/MM/yyyy"), smena.DatumDo.ToString("dd/MM/yyyy"), smena.TipSmene);
+                }
             }
             //clinic beds
             foreach(Krevet k in user.Klinika.KoristiKrevete)
@@ -212,6 +230,14 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             foreach(MagacinKlinikeSadrzi pm in user.Klinika.Magacin.PotrosniMaterijal)
             {
                 clinicMedicalStorage.Rows.Add(pm.PotrosniMaterijal.Naziv, pm.PotrosniMaterijal.Opis, pm.PotrosniMaterijal.TipMaterijala, pm.PotrosniMaterijal.NacinUzimanja, pm.PotrosniMaterijal.TipicnaDoza, pm.PotrosniMaterijal.KriticniNivoZaNarucivanje.ToString(), pm.PotrosniMaterijal.CenaPoJedinici.ToString(),pm.Kolicina.ToString());
+            }
+            //lekovi koji se koriste na klinici
+            foreach(BoraviNaKlinici bk in user.Klinika.Pacijenti)
+            {
+                foreach(PacijentUzimaLekove pul in bk.Pacijent.Lekovi)
+                {
+                    clinicMedicines.Rows.Add(pul.Lek.Naziv, bk.Pacijent.Ime, bk.Pacijent.Prezime, pul.DatumOd.ToString("dd/MM/yyyy"), pul.DatumDo.ToString("dd/MM/yyyy"));
+                }
             }
 
             s.Close();
