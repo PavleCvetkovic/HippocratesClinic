@@ -51,6 +51,9 @@ namespace SBP2017.Hippocrates.Bolnica.View
             dgvStorage.DataSource = m.ClinicStorage;
             dgvClinicMedicines.DataSource = m.ClinicMedicines;
             dgvOrders.DataSource = m.Orders;
+            dgvCentralStorage.DataSource = m.CentralStorage;
+            dgvClinicBeds.DataSource = m.BedsAtClinic;
+            dgvAllBeds.DataSource = m.AllBeds;
 
             lblCCName.Text = m.User.Klinika.KlinickiCentar.Ime;
             lblClinicName.Text = m.User.Klinika.Naziv;
@@ -269,6 +272,33 @@ namespace SBP2017.Hippocrates.Bolnica.View
                 MetroMessageBox.Show(this, "Smena uspesno obrisana", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MetroMessageBox.Show(this, "Doslo je do greske", "EROR!!1", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnAcceptFromQueue_Click(object sender, EventArgs e)
+        {
+            if (dgvQueue.SelectedRows.Count <= 0)
+            {
+                MetroMessageBox.Show(this, "Izaberite pacijenta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if ((controller.getModel() as GlavnaSestraModel).VacantBeds <= 0)
+            {
+                MetroMessageBox.Show(this, "Nema slobodnih kreveta na klinici", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            PrimiNaKliniku prim= new PrimiNaKliniku((controller.getModel() as GlavnaSestraModel).User, dgvQueue.SelectedRows[0].Cells["JMBG"].Value.ToString());
+            prim.ShowDialog();
+            if (prim.canceled)
+                return;
+            if ((controller as GlavnaSestraController).AcceptFromQueue(dgvQueue.SelectedRows[0].Cells["JMBG"].Value.ToString(), Int32.Parse(prim.BrojKreveta.ToString()), Int32.Parse(prim.Boravak)))
+            {
+                MetroMessageBox.Show(this, "Uspesno smesten na kliniku", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MetroMessageBox.Show(this, "Nema mesta na klinici", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            prim.Dispose();
         }
     }
 }

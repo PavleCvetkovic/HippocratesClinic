@@ -288,6 +288,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             if (vacantbeds <= 0)
                 return false;
             ISession s = DataLayer.GetSession();
+            s.Refresh(user);
             PacijentKlinickogCentra pkc = s.QueryOver<PacijentKlinickogCentra>().Where(x => x.JMBG == Jmbg).SingleOrDefault<PacijentKlinickogCentra>();
             //izbrisi sa liste cekanja
             IList<PacijentiCekaju> lista = pkc.ListeCekanja;

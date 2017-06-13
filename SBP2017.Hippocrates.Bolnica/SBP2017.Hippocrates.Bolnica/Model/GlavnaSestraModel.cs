@@ -133,6 +133,20 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 return clinicMedicines;
             }
         }
+        public DataTable CentralStorage
+        {
+            get
+            {
+                return centralStorage;
+            }
+        }
+        public DataTable AllBeds
+        {
+            get
+            {
+                return otherBeds;
+            }
+        }
 
         public bool addShift(int EmployeeId, DateTime startDate, DateTime endDate, string ShiftType)
         {
@@ -226,10 +240,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
             return true;
         }
-       /* public void refreshOtherBeds()
-        {
-            otherBeds.Rows.Clear();
-        }*/
+       
         public override void refreshData()
         {
             base.refreshData();
@@ -287,9 +298,12 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             //lekovi koji se koriste na klinici
             foreach(BoraviNaKlinici bk in user.Klinika.Pacijenti)
             {
-                foreach(PacijentUzimaLekove pul in bk.Pacijent.Lekovi)
+                if (bk.DatumOtpusta == null)
                 {
-                    clinicMedicines.Rows.Add(pul.Lek.Naziv, bk.Pacijent.Ime, bk.Pacijent.Prezime, pul.DatumOd.ToString("dd/MM/yyyy"), pul.DatumDo.ToString("dd/MM/yyyy"));
+                    foreach (PacijentUzimaLekove pul in bk.Pacijent.Lekovi)
+                    {
+                        clinicMedicines.Rows.Add(pul.Lek.Naziv, bk.Pacijent.Ime, bk.Pacijent.Prezime, pul.DatumOd.ToString("dd/MM/yyyy"), pul.DatumDo.ToString("dd/MM/yyyy"));
+                    }
                 }
             }
             //narudzbenice

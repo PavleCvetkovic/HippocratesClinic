@@ -60,5 +60,9 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             return (model as GlavnaSestraModel).deleteShift(ShiftId);
         }
+        public bool AcceptFromQueue(string Jmbg, int brojkreveta, int boravak)
+        {
+            return (model as GlavnaSestraModel).acceptFromQueue(Jmbg, brojkreveta, boravak);
+        }
     }
 }
