@@ -300,5 +300,34 @@ namespace SBP2017.Hippocrates.Bolnica.View
             }
             prim.Dispose();
         }
+
+        private void btdAddShiftFocus_Click(object sender, EventArgs e)
+        {
+            MainTab.SelectedTab = TabPageShifts;
+        }
+
+        private void btnOrderFromCS_Click(object sender, EventArgs e)
+        {
+            if (txtQuantity.Text == "")
+            {
+                MetroMessageBox.Show(this, "Izaberite kolicinu", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (dgvCentralStorage.SelectedRows.Count <= 0)
+            {
+                MetroMessageBox.Show(this, "Izaberite materijal", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if((controller as GlavnaSestraController).OrderMedicalSupplies(Int32.Parse(dgvCentralStorage.SelectedRows[0].Cells["ID"].Value.ToString()), Int32.Parse(txtQuantity.Text)))
+            {
+                MetroMessageBox.Show(this, "Uspesno ste narucili", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else
+            {
+                MetroMessageBox.Show(this, "Ne mozete da narucite", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+        }
     }
 }

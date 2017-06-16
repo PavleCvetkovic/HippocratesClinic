@@ -64,5 +64,10 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             return (model as GlavnaSestraModel).acceptFromQueue(Jmbg, brojkreveta, boravak);
         }
+        public bool OrderMedicalSupplies(int Id, int quantity)
+        {
+            return (model as GlavnaSestraModel).OrderMedicalSupplies(Id, quantity);
+        }
+        
     }
 }

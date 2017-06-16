@@ -234,13 +234,67 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             return true;
         }
 
-        public bool AddMedicalSupplies(int Id,int quantity)
-        {
-
-
+     /*   public bool AddMedicalSupplies(int OrderId)
+       {
+            ISession s = DataLayer.GetSession();
+            PotrosniMaterijal pm = s.Get<PotrosniMaterijal>(Id);
+            if (pm == null)
+            {
+                s.Close();
+                s.Dispose();
+                return false; 
+            }
+            MagacinKlinikeSadrzi mksadrzi = s.QueryOver<MagacinKlinikeSadrzi>().Where(x => x.PotrosniMaterijal == pm).SingleOrDefault<MagacinKlinikeSadrzi>();
+            if (mksadrzi == null)
+            {
+                mksadrzi = new MagacinKlinikeSadrzi()
+                {
+                    Kolicina = quantity,
+                    MagacinKlinike = user.Klinika.Magacin,
+                    PotrosniMaterijal = pm
+                };
+            }
+            else
+                mksadrzi.Kolicina += quantity;
+            user.Klinika.Magacin.PotrosniMaterijal.Add(mksadrzi);
+            s.SaveOrUpdate(mksadrzi);
+            s.Flush();
+            s.Close();
+            s.Dispose();
+            UpdateViews();
             return true;
-        }
-       
+        }*/
+        public bool OrderMedicalSupplies(int Id, int quantity)
+        {
+            ISession s = DataLayer.GetSession();
+            PotrosniMaterijal pm = s.Get<PotrosniMaterijal>(Id);
+            if (pm == null)
+            {
+                s.Close();
+                s.Dispose();
+                return false;
+            }
+                Narudzbenica narudz = new Narudzbenica()
+            {
+                Cena = quantity * pm.CenaPoJedinici,
+                DatumNarudzbine = DateTime.Now,
+                ImeKlinike = user.Klinika.Naziv,
+                Opis = pm.Opis,
+                Kolicina = quantity,
+                NaruceniMaterijal = pm,
+                Naziv = pm.Naziv,
+                ImeZaposlenog = user.Ime,
+                Klinika = user.Klinika,
+                DatumIsporuke=null
+            };
+            user.Klinika.Narudzbenice.Add(narudz);
+            s.SaveOrUpdate(narudz);
+            s.Flush();
+            s.Close();
+            s.Dispose();
+            UpdateViews();
+            return true;
+        }       
         public override void refreshData()
         {
             base.refreshData();
@@ -273,13 +327,14 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             foreach(Krevet k in user.Klinika.KoristiKrevete)
             {
                 bool empty = true;
-                string patientJMBG = "";
+
+                PacijentKlinickogCentra pacijent = null;
                 foreach (BoraviNaKlinici bk in user.Klinika.Pacijenti)
                 {
                     if (k.Id == bk.BrojKreveta)
                     {
                         empty = false;
-                        patientJMBG = bk.Pacijent.JMBG;
+                        pacijent = bk.Pacijent;
                     }
                     else
                         empty = true;
@@ -287,7 +342,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                 if (empty)
                      clinicBeds.Rows.Add(k.Id.ToString(), "DA");
                 else
-                     clinicBeds.Rows.Add(k.Id.ToString(), patientJMBG);
+                     clinicBeds.Rows.Add(k.Id.ToString(), pacijent.JMBG+" "+pacijent.Ime+" "+pacijent.Prezime);
                 
             }
             //magacin
@@ -309,7 +364,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             //narudzbenice
             foreach(Narudzbenica nar in user.Klinika.Narudzbenice)
             {
-                orders.Rows.Add(nar.Id, nar.Naziv, nar.Opis, nar.ImeKlinike, nar.DatumNarudzbine.ToString("dd/MM/yyyy"), nar.DatumIsporuke.ToString("dd/MM/yyyy"), nar.Cena, nar.Kolicina);
+                orders.Rows.Add(nar.Id, nar.Naziv, nar.Opis, nar.ImeKlinike, nar.DatumNarudzbine.ToString("dd/MM/yyyy"), nar.DatumIsporuke, nar.Cena, nar.Kolicina);
             }
             //svi slobodni kreveti u okviru KC
             bool slobodan = true;

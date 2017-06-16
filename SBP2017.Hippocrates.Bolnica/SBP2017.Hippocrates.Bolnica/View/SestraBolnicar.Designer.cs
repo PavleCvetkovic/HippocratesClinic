@@ -60,7 +60,6 @@
             this.lblSearchBy = new MetroFramework.Controls.MetroLabel();
             this.cmbSearchBy = new MetroFramework.Controls.MetroComboBox();
             this.TabPageQueue = new MetroFramework.Controls.MetroTabPage();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnShowMedicalRecords = new MetroFramework.Controls.MetroButton();
             this.dgvQueue = new MetroFramework.Controls.MetroGrid();
             this.TabPagePatientView = new MetroFramework.Controls.MetroTabPage();
@@ -328,7 +327,6 @@
             // 
             // TabPageQueue
             // 
-            this.TabPageQueue.Controls.Add(this.button1);
             this.TabPageQueue.Controls.Add(this.btnShowMedicalRecords);
             this.TabPageQueue.Controls.Add(this.dgvQueue);
             this.TabPageQueue.HorizontalScrollbarBarColor = true;
@@ -343,16 +341,6 @@
             this.TabPageQueue.VerticalScrollbarBarColor = true;
             this.TabPageQueue.VerticalScrollbarHighlightOnWheel = false;
             this.TabPageQueue.VerticalScrollbarSize = 10;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(569, 131);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnShowMedicalRecords
             // 
@@ -558,7 +546,7 @@
             this.metroLabel3.AutoSize = true;
             this.metroLabel3.Location = new System.Drawing.Point(2, 172);
             this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(55, 19);
+            this.metroLabel3.Size = new System.Drawing.Size(53, 19);
             this.metroLabel3.TabIndex = 32;
             this.metroLabel3.Text = "Telefon:";
             this.metroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -587,7 +575,7 @@
             this.metroLabel4.ForeColor = System.Drawing.Color.RoyalBlue;
             this.metroLabel4.Location = new System.Drawing.Point(503, 150);
             this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(112, 19);
+            this.metroLabel4.Size = new System.Drawing.Size(110, 19);
             this.metroLabel4.Style = MetroFramework.MetroColorStyle.Green;
             this.metroLabel4.TabIndex = 30;
             this.metroLabel4.Text = "Terapije pacijenta";
@@ -619,7 +607,7 @@
             this.metroLabel2.ForeColor = System.Drawing.Color.RoyalBlue;
             this.metroLabel2.Location = new System.Drawing.Point(506, 3);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(109, 19);
+            this.metroLabel2.Size = new System.Drawing.Size(107, 19);
             this.metroLabel2.Style = MetroFramework.MetroColorStyle.Green;
             this.metroLabel2.TabIndex = 28;
             this.metroLabel2.Text = "Vakcine pacijenta";
@@ -925,7 +913,7 @@
             this.metroLabel9.AutoSize = true;
             this.metroLabel9.Location = new System.Drawing.Point(2, 134);
             this.metroLabel9.Name = "metroLabel9";
-            this.metroLabel9.Size = new System.Drawing.Size(90, 19);
+            this.metroLabel9.Size = new System.Drawing.Size(91, 19);
             this.metroLabel9.Style = MetroFramework.MetroColorStyle.Green;
             this.metroLabel9.TabIndex = 15;
             this.metroLabel9.Text = "Izabrani lekar:";
@@ -1093,7 +1081,7 @@
             this.lblClinicCenter.AutoSize = true;
             this.lblClinicCenter.Location = new System.Drawing.Point(39, 24);
             this.lblClinicCenter.Name = "lblClinicCenter";
-            this.lblClinicCenter.Size = new System.Drawing.Size(90, 19);
+            this.lblClinicCenter.Size = new System.Drawing.Size(91, 19);
             this.lblClinicCenter.Style = MetroFramework.MetroColorStyle.Green;
             this.lblClinicCenter.TabIndex = 2;
             this.lblClinicCenter.Text = "Klinicki centar:";
@@ -1212,6 +1200,5 @@
         private MetroFramework.Controls.MetroButton btnShowMedicalRecords;
         private MetroFramework.Controls.MetroLabel metroLabel5;
         private MetroFramework.Controls.MetroGrid dgvMedicines;
-        private System.Windows.Forms.Button button1;
     }
 }
