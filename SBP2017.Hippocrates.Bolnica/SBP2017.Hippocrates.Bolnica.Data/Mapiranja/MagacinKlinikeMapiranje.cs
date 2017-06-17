@@ -18,7 +18,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 
             References(x => x.Klinika).Column("ID_KLINIKE").LazyLoad();
 
-            HasMany(x => x.PotrosniMaterijal).KeyColumn("ID_POTROSNOG_MATERIJALA").Cascade.All().Inverse();
+            HasMany(x => x.PotrosniMaterijal).KeyColumn("ID_MAGACINA").Cascade.All().Inverse();
         }
     }
 }

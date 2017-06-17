@@ -329,5 +329,54 @@ namespace SBP2017.Hippocrates.Bolnica.View
                 return;
             }
         }
+
+        private void btnAcceptMedicalSuppliesOrder_Click(object sender, EventArgs e)
+        {
+            if (dgvOrders.SelectedRows.Count <= 0)
+            {
+                MetroMessageBox.Show(this, "Izaberite narudzbenicu", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if((controller as GlavnaSestraController).AddMedicalSupplies(Int32.Parse(dgvOrders.SelectedRows[0].Cells["ID"].Value.ToString())))
+            {
+                MetroMessageBox.Show(this, "Uspesno odobrena narudzbenica", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else
+            {
+                MetroMessageBox.Show(this, "Nije moguce odobriti", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+        private void btnAddBedToClinic_Click(object sender, EventArgs e)
+        {
+            if(dgvAllBeds.SelectedRows.Count<=0)
+            {
+                MetroMessageBox.Show(this, "Izaberite krevet", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if( (controller as GlavnaSestraController).AddBed(Int32.Parse(dgvAllBeds.SelectedRows[0].Cells["BROJ"].Value.ToString())))
+            {
+                MetroMessageBox.Show(this, "Uspesno premesten krevet", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            else
+            {
+                MetroMessageBox.Show(this, "Nije moguce premestiti krevet", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+            MainTab.SelectedTab = TabPageOrder;
+        }
+
+        private void txtQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar)))
+                e.Handled = true;
+        }
     }
 }

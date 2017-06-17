@@ -282,7 +282,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
             return true;
         }
-        public bool acceptFromQueue(string Jmbg,int brojkreveta,int boravak) //nije testirana
+        public bool acceptFromQueue(string Jmbg,int brojkreveta,int boravak) 
         {
             refreshData();
             if (vacantbeds <= 0)

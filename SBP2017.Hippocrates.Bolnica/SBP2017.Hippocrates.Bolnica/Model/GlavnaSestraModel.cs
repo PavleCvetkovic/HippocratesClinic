@@ -234,36 +234,39 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             return true;
         }
 
-     /*   public bool AddMedicalSupplies(int OrderId)
+       public bool AddMedicalSupplies(int OrderId)
        {
             ISession s = DataLayer.GetSession();
-            PotrosniMaterijal pm = s.Get<PotrosniMaterijal>(Id);
-            if (pm == null)
+            
+            Narudzbenica nar = s.Load<Narudzbenica>(OrderId);
+            if (nar == null)
             {
                 s.Close();
                 s.Dispose();
-                return false; 
+                return false;
             }
+            PotrosniMaterijal pm = nar.NaruceniMaterijal;
             MagacinKlinikeSadrzi mksadrzi = s.QueryOver<MagacinKlinikeSadrzi>().Where(x => x.PotrosniMaterijal == pm).SingleOrDefault<MagacinKlinikeSadrzi>();
             if (mksadrzi == null)
             {
                 mksadrzi = new MagacinKlinikeSadrzi()
                 {
-                    Kolicina = quantity,
+                    Kolicina = nar.Kolicina,
                     MagacinKlinike = user.Klinika.Magacin,
                     PotrosniMaterijal = pm
                 };
             }
             else
-                mksadrzi.Kolicina += quantity;
+                mksadrzi.Kolicina += nar.Kolicina;
             user.Klinika.Magacin.PotrosniMaterijal.Add(mksadrzi);
             s.SaveOrUpdate(mksadrzi);
+            s.Delete(nar);
             s.Flush();
             s.Close();
             s.Dispose();
             UpdateViews();
             return true;
-        }*/
+        }
         public bool OrderMedicalSupplies(int Id, int quantity)
         {
             ISession s = DataLayer.GetSession();
@@ -306,6 +309,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             otherBeds.Rows.Clear();
             centralStorage.Rows.Clear();
             orders.Rows.Clear();
+            clinicMedicalStorage.Rows.Clear();
 
             ISession s = DataLayer.GetSession();            
             s.Refresh(user);
