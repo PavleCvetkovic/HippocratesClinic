@@ -56,9 +56,10 @@ namespace SBP2017.Hippocrates.Bolnica.View
                 var user=(controller as LoginController).returnUser();
                 ISession s = DataLayer.GetSession();
                 IList<KlinickiCentar> kcList = s.QueryOver<KlinickiCentar>()
+                    .Where(x=>x.DirektorKlinickogCentra != null)
                     .List<KlinickiCentar>();
                 foreach (KlinickiCentar kc in kcList)
-                {
+                {                    
                     if (user.Id == kc.DirektorKlinickogCentra.Id)
                     {
                         DirektorForm dirform = new DirektorForm();
