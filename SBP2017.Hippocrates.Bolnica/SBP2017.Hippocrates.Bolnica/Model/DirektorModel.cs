@@ -30,7 +30,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             
         }
 
-        public DirektorModel(Direktor user) : base(user)
+        public DirektorModel(Zaposleni _user) : base(_user)
         {
             suppliers = new DataTable("Dobavljaci");
             suppliers.Columns.Add("ID");
@@ -118,6 +118,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             base.refreshData();
             suppliers.Rows.Clear();
             clinics.Rows.Clear();
+            allEmployees.Rows.Clear();
 
             ISession s = DataLayer.GetSession();
             s.Refresh(user);
