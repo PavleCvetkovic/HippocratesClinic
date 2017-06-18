@@ -396,6 +396,8 @@ namespace SBP2017.Hippocrates.Bolnica.View
             int id = Int32.Parse(dgvSuppliers.SelectedRows[0].Cells["ID"].Value.ToString());
 
             (controller as DirektorController).DeleteSupplier(id);
+
+            Update();
         }
 
         private void btnAddEmployee_Click(object sender, EventArgs e)

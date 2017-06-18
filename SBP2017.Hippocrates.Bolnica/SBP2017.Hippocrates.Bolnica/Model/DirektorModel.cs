@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NHibernate;
+using Oracle.ManagedDataAccess.Client;
 using SBP2017.Hippocrates.Bolnica.Data;
 using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 
@@ -68,11 +69,10 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
         public bool DeleteSupplier(int idSupp) //OPASNO NE RADI
         {
-            ISession s = DataLayer.GetSession();
-            Dobavljac dob = s.Load<Dobavljac>(idSupp);                      
 
-            s.Flush();
-            s.Close();
+            ISession s = DataLayer.GetSession();
+            s.CreateSQLQuery("delete from CENTAR_KUPUJE_OD where ID_KC = " + user.Klinika.KlinickiCentar.Id +
+                             " and ID_DOBAVLJACA = " + idSupp).ExecuteUpdate();                                                            
             return true;
         }
 
