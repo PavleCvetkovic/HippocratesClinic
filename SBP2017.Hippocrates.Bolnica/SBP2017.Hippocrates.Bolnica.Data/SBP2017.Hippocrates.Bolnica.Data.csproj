@@ -77,6 +77,7 @@
     <Compile Include="Entiteti\Kvalifikacija.cs" />
     <Compile Include="Entiteti\ListaCekanja.cs" />
     <Compile Include="Entiteti\MagacinKlinike.cs" />
+    <Compile Include="Entiteti\MagacinKlinikeSadrzi.cs" />
     <Compile Include="Entiteti\Narudzbenica.cs" />
     <Compile Include="Entiteti\PacijentiCekaju.cs" />
     <Compile Include="Entiteti\PacijentKlinickogCentra.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="MapiranjaMySql\TerapijaMapiranja.cs" />
     <Compile Include="MapiranjaMySql\VakcinaMapiranja.cs" />
     <Compile Include="Mapiranja\ListaCekanjaMapiranje.cs" />
+    <Compile Include="Mapiranja\MagacinKlinikeSadrziMapiranje.cs" />
     <Compile Include="Mapiranja\PacijentiCekajuMapiranje.cs" />
     <Compile Include="Mapiranja\PacijentKlinickogCentraMapiranje.cs" />
     <Compile Include="Mapiranja\PacijentUzimaLekoveMapiranje.cs" />

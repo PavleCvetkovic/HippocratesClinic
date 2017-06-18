@@ -23,6 +23,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.DatumIsporuke, "DATUM_ISPORUKE");
             Map(x => x.ImeZaposlenog, "IME_ZAPOSLENOG");
             Map(x => x.Cena, "CENA");
+            Map(x => x.Kolicina, "KOLICINA");
 
             References(x => x.Klinika).Column("ID_KLINIKE").LazyLoad();
 

@@ -26,6 +26,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             Map(x => x.DatumRodjenja, "DATUM_RODJENJA");
             Map(x => x.JMBG, "JMBG");
             Map(x => x.Password, "PASSWORD");
+            Map(x => x.TipZaposlenog).Column("TIP_ZAPOSLENOG");
 
             References(x => x.Ugovor).Column("ID_UGOVORA").LazyLoad();
             References(x => x.Klinika, "ID_KLINIKE").LazyLoad();
@@ -42,6 +43,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
         {
             DiscriminatorValue("SPECIJALISTA");
             Map(x => x.BrojOrdinacije).Column("BROJ_ORDINACIJE");
+            HasMany(x => x.Pregledi).KeyColumn("ID_SPECIJALISTE");
         }
     }
     public class SestraMapiranje : SubclassMap<Sestra>
@@ -65,6 +67,13 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
         public BolnicarMapiranje()
         {
             DiscriminatorValue("BOLNICAR");
+        }
+    }
+    public class DirektorMapiranje : SubclassMap<Direktor>
+    {
+        public DirektorMapiranje()
+        {
+            DiscriminatorValue("DIREKTOR");
         }
     }
 }

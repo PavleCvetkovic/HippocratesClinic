@@ -42,12 +42,15 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             q.SetParameter(0,Id);
             q.SetParameter(1, Password);
             IList<Zaposleni> employee = q.List<Zaposleni>();
-            s.Close();
+            
             if (employee.Count == 1)
             {
                 user = employee[0];
+                NHibernateUtil.Initialize(user.Klinika.GlavnaSestraKlinike);
+                s.Close(); s.Dispose();
                 return true;
             }
+            s.Close(); s.Dispose();
             return false;
         }
         public Zaposleni returnUser()
@@ -59,7 +62,22 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         {
             ISession s = DataLayer.GetSession();
             s.Refresh(user);
-            s.Close();
+            s.Close();s.Dispose();
+        }
+
+        public bool searchPatientsByJMBG(string jmbg)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool searchPatientsByLBO(string lbo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool searchPatientsByBedNo(string No)
+        {
+            throw new NotImplementedException();
         }
     }
 }

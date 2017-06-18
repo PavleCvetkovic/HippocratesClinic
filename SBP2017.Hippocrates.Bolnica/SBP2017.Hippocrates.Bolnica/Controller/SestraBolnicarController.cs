@@ -9,9 +9,9 @@ using SBP2017.Hippocrates.Bolnica.Data.EntitetiMySql;
 
 namespace SBP2017.Hippocrates.Bolnica.Controller
 {
-    class SestraBolnicarController : IController
+    public class SestraBolnicarController : IController
     {
-        private IModel model;
+        protected IModel model;
         public void AddModel(IModel model)
         {
             this.model = model;
@@ -25,14 +25,35 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             model.refreshData();
         }
-        public void searchPatientsByJMBG(string jmbg)
+        public bool searchPatientsByJMBG(string jmbg)
         {
-            (model as SestraBolnicarModel).searchPatientsByJMBG(jmbg);
+            return (model as SestraBolnicarModel).searchPatientsByJMBG(jmbg);
         }
-        public void patientsAtClinic()
+        public bool searchPatientsByLBO(string lbo)
         {
-            (model as SestraBolnicarModel).patientsAtClinic();
+            return (model as SestraBolnicarModel).searchPatientsByLBO(lbo);
         }
-       
+        public bool searchPatientsByBedNo(string No)
+        {
+            return (model as SestraBolnicarModel).searchPatientsByBedNo(No);
+        }
+        public void dischargePatient(string jmbg)
+        {
+            (model as SestraBolnicarModel).dischargePatient(jmbg);
+        }
+        public bool acceptPatient(string Jmbg, Rodjak r, string bracnistatus, string pol, string adresa, int brojkreveta,int boravak)
+        {
+            return (model as SestraBolnicarModel).acceptPatient(Jmbg, r, bracnistatus, pol, adresa,brojkreveta,boravak);
+        }
+        public bool acceptFromQueue(string Jmbg,int brojkreveta,int boravak)
+        {
+            return (model as SestraBolnicarModel).acceptFromQueue(Jmbg, brojkreveta, boravak);
+        }
+        public bool addToQueue(string Jmbg, Rodjak r, string bracnistatus, string pol, string adresa)
+        {
+            return (model as SestraBolnicarModel).addToQueue(Jmbg, r, bracnistatus, pol, adresa);
+        }
+
+
     }
 }

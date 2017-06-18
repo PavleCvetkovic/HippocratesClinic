@@ -87,12 +87,54 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\DirektorController.cs" />
+    <Compile Include="Controller\GlavnaSestraController.cs" />
     <Compile Include="Controller\IController.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\SestraBolnicarController.cs" />
+    <Compile Include="Controller\SpecijalistaController.cs" />
+    <Compile Include="Model\DirektorModel.cs" />
+    <Compile Include="Model\GlavnaSestraModel.cs" />
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\SestraBolnicarModel.cs" />
+    <Compile Include="Model\SpecijalistaModel.cs" />
+    <Compile Include="Pomocne forme\DodajDobavljacaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pomocne forme\DodajDobavljacaForm.Designer.cs">
+      <DependentUpon>DodajDobavljacaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pomocne forme\DodajZaposlenogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pomocne forme\DodajZaposlenogForm.Designer.cs">
+      <DependentUpon>DodajZaposlenogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pomocne forme\DodavanjeLekaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pomocne forme\DodavanjeLekaForm.Designer.cs">
+      <DependentUpon>DodavanjeLekaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pomocne forme\PrimiNaKliniku.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pomocne forme\PrimiNaKliniku.Designer.cs">
+      <DependentUpon>PrimiNaKliniku.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DirektorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DirektorForm.Designer.cs">
+      <DependentUpon>DirektorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\GlavnaSestraForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\GlavnaSestraForm.Designer.cs">
+      <DependentUpon>GlavnaSestraForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\IView.cs" />
     <Compile Include="View\LoginForm.cs">
       <SubType>Form</SubType>
@@ -114,6 +156,30 @@
     <Compile Include="View\SestraBolnicar.Designer.cs">
       <DependentUpon>SestraBolnicar.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\SpecijalistaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\SpecijalistaForm.Designer.cs">
+      <DependentUpon>SpecijalistaForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Pomocne forme\DodajDobavljacaForm.resx">
+      <DependentUpon>DodajDobavljacaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pomocne forme\DodajZaposlenogForm.resx">
+      <DependentUpon>DodajZaposlenogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pomocne forme\DodavanjeLekaForm.resx">
+      <DependentUpon>DodavanjeLekaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pomocne forme\PrimiNaKliniku.resx">
+      <DependentUpon>PrimiNaKliniku.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DirektorForm.resx">
+      <DependentUpon>DirektorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\GlavnaSestraForm.resx">
+      <DependentUpon>GlavnaSestraForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -133,6 +199,9 @@
     <EmbeddedResource Include="View\SestraBolnicar.resx">
       <DependentUpon>SestraBolnicar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\SpecijalistaForm.resx">
+      <DependentUpon>SpecijalistaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -145,7 +214,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\logo.jpg" />

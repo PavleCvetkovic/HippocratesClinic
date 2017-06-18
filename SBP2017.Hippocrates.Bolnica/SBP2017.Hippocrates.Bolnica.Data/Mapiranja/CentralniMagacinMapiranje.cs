@@ -18,6 +18,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
 
             References(x => x.KlinickiCentar).Column("ID_KC").Unique().LazyLoad();
 
+            HasMany(x => x.Materijal).KeyColumn("ID_CENTRALNOG_MAGACINA").LazyLoad().Cascade.All();
         }
     }
 }

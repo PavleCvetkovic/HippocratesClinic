@@ -8,24 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
-using MetroFramework;
 using SBP2017.Hippocrates.Bolnica.Controller;
 using SBP2017.Hippocrates.Bolnica.Model;
-using NHibernate;
-using SBP2017.Hippocrates.Bolnica.Data;
+using MetroFramework;
 using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 using SBP2017.Hippocrates.Bolnica.Pomocne_forme;
+
 namespace SBP2017.Hippocrates.Bolnica.View
 {
-    public partial class SestraBolnicar : MetroForm,IView
+    public partial class SpecijalistaForm : MetroForm, IView
     {
         private IController controller;
-        public SestraBolnicar()
+        public SpecijalistaForm()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
-        public SestraBolnicar(IController controller)
-            : this()
+
+        public SpecijalistaForm(IController controller) : this()
         {
             AddControler(controller);
         }
@@ -39,11 +38,12 @@ namespace SBP2017.Hippocrates.Bolnica.View
         {
             model.AddView(this);
         }
-        public new void  Update()
+
+        public new void Update()
         {
-            SestraBolnicarModel m = (controller.getModel() as SestraBolnicarModel);
+            SpecijalistaModel m = (controller.getModel() as SpecijalistaModel);
             controller.refreshData();
-            lblUserName.Text = m.User.Ime +" "+ m.User.Prezime;
+            lblUserName.Text = m.User.Ime + " " + m.User.Prezime;
             dgvPatients.DataSource = m.ClinicPatients;
             dgvQueue.DataSource = m.ClinicQueue;
             lblCCName.Text = m.User.Klinika.KlinickiCentar.Ime;
@@ -51,6 +51,9 @@ namespace SBP2017.Hippocrates.Bolnica.View
             lblCSName.Text = m.User.Klinika.GlavnaSestraKlinike.Ime + " " + m.User.Klinika.GlavnaSestraKlinike.Prezime;
             lblAdressClinic.Text = m.User.Klinika.Lokacija;
             lblVacantBeds.Text = m.VacantBeds.ToString();
+
+            dgvScheduledExams.DataSource = m.DoctorExams;
+            dgvAvailableTimes.DataSource = m.DoctorAvailableTimes;
 
             if (m.Patient != null) //trazen je pacijent
             {
@@ -63,31 +66,34 @@ namespace SBP2017.Hippocrates.Bolnica.View
                 dgvTherapies.DataSource = m.PatientTherapies;
                 dgvVaccines.DataSource = m.PatientsVaccines;
                 dgvDiagnosis.DataSource = m.PatientDiagnosis;
+
+                lblPatientNameExamTab.Text = m.Patient.Ime + " " + m.Patient.Prezime;
             }
-            if(m.ClinicPatient!=null)//Ima ga i u evidinciji klinickog
+            if (m.ClinicPatient != null)//Ima ga i u evidinciji klinickog
             {
                 dgvClinics.DataSource = m.PatientClinics;
-                if(m.ClinicPatient.Rodjak!=null) //moze pacijent da nema rodjaka
-                    lblCousin.Text = m.ClinicPatient.Rodjak.Ime +" "+ m.ClinicPatient.Rodjak.Prezime +" "+ m.ClinicPatient.Rodjak.Telefon;
+                if (m.ClinicPatient.Rodjak != null) //moze pacijent da nema rodjaka
+                    lblCousin.Text = m.ClinicPatient.Rodjak.Ime + " " + m.ClinicPatient.Rodjak.Prezime + " " + m.ClinicPatient.Rodjak.Telefon;
                 dgvMedicines.DataSource = m.PatientMedicines;
             }
         }
 
-        private void SestraBolnicar_Load(object sender, EventArgs e)
+        private void SpecijalistaForm_Load(object sender, EventArgs e)
         {
+            dtExamDate.MinDate = dtExamDate.Value = DateTime.Today;
             Update();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            if (cmbSearchBy.SelectedIndex==-1)
+            if (cmbSearchBy.SelectedIndex == -1)
             {
                 MetroMessageBox.Show(this, "Izaberite nacin pretrage", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if(txtSearch.Text=="")
+            if (txtSearch.Text == "")
             {
-                MetroMessageBox.Show(this, "Polje za pretragu je prazno.","Obavestenje",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MetroMessageBox.Show(this, "Polje za pretragu je prazno.", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (cmbSearchBy.SelectedIndex == 0)
@@ -119,19 +125,6 @@ namespace SBP2017.Hippocrates.Bolnica.View
             }
         }
 
-        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsNumber(e.KeyChar)&&!char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void btnGoToSearch_Click(object sender, EventArgs e)
-        {
-            MainTab.SelectedTab = TabPagePatientsSearch;
-        }
-
         private void btnHealthRecords_Click(object sender, EventArgs e)
         {
             if (dgvPatients.SelectedRows.Count == 0)
@@ -140,7 +133,7 @@ namespace SBP2017.Hippocrates.Bolnica.View
             }
             else
             {
-                if(!(controller as SestraBolnicarController).searchPatientsByJMBG(dgvPatients.SelectedRows[0].Cells["JMBG"].Value.ToString()))
+                if (!(controller as SestraBolnicarController).searchPatientsByJMBG(dgvPatients.SelectedRows[0].Cells["JMBG"].Value.ToString()))
                     MetroMessageBox.Show(this, "Greska u sistemu, pacijent ga ima u evidinciji KC a nema u DZ", "GRESKA", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
                 {
@@ -151,7 +144,6 @@ namespace SBP2017.Hippocrates.Bolnica.View
 
         private void btnRelease_Click(object sender, EventArgs e)
         {
-
             if (dgvPatients.SelectedRows.Count == 0)
             {
                 MetroMessageBox.Show(this, "Izaberite pacijenta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -188,7 +180,7 @@ namespace SBP2017.Hippocrates.Bolnica.View
                 prim.ShowDialog();
                 if (prim.canceled)
                     return;
-                if(!(controller as SestraBolnicarController).acceptFromQueue(dgvQueue.SelectedRows[0].Cells["JMBG"].Value.ToString(),Int32.Parse(prim.BrojKreveta),Int32.Parse(prim.Boravak)))
+                if (!(controller as SestraBolnicarController).acceptFromQueue(dgvQueue.SelectedRows[0].Cells["JMBG"].Value.ToString(), Int32.Parse(prim.BrojKreveta), Int32.Parse(prim.Boravak)))
                 {
                     MetroMessageBox.Show(this, "Nema slobodnih mesta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -199,16 +191,21 @@ namespace SBP2017.Hippocrates.Bolnica.View
             }
         }
 
+        private void btnGoToSearch_Click(object sender, EventArgs e)
+        {
+            MainTab.SelectedTab = TabPagePatientsSearch;
+        }
+
         private void btnAddPatientToClinic_Click(object sender, EventArgs e)
         {
-            if((controller.getModel() as SestraBolnicarModel).Patient == null)
+            if ((controller.getModel() as SestraBolnicarModel).Patient == null)
             {
                 MetroMessageBox.Show(this, "Mora biti otvoren karton nekog pacijenta", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            if((controller.getModel() as SestraBolnicarModel).VacantBeds <= 0)
+            if ((controller.getModel() as SestraBolnicarModel).VacantBeds <= 0)
             {
-                PrimiNaKliniku primlista = new PrimiNaKliniku((controller.getModel() as SestraBolnicarModel).User, (controller.getModel() as SestraBolnicarModel).Patient.Jmbg,true);
+                PrimiNaKliniku primlista = new PrimiNaKliniku((controller.getModel() as SestraBolnicarModel).User, (controller.getModel() as SestraBolnicarModel).Patient.Jmbg, true);
                 primlista.ShowDialog();
                 if (primlista.canceled)
                     return;
@@ -254,9 +251,63 @@ namespace SBP2017.Hippocrates.Bolnica.View
             prim.Dispose();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void dtExamDate_ValueChanged(object sender, EventArgs e)
         {
-            (controller as SestraBolnicarController).acceptFromQueue(dgvQueue.SelectedRows[0].Cells["JMBG"].Value.ToString(), 40, 10);
+            (controller as SpecijalistaController).SetDateTime(dtExamDate.Value);
+        }
+
+        private void btnAddMedicine_Click(object sender, EventArgs e)
+        {
+            if ((controller.getModel() as SestraBolnicarModel).ClinicPatient == null)
+            {
+                MetroMessageBox.Show(this, "Mora biti otvoren karton nekog pacijenta na klinici", "Obavestenje",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                DodavanjeLekaForm lekform = new DodavanjeLekaForm();
+                lekform.ShowDialog();
+                if (lekform.Canceled)
+                {
+                    lekform.Dispose();
+                }
+                else
+                {
+                    (controller as SpecijalistaController).addNewMedication(lekform.IdLeka, lekform.DatumDo);
+                    lekform.Dispose();
+                }
+                Update();
+            }
+        }
+
+        private void metroButton2_Click(object sender, EventArgs e)
+        {
+            MainTab.SelectedTab = TabPagePatientsSearch;
+        }
+
+        private void btnScheduleExam_Click(object sender, EventArgs e)
+        {
+            if(dgvAvailableTimes.SelectedRows.Count==0)
+                MetroMessageBox.Show(this, "Odaberite vreme za koje zelite da zakazete pregled", "Obavestenje",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            string pom = dgvAvailableTimes.SelectedRows[0].Cells["Vreme"].Value.ToString();
+            if (pom.Length == 5) // xx:xx
+            {
+                pom = pom.Remove(2, 1);
+            }
+            else // x:xx
+            {
+                pom = pom.Remove(1, 1);
+            }
+            if (!(controller as SpecijalistaController).scheduleNewExam(Int32.Parse(pom)))
+            {
+                MetroMessageBox.Show(this, "Mora biti otvoren karton nekog pacijenta na klinici", "Obavestenje",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+                MetroMessageBox.Show(this, "Uspesno je zakazan pregled", "Obavestenje",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
