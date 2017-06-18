@@ -69,4 +69,11 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Mapiranja
             DiscriminatorValue("BOLNICAR");
         }
     }
+    public class DirektorMapiranje : SubclassMap<Direktor>
+    {
+        public DirektorMapiranje()
+        {
+            DiscriminatorValue("DIREKTOR");
+        }
+    }
 }

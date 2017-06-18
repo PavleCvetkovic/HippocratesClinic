@@ -8,9 +8,9 @@ using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 
 namespace SBP2017.Hippocrates.Bolnica.Controller
 {
-    class GlavnaSestraController : IController
+    public class GlavnaSestraController : IController
     {
-        IModel model;
+        protected IModel model;
         public void AddModel(IModel model)
         {
             this.model = model;

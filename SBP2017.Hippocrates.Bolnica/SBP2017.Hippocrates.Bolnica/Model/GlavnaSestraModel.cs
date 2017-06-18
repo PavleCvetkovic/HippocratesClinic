@@ -316,12 +316,16 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             //clinicEmployee
             foreach (Ugovor u in user.Klinika.KlinickiCentar.Ugovori)
             {
+                if(u.Zaposleni == null)
+                    continue;
                 if (u.Zaposleni.Klinika == user.Klinika)
                     clinicEmployees.Rows.Add(u.Zaposleni.Id.ToString(), u.Zaposleni.Ime, u.Zaposleni.Prezime,
                         u.Zaposleni.DatumRodjenja.ToString("dd/MM/yyyy"), u.Zaposleni.TipZaposlenog);
             }
             //clinicEmployeeShifts
             foreach (Ugovor zap in user.Klinika.KlinickiCentar.Ugovori) {
+                if(zap.Zaposleni == null)
+                    continue;
                 foreach (Smena smena in zap.Zaposleni.Smene)
                 {
                     clinicEmployeeShifts.Rows.Add(smena.Id.ToString(), smena.Zaposleni.Ime, smena.Zaposleni.Prezime, smena.DatumOd.ToString("dd/MM/yyyy"), smena.DatumDo.ToString("dd/MM/yyyy"), smena.TipSmene);

@@ -97,6 +97,19 @@ namespace SBP2017.Hippocrates.Bolnica.View
                     specform.ShowDialog();
                     this.Show();
                 }
+                else if (t.Equals(typeof(Direktor)))
+                {
+                    DirektorForm dirform = new DirektorForm();
+                    IController dirctl = new DirektorController();
+                    IModel dirmodel = new DirektorModel(user as Direktor);
+                    dirform.AttachToModel(dirmodel);
+                    dirctl.AddModel(dirmodel);
+                    dirform.AddControler(dirctl);
+                    this.Hide();
+                    Cursor.Current = Cursors.Default;
+                    dirform.ShowDialog();                    
+                    this.Show();
+                }
             }
         }
 
