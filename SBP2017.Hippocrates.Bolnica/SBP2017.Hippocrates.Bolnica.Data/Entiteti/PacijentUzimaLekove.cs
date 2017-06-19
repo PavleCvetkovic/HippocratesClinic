@@ -21,7 +21,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
 
         public override bool Equals(object obj)
         {
-            return this.Id == (obj as PacijentUzimaLekove).Id ? true : false
+            return this.Id == (obj as PacijentUzimaLekove).Id ? true : false;
         }
     }
 }

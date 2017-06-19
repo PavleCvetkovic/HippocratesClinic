@@ -39,7 +39,7 @@ namespace SBP2017.Hippocrates.Bolnica.View
         public new void Update()
         {
             DirektorModel m = (controller.getModel() as DirektorModel);
-            controller.refreshData();
+            (controller as DirektorController).refreshData();
             lblUserName.Text = m.User.Ime + " " + m.User.Prezime;
             dgvPatients.DataSource = m.ClinicPatients;
             dgvQueue.DataSource = m.ClinicQueue;            

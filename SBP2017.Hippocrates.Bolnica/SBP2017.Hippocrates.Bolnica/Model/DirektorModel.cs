@@ -118,6 +118,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             ISession s = DataLayer.GetSession();
             Zaposleni zap = s.Load<Zaposleni>(empId);
             s.Delete(zap);
+            s.Flush();
             s.Close();
             return true;
         }
@@ -128,6 +129,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             suppliers.Rows.Clear();
             clinics.Rows.Clear();
             allEmployees.Rows.Clear();
+            allBeds.Rows.Clear();            
 
             ISession s = DataLayer.GetSession();
             s.Refresh(user);
