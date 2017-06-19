@@ -166,11 +166,11 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                         else
                             empty = true;
                     }
-                    if (empty)
-                        allBeds.Rows.Add(k.Id.ToString(), "DA",klinika.Naziv);
-                    else
-                        allBeds.Rows.Add(k.Id.ToString(), pacijent.JMBG + " " + pacijent.Ime + " " + pacijent.Prezime,klinika.Naziv);
                 }
+                if (empty)
+                    allBeds.Rows.Add(k.Id.ToString(), "DA", k.Klinika.Naziv);
+                else
+                    allBeds.Rows.Add(k.Id.ToString(), pacijent.JMBG + " " + pacijent.Ime + " " + pacijent.Prezime, k.Klinika.Naziv);
             }
             //svi zaposleni
             IList<Zaposleni> zaposleniLista = s.QueryOver<Zaposleni>()
