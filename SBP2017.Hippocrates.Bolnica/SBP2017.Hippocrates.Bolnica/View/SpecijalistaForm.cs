@@ -309,5 +309,15 @@ namespace SBP2017.Hippocrates.Bolnica.View
                 MetroMessageBox.Show(this, "Uspesno je zakazan pregled", "Obavestenje",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void btnDeleteMedication_Click(object sender, EventArgs e)
+        {
+            if (dgvMedicines.SelectedRows.Count > 0)
+            {
+                (controller as SpecijalistaController).deleteMedication(
+                    Int32.Parse(dgvMedicines.SelectedRows[0].Cells["ID"].Value.ToString()));
+            }
+            Update();
+        }
     }
 }

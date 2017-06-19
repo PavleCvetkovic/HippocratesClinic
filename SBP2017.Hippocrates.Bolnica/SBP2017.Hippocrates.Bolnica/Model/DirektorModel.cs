@@ -113,6 +113,15 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             return true;
         }
 
+        public bool FireEmployee(int empId)
+        {
+            ISession s = DataLayer.GetSession();
+            Zaposleni zap = s.Load<Zaposleni>(empId);
+            s.Delete(zap);
+            s.Close();
+            return true;
+        }
+
         public override void refreshData()
         {
             base.refreshData();
@@ -124,7 +133,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             s.Refresh(user);
 
             //dobavljaci            
-            foreach (Dobavljac dobavljac in user.Ugovor.KlinickiCentar.Dobavljaci)
+            foreach (Dobavljac dobavljac in user.Klinika.KlinickiCentar.Dobavljaci)
             {
                 suppliers.Rows.Add(dobavljac.Id, dobavljac.Ime);
             }
@@ -133,7 +142,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             NHibernateUtil.Initialize(user.Klinika.GlavnaSestraKlinike);
             NHibernateUtil.Initialize(user.Klinika.Pacijenti);
             //klinike
-            foreach (Klinika k in user.Ugovor.KlinickiCentar.Klinike)
+            foreach (Klinika k in user.Klinika.KlinickiCentar.Klinike)
             {
                 clinics.Rows.Add(k.Id, k.Naziv, k.GlavnaSestraKlinike.Ime + " " + k.GlavnaSestraKlinike.Prezime);
             }

@@ -25,5 +25,10 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             (model as SpecijalistaModel).addNewMedication(idLeka, datumDo);
         }
+
+        public void deleteMedication(int idLek)
+        {
+            (model as SpecijalistaModel).deleteMedication(idLek);
+        }
     }
 }

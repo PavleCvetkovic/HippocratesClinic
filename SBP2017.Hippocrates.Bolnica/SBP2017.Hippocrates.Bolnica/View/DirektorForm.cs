@@ -404,6 +404,18 @@ namespace SBP2017.Hippocrates.Bolnica.View
         {
             DodajZaposlenogForm dodaj = new DodajZaposlenogForm((controller.getModel() as DirektorModel).User);
             dodaj.ShowDialog();
+            MetroMessageBox.Show(this, "Zaposleni je uspesno dodat", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Update();
+        }
+
+        private void btnFireEmployee_Click(object sender, EventArgs e)
+        {
+            if (
+                (controller as DirektorController).FireEmployee(
+                    Int32.Parse(dgvEmployees.SelectedRows[0].Cells["ID"].Value.ToString()))) 
+            {
+                MetroMessageBox.Show(this, "Zaposleni je uspesno obrisan", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);                
+            }
             Update();
         }
     }

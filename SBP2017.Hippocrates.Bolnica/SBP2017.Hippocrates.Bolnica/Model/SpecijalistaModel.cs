@@ -213,5 +213,15 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             s.SaveOrUpdate(base.ClinicPatient);
             s.Close();
         }
+
+        public void deleteMedication(int idLek)
+        {
+            ISession s = DataLayer.GetSession();
+            PacijentUzimaLekove pl = s.Load<PacijentUzimaLekove>(idLek);
+            s.Delete(pl);
+            s.Flush();
+            base.clinicPatient.Lekovi.Remove(pl);
+            s.Close();
+        }
     }
 }
