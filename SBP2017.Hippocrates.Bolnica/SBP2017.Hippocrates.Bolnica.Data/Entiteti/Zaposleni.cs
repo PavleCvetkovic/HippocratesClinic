@@ -55,8 +55,4 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
     {
 
     }
-    public class Direktor : Zaposleni
-    {
-
-    }
 }

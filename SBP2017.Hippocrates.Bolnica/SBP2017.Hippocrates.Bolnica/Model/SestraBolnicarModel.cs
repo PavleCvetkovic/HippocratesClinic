@@ -475,12 +475,13 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
                 patientMedicines.Columns.Clear();
                 patientMedicines.Rows.Clear();
+                patientMedicines.Columns.Add("ID");
                 patientMedicines.Columns.Add("LEK");
                 patientMedicines.Columns.Add("DATUM OD");
                 patientMedicines.Columns.Add("DATUM_DO");
                 foreach(PacijentUzimaLekove pul in clinicPatient.Lekovi)
                 {
-                    patientMedicines.Rows.Add(pul.Lek.Naziv, pul.DatumOd.ToString("dd/MM/yyyy"), pul.DatumDo.ToString("dd/MM/yyyy"));
+                    patientMedicines.Rows.Add(pul.Id ,pul.Lek.Naziv, pul.DatumOd.ToString("dd/MM/yyyy"), pul.DatumDo.ToString("dd/MM/yyyy"));
                 }
             }
 

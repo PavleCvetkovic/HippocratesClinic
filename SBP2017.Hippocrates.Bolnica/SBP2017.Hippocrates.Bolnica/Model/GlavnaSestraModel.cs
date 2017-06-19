@@ -237,7 +237,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
        public bool AddMedicalSupplies(int OrderId)
        {
             ISession s = DataLayer.GetSession();
-            
+            s.Refresh(User);
             Narudzbenica nar = s.Load<Narudzbenica>(OrderId);
             if (nar == null)
             {
@@ -269,7 +269,8 @@ namespace SBP2017.Hippocrates.Bolnica.Model
         }
         public bool OrderMedicalSupplies(int Id, int quantity)
         {
-            ISession s = DataLayer.GetSession();
+            ISession s = DataLayer.GetSession();        
+            s.Refresh(User);
             PotrosniMaterijal pm = s.Get<PotrosniMaterijal>(Id);
             if (pm == null)
             {
@@ -312,7 +313,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             clinicMedicalStorage.Rows.Clear();
 
             ISession s = DataLayer.GetSession();            
-            s.Refresh(user);
+            s.Refresh(user);            
             //clinicEmployee
             foreach (Ugovor u in user.Klinika.KlinickiCentar.Ugovori)
             {

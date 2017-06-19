@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NHibernate;
+using Oracle.ManagedDataAccess.Client;
 using SBP2017.Hippocrates.Bolnica.Data;
 using SBP2017.Hippocrates.Bolnica.Data.Entiteti;
 
@@ -30,7 +31,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             
         }
 
-        public DirektorModel(Direktor user) : base(user)
+        public DirektorModel(Zaposleni _user) : base(_user)
         {
             suppliers = new DataTable("Dobavljaci");
             suppliers.Columns.Add("ID");
@@ -68,11 +69,10 @@ namespace SBP2017.Hippocrates.Bolnica.Model
 
         public bool DeleteSupplier(int idSupp) //OPASNO NE RADI
         {
-            ISession s = DataLayer.GetSession();
-            Dobavljac dob = s.Load<Dobavljac>(idSupp);                      
 
-            s.Flush();
-            s.Close();
+            ISession s = DataLayer.GetSession();
+            s.CreateSQLQuery("delete from CENTAR_KUPUJE_OD where ID_KC = " + user.Klinika.KlinickiCentar.Id +
+                             " and ID_DOBAVLJACA = " + idSupp).ExecuteUpdate();                                                            
             return true;
         }
 
@@ -113,17 +113,29 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             return true;
         }
 
+        public bool FireEmployee(int empId)
+        {
+            ISession s = DataLayer.GetSession();
+            Zaposleni zap = s.Load<Zaposleni>(empId);
+            s.Delete(zap);
+            s.Flush();
+            s.Close();
+            return true;
+        }
+
         public override void refreshData()
         {
             base.refreshData();
             suppliers.Rows.Clear();
             clinics.Rows.Clear();
+            allEmployees.Rows.Clear();
+            allBeds.Rows.Clear();            
 
             ISession s = DataLayer.GetSession();
             s.Refresh(user);
 
             //dobavljaci            
-            foreach (Dobavljac dobavljac in user.Ugovor.KlinickiCentar.Dobavljaci)
+            foreach (Dobavljac dobavljac in user.Klinika.KlinickiCentar.Dobavljaci)
             {
                 suppliers.Rows.Add(dobavljac.Id, dobavljac.Ime);
             }
@@ -132,7 +144,7 @@ namespace SBP2017.Hippocrates.Bolnica.Model
             NHibernateUtil.Initialize(user.Klinika.GlavnaSestraKlinike);
             NHibernateUtil.Initialize(user.Klinika.Pacijenti);
             //klinike
-            foreach (Klinika k in user.Ugovor.KlinickiCentar.Klinike)
+            foreach (Klinika k in user.Klinika.KlinickiCentar.Klinike)
             {
                 clinics.Rows.Add(k.Id, k.Naziv, k.GlavnaSestraKlinike.Ime + " " + k.GlavnaSestraKlinike.Prezime);
             }
@@ -154,11 +166,11 @@ namespace SBP2017.Hippocrates.Bolnica.Model
                         else
                             empty = true;
                     }
-                    if (empty)
-                        allBeds.Rows.Add(k.Id.ToString(), "DA",klinika.Naziv);
-                    else
-                        allBeds.Rows.Add(k.Id.ToString(), pacijent.JMBG + " " + pacijent.Ime + " " + pacijent.Prezime,klinika.Naziv);
                 }
+                if (empty)
+                    allBeds.Rows.Add(k.Id.ToString(), "DA", k.Klinika.Naziv);
+                else
+                    allBeds.Rows.Add(k.Id.ToString(), pacijent.JMBG + " " + pacijent.Ime + " " + pacijent.Prezime, k.Klinika.Naziv);
             }
             //svi zaposleni
             IList<Zaposleni> zaposleniLista = s.QueryOver<Zaposleni>()

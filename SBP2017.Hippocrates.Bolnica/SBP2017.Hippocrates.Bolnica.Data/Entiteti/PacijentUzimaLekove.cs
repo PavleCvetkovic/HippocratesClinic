@@ -14,5 +14,14 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Entiteti
         public virtual DateTime DatumOd { get; set; }
         public virtual DateTime DatumDo { get; set; }
 
+        public override int GetHashCode()
+        {
+            return Id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this.Id == (obj as PacijentUzimaLekove).Id ? true : false;
+        }
     }
 }

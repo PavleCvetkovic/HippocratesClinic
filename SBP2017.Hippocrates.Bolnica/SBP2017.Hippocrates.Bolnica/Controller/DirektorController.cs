@@ -28,5 +28,10 @@ namespace SBP2017.Hippocrates.Bolnica.Controller
         {
             return (model as DirektorModel).addBed(bedId, clinicId);
         }
+
+        public bool FireEmployee(int empId)
+        {
+            return (model as DirektorModel).FireEmployee(empId);
+        }
     }
 }

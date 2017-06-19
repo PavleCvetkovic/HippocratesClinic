@@ -54,6 +54,28 @@ namespace SBP2017.Hippocrates.Bolnica.View
             else
             {
                 var user=(controller as LoginController).returnUser();
+                ISession s = DataLayer.GetSession();
+                IList<KlinickiCentar> kcList = s.QueryOver<KlinickiCentar>()
+                    .Where(x=>x.DirektorKlinickogCentra != null)
+                    .List<KlinickiCentar>();
+                foreach (KlinickiCentar kc in kcList)
+                {                    
+                    if (user.Id == kc.DirektorKlinickogCentra.Id)
+                    {
+                        DirektorForm dirform = new DirektorForm();
+                        IController dirctl = new DirektorController();
+                        IModel dirmodel = new DirektorModel(user as Zaposleni);
+                        dirform.AttachToModel(dirmodel);
+                        dirctl.AddModel(dirmodel);
+                        dirform.AddControler(dirctl);
+                        this.Hide();
+                        Cursor.Current = Cursors.Default;
+                        s.Close(); s.Dispose();
+                        dirform.ShowDialog();
+                        this.Show();
+                        return;
+                    }                    
+                }          
                 Type t = user.GetType();                
                 if (t.Equals(typeof(Sestra))) //A switch expression or case label must be a bool, char, string, integral, enum, or corresponding nullable type
                 {
@@ -96,20 +118,7 @@ namespace SBP2017.Hippocrates.Bolnica.View
                     Cursor.Current = Cursors.Default;
                     specform.ShowDialog();
                     this.Show();
-                }
-                else if (t.Equals(typeof(Direktor)))
-                {
-                    DirektorForm dirform = new DirektorForm();
-                    IController dirctl = new DirektorController();
-                    IModel dirmodel = new DirektorModel(user as Direktor);
-                    dirform.AttachToModel(dirmodel);
-                    dirctl.AddModel(dirmodel);
-                    dirform.AddControler(dirctl);
-                    this.Hide();
-                    Cursor.Current = Cursors.Default;
-                    dirform.ShowDialog();                    
-                    this.Show();
-                }
+                }                
             }
         }
 

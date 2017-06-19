@@ -39,7 +39,7 @@ namespace SBP2017.Hippocrates.Bolnica.View
         public new void Update()
         {
             DirektorModel m = (controller.getModel() as DirektorModel);
-            controller.refreshData();
+            (controller as DirektorController).refreshData();
             lblUserName.Text = m.User.Ime + " " + m.User.Prezime;
             dgvPatients.DataSource = m.ClinicPatients;
             dgvQueue.DataSource = m.ClinicQueue;            
@@ -396,12 +396,26 @@ namespace SBP2017.Hippocrates.Bolnica.View
             int id = Int32.Parse(dgvSuppliers.SelectedRows[0].Cells["ID"].Value.ToString());
 
             (controller as DirektorController).DeleteSupplier(id);
+
+            Update();
         }
 
         private void btnAddEmployee_Click(object sender, EventArgs e)
         {
             DodajZaposlenogForm dodaj = new DodajZaposlenogForm((controller.getModel() as DirektorModel).User);
             dodaj.ShowDialog();
+            MetroMessageBox.Show(this, "Zaposleni je uspesno dodat", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Update();
+        }
+
+        private void btnFireEmployee_Click(object sender, EventArgs e)
+        {
+            if (
+                (controller as DirektorController).FireEmployee(
+                    Int32.Parse(dgvEmployees.SelectedRows[0].Cells["ID"].Value.ToString()))) 
+            {
+                MetroMessageBox.Show(this, "Zaposleni je uspesno obrisan", "Obavestenje", MessageBoxButtons.OK, MessageBoxIcon.Information);                
+            }
             Update();
         }
     }

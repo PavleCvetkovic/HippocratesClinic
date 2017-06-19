@@ -19,8 +19,7 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
         private Zaposleni user;      
         private DataTable ugovori;
         private DataTable klinike;
-        private bool canceled = false;
-        private Zaposleni NoviZaposleni;
+        private bool canceled = false;        
         private string tip, tipSestre;
 
 
@@ -75,52 +74,36 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
         private void btnOK_Click(object sender, EventArgs e)
         {
             ISession s = DataLayer.GetSession();
+            Ugovor ugovor = s.Load<Ugovor>(Int32.Parse(dgvUgovori.SelectedRows[0].Cells["ID"].Value.ToString()));
+            Klinika klin = s.Load<Klinika>(Int32.Parse(dgvKlinike.SelectedRows[0].Cells["ID"].Value.ToString()));
             switch (tip)
             {
-                case "SESTRA":
-                    NoviZaposleni = new Sestra()
-                    {
-                        Ime = tbxName.Text,
-                        Prezime = tbxSurname.Text,
-                        Adresa = tbxAddress.Text,
-                        Telefon = tbxTelephone.Text,
-                        Pol = tbxGender.Text,
-                        DatumRodjenja = dtBirthDate.Value,
-                        JMBG = tbxJMBG.Text,
-                        TipSestre = tipSestre,
-                        Ugovor = s.Load<Ugovor>(Int32.Parse(dgvUgovori.SelectedRows[0].Cells["ID"].Value.ToString())),
-                        Klinika = s.Load<Klinika>(Int32.Parse(dgvKlinike.SelectedRows[0].Cells["ID"].Value.ToString())),
-                        Password = tbxPassword.Text
-                    };                   
+                case "SESTRA":                   
+                    s.CreateSQLQuery("insert into ZAPOSLENI (IME,PREZIME,ADRESA,TELEFON,POL,DATUM_RODJENJA,JMBG,TIP_ZAPOSLENOG,TIP_SESTRE,ID_UGOVORA,ID_KLINIKE,PASSWORD)" +
+               " VALUES ('" +
+                   tbxName.Text + "','" + tbxSurname.Text + "','" + tbxAddress.Text + "','" + tbxTelephone.Text + "','" + tbxGender.Text + "','" +
+                       dtBirthDate.Value.ToString("dd-MMM-yy").ToUpper() + "','" + tbxJMBG.Text + "','" +
+                       tip + "','" + tipSestre + "'," + ugovor.Id + "," + klin.Id + ",'" + tbxPassword.Text + "')").ExecuteUpdate();
+
                     break;
 
                 case "SPECIJALISTA":
-                    NoviZaposleni = new Specijalista()
-                    {      
-                        Ime = tbxName.Text,
-                        Prezime = tbxSurname.Text,
-                        Adresa = tbxAddress.Text,
-                        Telefon = tbxTelephone.Text,
-                        Pol = tbxGender.Text,
-                        DatumRodjenja = dtBirthDate.Value,
-                        JMBG = tbxJMBG.Text,                        
-                        Ugovor = s.Load<Ugovor>(Int32.Parse(dgvUgovori.SelectedRows[0].Cells["ID"].Value.ToString())),
-                        Klinika = s.Load<Klinika>(Int32.Parse(dgvKlinike.SelectedRows[0].Cells["ID"].Value.ToString())),
-                        Password = tbxPassword.Text,
-                        BrojOrdinacije = tbxRoomNo.Text
-                        
-                    };
+                        s.CreateSQLQuery("insert into ZAPOSLENI (IME,PREZIME,ADRESA,TELEFON,POL,DATUM_RODJENJA,JMBG,TIP_ZAPOSLENOG,BROJ_ORDINACIJE,ID_UGOVORA,ID_KLINIKE,PASSWORD)" +
+                " VALUES ('" +
+                    tbxName.Text + "','" + tbxSurname.Text + "','" + tbxAddress.Text + "','" + tbxTelephone.Text + "','" + tbxGender.Text + "','" +
+                        dtBirthDate.Value.ToString("dd-MMM-yy").ToUpper() + "','" + tbxJMBG.Text + "','" +
+                        tip + "','" + tbxRoomNo.Text + "'," + ugovor.Id + "," + klin.Id + ",'" + tbxPassword.Text + "')").ExecuteUpdate();
+
                     break;
-            }
-            s.Save(NoviZaposleni);
+            }            
             s.Close();
-            this.Close();
+            this.Dispose();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.canceled = true;
-            this.Close();
+            this.Dispose();
         }
 
         private void tbxGender_KeyPress(object sender, KeyPressEventArgs e)
@@ -144,7 +127,7 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
             if (rbtnSestraMladja.Checked)
             {
                 listaUgovora = s.QueryOver<Ugovor>()
-                    .Where(x => x.Pozicija == "MLADJA SESTRA" && x.KlinickiCentar == user.Klinika.KlinickiCentar)
+                    .Where(x => x.Pozicija == "MLADJA SESTRA" && x.KlinickiCentar.Id == user.Klinika.KlinickiCentar.Id)
                     .List<Ugovor>();
                 tip = "SESTRA";
                 tipSestre = "MLADJA";
@@ -152,7 +135,7 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
             else if (rbtnSestraStarija.Checked)
             {
                 listaUgovora = s.QueryOver<Ugovor>()
-                    .Where(x => x.Pozicija == "STARIJA SESTRA" && x.KlinickiCentar == user.Klinika.KlinickiCentar)
+                    .Where(x => x.Pozicija == "STARIJA SESTRA" && x.KlinickiCentar.Id == user.Klinika.KlinickiCentar.Id)
                     .List<Ugovor>();
                 tip = "SESTRA";
                 tipSestre = "STARIJA";
@@ -160,7 +143,7 @@ namespace SBP2017.Hippocrates.Bolnica.Pomocne_forme
             else if(rbtnSpecijalista.Checked)
             {
                 listaUgovora = s.QueryOver<Ugovor>()
-                    .Where(x => x.Pozicija == "SPECIJALISTA" && x.KlinickiCentar == user.Klinika.KlinickiCentar)
+                    .Where(x => x.Pozicija == "SPECIJALISTA" && x.KlinickiCentar.Id == user.Klinika.KlinickiCentar.Id)
                     .List<Ugovor>();
                 tip = "SPECIJALISTA";
             }
