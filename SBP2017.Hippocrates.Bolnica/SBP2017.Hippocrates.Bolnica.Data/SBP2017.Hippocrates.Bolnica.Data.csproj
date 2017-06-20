@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data Transfer Objects\KlinikaDto.cs" />
     <Compile Include="DataLayer.cs" />
     <Compile Include="DataLayerMySQL.cs" />
     <Compile Include="EntitetiMySql\Dijagnostifikovano.cs" />
