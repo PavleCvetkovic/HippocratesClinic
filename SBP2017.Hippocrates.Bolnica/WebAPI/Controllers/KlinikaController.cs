@@ -100,6 +100,55 @@ namespace WebAPI.Controllers
         {
             ISession s = DataLayer.GetSession();
             Klinika k = s.Load<Klinika>(id);
+           /* IQuery iq = s.CreateQuery("select o from Ugovor as o where o.KlinickiCentar.Id = : IDK");
+            iq.SetString("IDK", k.KlinickiCentar.Id.ToString());
+            IList<Ugovor> ugovori = iq.List<Ugovor>();
+            foreach(Ugovor u in ugovori)
+            {
+                s.Delete(u);
+                
+            }
+            iq = s.CreateQuery("select o from Zaposleni as o where o.Klinika.Id = : IDK");
+            iq.SetString("IDK", k.Id.ToString());
+            IList<Zaposleni> zaposleni = iq.List<Zaposleni>();
+            foreach (Zaposleni z in zaposleni)
+            {
+                z.Klinika.Id = 84;
+
+            }
+            iq = s.CreateQuery("select o from BoraviNaKlinici as o where o.Klinika.Id = : IDK");
+            iq.SetString("IDK", k.Id.ToString());
+            IList<BoraviNaKlinici> borave = iq.List<BoraviNaKlinici>();
+            foreach (BoraviNaKlinici bk in borave)
+            {
+                bk.Klinika.Id = 84;
+
+            }
+            iq = s.CreateQuery("select o from Krevet as o where o.Klinika.Id = : IDK");
+            iq.SetString("IDK", k.Id.ToString());
+            IList<Krevet> kreveti = iq.List<Krevet>();
+            foreach (Krevet kr in kreveti)
+            {
+                kr.Klinika.Id = 84;
+
+            }
+            iq = s.CreateQuery("select o from ListaCekanja as o where o.Klinika.Id = : IDK");
+            iq.SetString("IDK", k.Id.ToString());
+            IList<ListaCekanja> listaCek = iq.List<ListaCekanja>();
+            foreach (ListaCekanja lc in listaCek)
+            {
+                lc.Pacijenti = null;
+                s.Delete(lc);
+
+            }
+            k.Magacin = null;
+            MagacinKlinike mk = s.Load<MagacinKlinike>(k.Magacin.Id);
+            s.Delete(mk);
+
+            s.Flush();
+            s.Close();
+            s = DataLayer.GetSession();
+            k = s.Load<Klinika>(id);*/
             s.Delete(k);
             s.Close();
         }
