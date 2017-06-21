@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
                     Password = zap.Password,
                     Pol = zap.Pol,
                     JMBG = zap.JMBG,
-                    DatumRodjenja = zap.DatumRodjenja,
+                    DatumRodjenja = zap.DatumRodjenja.ToString(),
                     Telefon = zap.Telefon,
                     TipZaposlenog = zap.TipZaposlenog,
                     Adresa = zap.Adresa
@@ -55,7 +55,7 @@ namespace WebAPI.Controllers
                 Password = zap.Password,
                 Pol = zap.Pol,
                 JMBG = zap.JMBG,
-                DatumRodjenja = zap.DatumRodjenja,
+                DatumRodjenja = zap.DatumRodjenja.ToString(),
                 Telefon = zap.Telefon,
                 TipZaposlenog = zap.TipZaposlenog,
                 Adresa = zap.Adresa
@@ -92,10 +92,11 @@ namespace WebAPI.Controllers
                 zaposljeni.Pol = value.Pol;
                 zaposljeni.Password = value.Password;
                 zaposljeni.Adresa = value.Adresa;
-                zaposljeni.DatumRodjenja = value.DatumRodjenja;
+                zaposljeni.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
                 zaposljeni.TipZaposlenog = value.TipZaposlenog;
                 zaposljeni.JMBG = value.JMBG;
                 u.Zaposleni = zaposljeni;
+                zaposljeni.Ugovor = u;
                 s.Save(u);
                 s.Save(zaposljeni);
 
@@ -112,9 +113,11 @@ namespace WebAPI.Controllers
                 zaposljeni.Pol = value.Pol;
                 zaposljeni.Password = value.Password;
                 zaposljeni.Adresa = value.Adresa;
-                zaposljeni.DatumRodjenja = value.DatumRodjenja;
+                zaposljeni.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
                 zaposljeni.TipZaposlenog = value.TipZaposlenog;
                 zaposljeni.JMBG = value.JMBG;
+                zaposljeni.TipSestre = "MLADJA";
+                zaposljeni.Ugovor = u;
                 u.Zaposleni = zaposljeni;
                 s.Save(u);
                 s.Save(zaposljeni);
@@ -130,9 +133,10 @@ namespace WebAPI.Controllers
                 zaposljeni.Pol = value.Pol;
                 zaposljeni.Password = value.Password;
                 zaposljeni.Adresa = value.Adresa;
-                zaposljeni.DatumRodjenja = value.DatumRodjenja;
+                zaposljeni.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
                 zaposljeni.TipZaposlenog = value.TipZaposlenog;
                 zaposljeni.JMBG = value.JMBG;
+                zaposljeni.Ugovor = u;
                 u.Zaposleni = zaposljeni;
                 s.Save(u);
                 s.Save(zaposljeni);
@@ -148,9 +152,10 @@ namespace WebAPI.Controllers
                 zaposljeni.Pol = value.Pol;
                 zaposljeni.Password = value.Password;
                 zaposljeni.Adresa = value.Adresa;
-                zaposljeni.DatumRodjenja = value.DatumRodjenja;
+                zaposljeni.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
                 zaposljeni.TipZaposlenog = value.TipZaposlenog;
                 zaposljeni.JMBG = value.JMBG;
+                zaposljeni.Ugovor = u;
                 u.Zaposleni = zaposljeni;
                 s.Save(u);
                 s.Save(zaposljeni);
