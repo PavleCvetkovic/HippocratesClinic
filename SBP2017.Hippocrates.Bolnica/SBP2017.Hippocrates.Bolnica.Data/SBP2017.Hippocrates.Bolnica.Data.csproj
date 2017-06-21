@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data Transfer Objects\KlinikaDto.cs" />
+    <Compile Include="Data Transfer Objects\ZaposleniDto.cs" />
     <Compile Include="DataLayer.cs" />
     <Compile Include="DataLayerMySQL.cs" />
     <Compile Include="EntitetiMySql\Dijagnostifikovano.cs" />

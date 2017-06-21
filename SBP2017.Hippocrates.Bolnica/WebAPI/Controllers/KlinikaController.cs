@@ -100,56 +100,41 @@ namespace WebAPI.Controllers
         {
             ISession s = DataLayer.GetSession();
             Klinika k = s.Load<Klinika>(id);
-           /* IQuery iq = s.CreateQuery("select o from Ugovor as o where o.KlinickiCentar.Id = : IDK");
-            iq.SetString("IDK", k.KlinickiCentar.Id.ToString());
-            IList<Ugovor> ugovori = iq.List<Ugovor>();
-            foreach(Ugovor u in ugovori)
-            {
-                s.Delete(u);
-                
-            }
-            iq = s.CreateQuery("select o from Zaposleni as o where o.Klinika.Id = : IDK");
-            iq.SetString("IDK", k.Id.ToString());
-            IList<Zaposleni> zaposleni = iq.List<Zaposleni>();
-            foreach (Zaposleni z in zaposleni)
-            {
-                z.Klinika.Id = 84;
+            /* IQuery iq = s.CreateQuery("select o from Ugovor as o where o.KlinickiCentar.Id = : IDK");
+             iq.SetString("IDK", k.KlinickiCentar.Id.ToString());
+             IList<Ugovor> ugovori = iq.List<Ugovor>();
+             foreach(Ugovor u in ugovori)
+             {
+                 s.Delete(u);
 
-            }
-            iq = s.CreateQuery("select o from BoraviNaKlinici as o where o.Klinika.Id = : IDK");
-            iq.SetString("IDK", k.Id.ToString());
-            IList<BoraviNaKlinici> borave = iq.List<BoraviNaKlinici>();
-            foreach (BoraviNaKlinici bk in borave)
+             }
+            */
+            if (k.GlavnaSestraKlinike != null)
             {
-                bk.Klinika.Id = 84;
-
+                Zaposleni z = k.GlavnaSestraKlinike;
+                z.Klinika = s.Load<Klinika>(84);
+                k.GlavnaSestraKlinike = null;
             }
-            iq = s.CreateQuery("select o from Krevet as o where o.Klinika.Id = : IDK");
-            iq.SetString("IDK", k.Id.ToString());
-            IList<Krevet> kreveti = iq.List<Krevet>();
-            foreach (Krevet kr in kreveti)
+            
+            if(k.Magacin != null)
+                s.Delete(k.Magacin);
+            k.ListaCekanja.Pacijenti = null;
+            s.Delete(k.ListaCekanja);
+            foreach(Narudzbenica n in k.Narudzbenice)
             {
-                kr.Klinika.Id = 84;
-
+                s.Delete(n);
             }
-            iq = s.CreateQuery("select o from ListaCekanja as o where o.Klinika.Id = : IDK");
-            iq.SetString("IDK", k.Id.ToString());
-            IList<ListaCekanja> listaCek = iq.List<ListaCekanja>();
-            foreach (ListaCekanja lc in listaCek)
+            foreach(Krevet kr in k.KoristiKrevete)
             {
-                lc.Pacijenti = null;
-                s.Delete(lc);
-
+                s.Delete(kr);
             }
-            k.Magacin = null;
-            MagacinKlinike mk = s.Load<MagacinKlinike>(k.Magacin.Id);
-            s.Delete(mk);
-
-            s.Flush();
-            s.Close();
-            s = DataLayer.GetSession();
-            k = s.Load<Klinika>(id);*/
+            foreach(BoraviNaKlinici br in k.Pacijenti)
+            {
+                br.Pacijent.Klinike.Remove(br);
+                s.Delete(br);
+            }
             s.Delete(k);
+            s.Flush();
             s.Close();
         }
     }
