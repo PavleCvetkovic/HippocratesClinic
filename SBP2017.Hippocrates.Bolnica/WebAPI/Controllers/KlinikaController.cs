@@ -188,7 +188,7 @@ namespace WebAPI.Controllers
             IQuery q = s.CreateQuery("from Klinika");
             IList<Klinika> klinike = q.List<Klinika>();
             if (klinike.Count == 0) // nema objekata
-                return Content(HttpStatusCode.NoContent, "Nema trazenih klinka");
+                return Content(HttpStatusCode.NoContent, "Nema trazenih rezultata");
             List<KlinikaDto> klinikedto = new List<KlinikaDto>();
             foreach (Klinika k in klinike)
             {
