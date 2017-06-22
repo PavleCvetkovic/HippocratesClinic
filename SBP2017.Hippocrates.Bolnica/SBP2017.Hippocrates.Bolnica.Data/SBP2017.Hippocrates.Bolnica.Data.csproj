@@ -58,11 +58,13 @@
     <Compile Include="Data Transfer Objects\BoraviNaKliniciDto.cs" />
     <Compile Include="Data Transfer Objects\CentralniMagacinDto.cs" />
     <Compile Include="Data Transfer Objects\DobavljacDto.cs" />
+    <Compile Include="Data Transfer Objects\IskustvoDto.cs" />
     <Compile Include="Data Transfer Objects\KlinikaDto.cs" />
     <Compile Include="Data Transfer Objects\ZaposleniDto.cs" />
     <Compile Include="DataLayer.cs" />
     <Compile Include="DataLayerMySQL.cs" />
     <Compile Include="DataProvider\DobavljacDataProvider.cs" />
+    <Compile Include="DataProvider\IskustvoDataProvider.cs" />
     <Compile Include="EntitetiMySql\Dijagnostifikovano.cs" />
     <Compile Include="EntitetiMySql\DijagnostifikovanoId.cs" />
     <Compile Include="EntitetiMySql\Dijagnoza.cs" />

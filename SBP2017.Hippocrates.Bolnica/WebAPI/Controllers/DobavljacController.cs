@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
         {
             IList<DobavljacDto> dtolist = DobavljacDataProvider.GetAll();
             if (dtolist.Count == 0)
-                return Content(HttpStatusCode.NoContent, "Nema rezultata");
+                return Content(HttpStatusCode.NotFound, "Nema rezultata");
             return Content(HttpStatusCode.OK, dtolist);
         }
 
@@ -27,21 +27,21 @@ namespace WebAPI.Controllers
         public IHttpActionResult Get(int id)
         {
             //DobavljacDto d = null;
-            return Content(HttpStatusCode.NotImplemented, "Ne radi");
-            ISession s = DataLayer.GetSession();
-            //Dobavljac dob = s.Get<Dobavljac>(id);
-            var dob = s.Get(typeof(Dobavljac), id);
-            if (dob == null)
-                return Content(HttpStatusCode.NoContent, "Nije nasao nista");
-            Dobavljac dobavljac = (Dobavljac)dob;
-            string p = dobavljac.Id + " " + dobavljac.Ime;
-            s.Close();
-            return Content(HttpStatusCode.OK, p);
+            //return Content(HttpStatusCode.NotImplemented, "Ne radi");
+            //ISession s = DataLayer.GetSession();
+            ////Dobavljac dob = s.Get<Dobavljac>(id);
+            //var dob = s.Get(typeof(Dobavljac), id);
+            //if (dob == null)
+            //    return Content(HttpStatusCode.NotFound, "Nije nasao nista");
+            //Dobavljac dobavljac = (Dobavljac)dob;
+            //string p = dobavljac.Id + " " + dobavljac.Ime;
+            //s.Close();
+            //return Content(HttpStatusCode.OK, p);
 
             bool found = true;
             DobavljacDto d = DobavljacDataProvider.Get(id, out found);
             if (!found)
-                return Content(HttpStatusCode.NoContent, "Nema rezultata za trazeni ID: " + id);
+                return Content(HttpStatusCode.NotFound, "Nema rezultata za trazeni ID: " + id);
             return Content(HttpStatusCode.OK, d);
         }
 
