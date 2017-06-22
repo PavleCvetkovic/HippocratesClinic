@@ -28,6 +28,16 @@ namespace WebAPI.Controllers
         {
             //DobavljacDto d = null;
             return Content(HttpStatusCode.NotImplemented, "Ne radi");
+            ISession s = DataLayer.GetSession();
+            //Dobavljac dob = s.Get<Dobavljac>(id);
+            var dob = s.Get(typeof(Dobavljac), id);
+            if (dob == null)
+                return Content(HttpStatusCode.NoContent, "Nije nasao nista");
+            Dobavljac dobavljac = (Dobavljac)dob;
+            string p = dobavljac.Id + " " + dobavljac.Ime;
+            s.Close();
+            return Content(HttpStatusCode.OK, p);
+
             bool found = true;
             DobavljacDto d = DobavljacDataProvider.Get(id, out found);
             if (!found)
@@ -46,13 +56,23 @@ namespace WebAPI.Controllers
         }
 
         // PUT: api/Dobavljac/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody]DobavljacDto value)
         {
+            string st = "";
+            if (DobavljacDataProvider.UpdateDobavljac(id, value, out st))
+                return Content(HttpStatusCode.OK, st);
+            else
+                return Content(HttpStatusCode.BadRequest, st);
         }
 
         // DELETE: api/Dobavljac/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            string st = "";
+            if (DobavljacDataProvider.DeleteDobavljac(id, out st))
+                return Content(HttpStatusCode.OK, st);
+            else
+                return Content(HttpStatusCode.BadRequest, st);
         }
     }
 }

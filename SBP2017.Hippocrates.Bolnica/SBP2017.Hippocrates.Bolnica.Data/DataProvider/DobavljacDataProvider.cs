@@ -74,5 +74,57 @@ namespace SBP2017.Hippocrates.Bolnica.Data.DataProvider
                 return false;
             }
         }
+
+        public static bool UpdateDobavljac(int id, DobavljacDto dto, out string success)
+        {
+            ISession s = DataLayer.GetSession();
+            success = "Uspesno upisan/azuiran objekat";
+            
+            Dobavljac d = s.Get<Dobavljac>(id);
+            if (d == null)
+                d = new Dobavljac();
+
+            d.Id = dto.Id;
+            d.Ime = dto.Ime;
+            try
+            {
+                s.Save(d);
+                s.Flush();
+                s.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                s.Close();
+                success = "Greska prilikom upisa u bazu " + ex.Message;
+                return false;
+            }
+        }
+
+        public static bool DeleteDobavljac(int id, out string success)
+        {
+            ISession s = DataLayer.GetSession();
+            success = "Uspesno obrisan objekat";
+
+            Dobavljac d = s.Get<Dobavljac>(id);
+            if (d == null)
+            {
+                success = "Ne postoji objekata sa ID: " + id;
+                return false;
+            }
+            try
+            {
+                s.Delete(d);
+                s.Flush();
+                s.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                s.Close();
+                success = "Greska prilikom upisa u bazu " + ex.Message;
+                return false;
+            }
+        }
     }
 }
