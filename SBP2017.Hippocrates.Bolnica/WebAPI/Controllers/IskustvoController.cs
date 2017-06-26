@@ -20,25 +20,43 @@ namespace WebAPI.Controllers
             return Content(HttpStatusCode.OK, listDto);
         }
 
-        // GET: api/Iskustvo/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+
+            bool found = true;
+            IskustvoDto d = IskustvoDataProvider.Get(id, out found);
+            if (!found)
+                return Content(HttpStatusCode.NotFound, "Nema rezultata za trazeni ID: " + id);
+            return Content(HttpStatusCode.OK, d);
         }
 
-        // POST: api/Iskustvo
-        public void Post([FromBody]string value)
+
+        public IHttpActionResult Post([FromBody]IskustvoDto value)
         {
+            string s = "";
+            if (IskustvoDataProvider.Add(value, out s))
+                return Content(HttpStatusCode.Created, s);
+            return Content(HttpStatusCode.BadRequest, s);
+
         }
 
-        // PUT: api/Iskustvo/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody]IskustvoDto value)
         {
+            string st = "";
+            if (IskustvoDataProvider.Update(id, value, out st))
+                return Content(HttpStatusCode.OK, st);
+            else
+                return Content(HttpStatusCode.BadRequest, st);
         }
 
-        // DELETE: api/Iskustvo/5
-        public void Delete(int id)
+
+        public IHttpActionResult Delete(int id)
         {
+            string st = "";
+            if (IskustvoDataProvider.Delete(id, out st))
+                return Content(HttpStatusCode.OK, st);
+            else
+                return Content(HttpStatusCode.BadRequest, st);
         }
     }
 }
