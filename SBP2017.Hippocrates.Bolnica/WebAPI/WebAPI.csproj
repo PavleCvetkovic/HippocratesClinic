@@ -146,6 +146,7 @@
     <Compile Include="Controllers\KlinickiCentarController.cs" />
     <Compile Include="Controllers\KlinikaController.cs" />
     <Compile Include="Controllers\KrevetController.cs" />
+    <Compile Include="Controllers\KvalifikacijaController.cs" />
     <Compile Include="Controllers\PacijentKlinickogCentraController.cs" />
     <Compile Include="Controllers\RodjakController.cs" />
     <Compile Include="Controllers\SmenaController.cs" />
