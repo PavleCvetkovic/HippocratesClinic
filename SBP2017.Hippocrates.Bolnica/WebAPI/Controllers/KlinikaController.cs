@@ -147,10 +147,12 @@ namespace WebAPI.Controllers
         #endregion
 
         [HttpGet] // se podrazumeva (jer metod pocinje sa "Get" tekstom) // vidi pojasnjenje u "using" delu (goree ^)
-        public IHttpActionResult GetKlinika([FromUri] int id)
+        public IHttpActionResult Get([FromUri] int id)
         {
             ISession s = DataLayer.GetSession();
-            Klinika k = s.Get<Klinika>(id);  // Koristi se GET metod. (jer on proverava postojanje objekta u bazi)
+            IList<Klinika> kl = s.QueryOver<Klinika>().Where(x => x.Id == id).List();
+            Klinika k = kl[0];
+            //Klinika k = s.Get<Klinika>(id);  // Koristi se GET metod. (jer on proverava postojanje objekta u bazi)
             #region Objasnjenje zasto se koristi get metod
                 //Load should be used when you know for sure that an entity with a certain ID exists.
                 //The call does not result in a database hit(and thus can be optimized away by NHibernate in certain cases).
@@ -181,12 +183,13 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         //[Route("api/controller/method")]
-        public IHttpActionResult GetKlinike()
+        public IHttpActionResult GetAll()
         {
             ISession s = DataLayer.GetSession();
             //IEnumerable<KlinikaDto> klinike = new IEnumerable<KlinikaDto>();
-            IQuery q = s.CreateQuery("from Klinika");
-            IList<Klinika> klinike = q.List<Klinika>();
+            //IQuery q = s.CreateQuery("from Klinika");
+            //IList<Klinika> klinike = q.List<Klinika>();
+            IList<Klinika> klinike = s.QueryOver<Klinika>().List<Klinika>();
             if (klinike.Count == 0) // nema objekata
                 return Content(HttpStatusCode.NoContent, "Nema trazenih rezultata");
             List<KlinikaDto> klinikedto = new List<KlinikaDto>();
@@ -202,13 +205,14 @@ namespace WebAPI.Controllers
                 };
                 klinikedto.Add(kdto);
             }
-            IEnumerable<KlinikaDto> klinikeDto = klinikedto;
+            //IEnumerable<KlinikaDto> klinikeDto = klinikedto;
             s.Close();
-            return Ok(klinikeDto);
+            //return Ok(klinikeDto);
+            return Ok(klinikedto);
         }
 
         [HttpPost] // Nije neophodno, metod pocinje sa "Post"
-        public IHttpActionResult PostKlinika([FromBody]KlinikaDto kdto)
+        public IHttpActionResult Post([FromBody]KlinikaDto kdto)
         {
             ISession s = DataLayer.GetSession();
             KlinikaDto k = kdto;
@@ -236,10 +240,13 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        public IHttpActionResult PutKlinika(int id, [FromBody]KlinikaDto kdto)
+        public IHttpActionResult Put(int id, [FromBody]KlinikaDto kdto)
         {
             ISession s = DataLayer.GetSession();
-            Klinika k = s.Get<Klinika>(id); // Zasto se koristi GET metoda objasnjeno je u GetKlinika funkciji
+            //Klinika k = s.Get<Klinika>(id); // Zasto se koristi GET metoda objasnjeno je u GetKlinika funkciji
+            IList<Klinika> kl = s.QueryOver<Klinika>().Where(x => x.Id == id).List();
+            Klinika k = kl[0];
+
             if (k == null) // Provera da li je sesija vratila objekat (da li objekat postoji u bazi)
                 return Content(HttpStatusCode.NotFound, "Trazeni objekat sa ID: " + id + " ne postoji");
             k.Id = kdto.Id;
@@ -264,10 +271,14 @@ namespace WebAPI.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete] // nije neophodno jer metod pocinje sa "Delete..."
-        public IHttpActionResult DeleteKlinika(int id)
+        public IHttpActionResult Delete(int id)
         {
             ISession s = DataLayer.GetSession();
-            Klinika k = s.Get<Klinika>(id);
+            IList<Klinika> kl = s.QueryOver<Klinika>().Where(x => x.Id == id).List();
+            Klinika k = kl[0];
+
+            //Klinika k = s.Get<Klinika>(id);
+            //IList<Klinika> k = s.QueryOver<Klinika>().Where(x => x.Id == id).List<Klinika>();
             if (k == null) // Provera da li je sesija vratila objekat (da li objekat postoji u bazi)
                 return Content(HttpStatusCode.NotFound, "Trazeni objekat sa ID: " + id + " ne postoji");
             /* IQuery iq = s.CreateQuery("select o from Ugovor as o where o.KlinickiCentar.Id = : IDK");
@@ -278,7 +289,9 @@ namespace WebAPI.Controllers
                  s.Delete(u);
 
              }
+             
             */
+
             if (k.GlavnaSestraKlinike != null)
             {
                 Zaposleni z = k.GlavnaSestraKlinike;

@@ -148,6 +148,7 @@
     <Compile Include="Controllers\KrevetController.cs" />
     <Compile Include="Controllers\KvalifikacijaController.cs" />
     <Compile Include="Controllers\ListaCekanjaController.cs" />
+    <Compile Include="Controllers\MagacinKlinikeController.cs" />
     <Compile Include="Controllers\PacijentKlinickogCentraController.cs" />
     <Compile Include="Controllers\RodjakController.cs" />
     <Compile Include="Controllers\SmenaController.cs" />
