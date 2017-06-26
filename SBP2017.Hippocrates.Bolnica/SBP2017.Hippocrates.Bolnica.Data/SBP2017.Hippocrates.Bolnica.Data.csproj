@@ -59,6 +59,7 @@
     <Compile Include="Data Transfer Objects\CentralniMagacinDto.cs" />
     <Compile Include="Data Transfer Objects\DobavljacDto.cs" />
     <Compile Include="Data Transfer Objects\IskustvoDto.cs" />
+    <Compile Include="Data Transfer Objects\KlinickiCentarDto.cs" />
     <Compile Include="Data Transfer Objects\KlinikaDto.cs" />
     <Compile Include="Data Transfer Objects\PacijentKlinickogCentraDto.cs" />
     <Compile Include="Data Transfer Objects\RodjakDto.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="DataLayerMySQL.cs" />
     <Compile Include="DataProvider\DobavljacDataProvider.cs" />
     <Compile Include="DataProvider\IskustvoDataProvider.cs" />
+    <Compile Include="DataProvider\KlinickiCentarProvider.cs" />
     <Compile Include="DataProvider\KrevetDataProvider.cs" />
     <Compile Include="DataProvider\KrevetDto.cs" />
     <Compile Include="DataProvider\PacijentKlinickogCentraDataProvider.cs" />
