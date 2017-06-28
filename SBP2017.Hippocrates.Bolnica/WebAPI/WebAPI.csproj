@@ -153,6 +153,7 @@
     <Compile Include="Controllers\NarudzbenicaController.cs" />
     <Compile Include="Controllers\PacijentiCekajuController.cs" />
     <Compile Include="Controllers\PacijentKlinickogCentraController.cs" />
+    <Compile Include="Controllers\PacijentUzimaLekoveController.cs" />
     <Compile Include="Controllers\RodjakController.cs" />
     <Compile Include="Controllers\SmenaController.cs" />
     <Compile Include="Controllers\UgovorController.cs" />

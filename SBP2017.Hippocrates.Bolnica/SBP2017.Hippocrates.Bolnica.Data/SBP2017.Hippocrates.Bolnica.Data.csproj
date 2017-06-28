@@ -68,6 +68,7 @@
     <Compile Include="Data Transfer Objects\NarudzbenicaDto.cs" />
     <Compile Include="Data Transfer Objects\PacijentiCekajuDto.cs" />
     <Compile Include="Data Transfer Objects\PacijentKlinickogCentraDto.cs" />
+    <Compile Include="Data Transfer Objects\PacijentUzimaLekoveDto.cs" />
     <Compile Include="Data Transfer Objects\RodjakDto.cs" />
     <Compile Include="Data Transfer Objects\SmenaDto.cs" />
     <Compile Include="Data Transfer Objects\UgovorDto.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="DataProvider\NarudzbenicaDataProvider.cs" />
     <Compile Include="DataProvider\PacijentiCekajuDataProvider.cs" />
     <Compile Include="DataProvider\PacijentKlinickogCentraDataProvider.cs" />
+    <Compile Include="DataProvider\PacijentUzimaLekoveDataProvider.cs" />
     <Compile Include="DataProvider\RodjakDataProvider.cs" />
     <Compile Include="DataProvider\SmenaDataProvider.cs" />
     <Compile Include="DataProvider\UgovorDataProvider.cs" />
