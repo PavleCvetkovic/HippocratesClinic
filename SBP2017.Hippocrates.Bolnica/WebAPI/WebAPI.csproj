@@ -155,6 +155,7 @@
     <Compile Include="Controllers\PacijentKlinickogCentraController.cs" />
     <Compile Include="Controllers\PacijentUzimaLekoveController.cs" />
     <Compile Include="Controllers\PotrosniMaterijalController.cs" />
+    <Compile Include="Controllers\PregledController.cs" />
     <Compile Include="Controllers\RodjakController.cs" />
     <Compile Include="Controllers\SmenaController.cs" />
     <Compile Include="Controllers\UgovorController.cs" />
