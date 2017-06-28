@@ -65,113 +65,160 @@ namespace WebAPI.Controllers
         }
 
         // POST: api/Zaposleni
-        public void Post([FromBody]ZaposleniDto value)
+        public IHttpActionResult Post([FromBody]ZaposleniDto value)
         {
-            ISession s = DataLayer.GetSession();
-            Klinika klinika = s.Load<Klinika>(value.IdKlinike);
-            KlinickiCentar kc = klinika.KlinickiCentar;
-            Ugovor u = new Ugovor()
+
+            
+            try
             {
-                Pozicija = value.TipZaposlenog,
-                TipIsplate = value.TipIsplate,
-                TipUgovora = value.TipUgovora,
-                Plata = value.Plata,
-                BrojSatiNedeljno = value.BrojSatiNedeljno,
-                KlinickiCentar = kc,
-                Id = value.IdUgovora
-                
-            };
-            if(value.TipZaposlenog == "SPECIJALISTA")
-            {
-                Specijalista zaposljeni = new Specijalista();
-                Klinika k = s.Load<Klinika>(value.IdKlinike);
-                zaposljeni.Klinika = k;
-                zaposljeni.Ime = value.Ime;
-                zaposljeni.Prezime = value.Prezime;
-                zaposljeni.Telefon = value.Telefon;
-                zaposljeni.Pol = value.Pol;
-                zaposljeni.Password = value.Password;
-                zaposljeni.Adresa = value.Adresa;
-                zaposljeni.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
-                zaposljeni.TipZaposlenog = value.TipZaposlenog;
-                zaposljeni.JMBG = value.JMBG;
-                u.Zaposleni = zaposljeni;
-                zaposljeni.Ugovor = u;
-                s.Save(u);
-                s.Save(zaposljeni);
+                ISession s = DataLayer.GetSession();
+                Klinika klinika = s.Load<Klinika>(value.IdKlinike);
+                KlinickiCentar kc = klinika.KlinickiCentar;
+                Ugovor u = new Ugovor()
+                {
+                    Pozicija = value.TipZaposlenog,
+                    TipIsplate = value.TipIsplate,
+                    TipUgovora = value.TipUgovora,
+                    Plata = value.Plata,
+                    BrojSatiNedeljno = value.BrojSatiNedeljno,
+                    KlinickiCentar = kc,
+                    Id = value.IdUgovora
+
+                };
+                if (value.TipZaposlenog == "SPECIJALISTA")
+                {
+                    Specijalista zaposljeni = new Specijalista();
+                    Klinika k = s.Load<Klinika>(value.IdKlinike);
+                    zaposljeni.Klinika = k;
+                    zaposljeni.Ime = value.Ime;
+                    zaposljeni.Prezime = value.Prezime;
+                    zaposljeni.Telefon = value.Telefon;
+                    zaposljeni.Pol = value.Pol;
+                    zaposljeni.Password = value.Password;
+                    zaposljeni.Adresa = value.Adresa;
+                    zaposljeni.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
+                    zaposljeni.TipZaposlenog = value.TipZaposlenog;
+                    zaposljeni.JMBG = value.JMBG;
+                    u.Zaposleni = zaposljeni;
+                    zaposljeni.Ugovor = u;
+                    s.Save(u);
+                    s.Save(zaposljeni);
 
 
+                }
+                else if (value.TipZaposlenog == "SESTRA")
+                {
+                    Sestra zaposljeni = new Sestra();
+                    Klinika k = s.Load<Klinika>(value.IdKlinike);
+                    zaposljeni.Klinika = k;
+                    zaposljeni.Ime = value.Ime;
+                    zaposljeni.Prezime = value.Prezime;
+                    zaposljeni.Telefon = value.Telefon;
+                    zaposljeni.Pol = value.Pol;
+                    zaposljeni.Password = value.Password;
+                    zaposljeni.Adresa = value.Adresa;
+                    zaposljeni.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
+                    zaposljeni.TipZaposlenog = value.TipZaposlenog;
+                    zaposljeni.JMBG = value.JMBG;
+                    zaposljeni.TipSestre = "MLADJA";
+                    zaposljeni.Ugovor = u;
+                    u.Zaposleni = zaposljeni;
+                    s.Save(u);
+                    s.Save(zaposljeni);
+                }
+                else if (value.TipZaposlenog == "BOLNICAR")
+                {
+                    Bolnicar zaposljeni = new Bolnicar();
+                    Klinika k = s.Load<Klinika>(value.IdKlinike);
+                    zaposljeni.Klinika = k;
+                    zaposljeni.Ime = value.Ime;
+                    zaposljeni.Prezime = value.Prezime;
+                    zaposljeni.Telefon = value.Telefon;
+                    zaposljeni.Pol = value.Pol;
+                    zaposljeni.Password = value.Password;
+                    zaposljeni.Adresa = value.Adresa;
+                    zaposljeni.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
+                    zaposljeni.TipZaposlenog = value.TipZaposlenog;
+                    zaposljeni.JMBG = value.JMBG;
+                    zaposljeni.Ugovor = u;
+                    u.Zaposleni = zaposljeni;
+                    s.Save(u);
+                    s.Save(zaposljeni);
+                }
+                else if (value.TipZaposlenog == "POMOCNO OSOBLJE")
+                {
+                    PomocnoOsoblje zaposljeni = new PomocnoOsoblje();
+                    Klinika k = s.Load<Klinika>(value.IdKlinike);
+                    zaposljeni.Klinika = k;
+                    zaposljeni.Ime = value.Ime;
+                    zaposljeni.Prezime = value.Prezime;
+                    zaposljeni.Telefon = value.Telefon;
+                    zaposljeni.Pol = value.Pol;
+                    zaposljeni.Password = value.Password;
+                    zaposljeni.Adresa = value.Adresa;
+                    zaposljeni.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
+                    zaposljeni.TipZaposlenog = value.TipZaposlenog;
+                    zaposljeni.JMBG = value.JMBG;
+                    zaposljeni.Ugovor = u;
+                    u.Zaposleni = zaposljeni;
+                    s.Save(u);
+                    s.Save(zaposljeni);
+                }
+                s.Flush();
+                s.Close();
             }
-            else if(value.TipZaposlenog == "SESTRA")
+            catch (Exception ex)
             {
-                Sestra zaposljeni = new Sestra();
-                Klinika k = s.Load<Klinika>(value.IdKlinike);
-                zaposljeni.Klinika = k;
-                zaposljeni.Ime = value.Ime;
-                zaposljeni.Prezime = value.Prezime;
-                zaposljeni.Telefon = value.Telefon;
-                zaposljeni.Pol = value.Pol;
-                zaposljeni.Password = value.Password;
-                zaposljeni.Adresa = value.Adresa;
-                zaposljeni.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
-                zaposljeni.TipZaposlenog = value.TipZaposlenog;
-                zaposljeni.JMBG = value.JMBG;
-                zaposljeni.TipSestre = "MLADJA";
-                zaposljeni.Ugovor = u;
-                u.Zaposleni = zaposljeni;
-                s.Save(u);
-                s.Save(zaposljeni);
+                return Content(HttpStatusCode.BadRequest, "Greska prilikom upisivanja u bazu podataka " + ex.Message);
             }
-            else if (value.TipZaposlenog == "BOLNICAR")
-            {
-                Bolnicar zaposljeni = new Bolnicar();
-                Klinika k = s.Load<Klinika>(value.IdKlinike);
-                zaposljeni.Klinika = k;
-                zaposljeni.Ime = value.Ime;
-                zaposljeni.Prezime = value.Prezime;
-                zaposljeni.Telefon = value.Telefon;
-                zaposljeni.Pol = value.Pol;
-                zaposljeni.Password = value.Password;
-                zaposljeni.Adresa = value.Adresa;
-                zaposljeni.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
-                zaposljeni.TipZaposlenog = value.TipZaposlenog;
-                zaposljeni.JMBG = value.JMBG;
-                zaposljeni.Ugovor = u;
-                u.Zaposleni = zaposljeni;
-                s.Save(u);
-                s.Save(zaposljeni);
-            }
-            else if (value.TipZaposlenog == "POMOCNO OSOBLJE")
-            {
-                PomocnoOsoblje zaposljeni = new PomocnoOsoblje();
-                Klinika k = s.Load<Klinika>(value.IdKlinike);
-                zaposljeni.Klinika = k;
-                zaposljeni.Ime = value.Ime;
-                zaposljeni.Prezime = value.Prezime;
-                zaposljeni.Telefon = value.Telefon;
-                zaposljeni.Pol = value.Pol;
-                zaposljeni.Password = value.Password;
-                zaposljeni.Adresa = value.Adresa;
-                zaposljeni.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
-                zaposljeni.TipZaposlenog = value.TipZaposlenog;
-                zaposljeni.JMBG = value.JMBG;
-                zaposljeni.Ugovor = u;
-                u.Zaposleni = zaposljeni;
-                s.Save(u);
-                s.Save(zaposljeni);
-            }
-            s.Flush();
-            s.Close();
+            return Content(HttpStatusCode.OK, "Objekat je upisan u bazu");
         }
 
         // PUT: api/Zaposleni/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody]ZaposleniDto value)
         {
+            try {
+                ISession s = DataLayer.GetSession();
+
+                Zaposleni z = s.Load<Zaposleni>(value.Id);
+                z.Ime = value.Ime;
+                z.Prezime = value.Prezime;
+                z.Password = value.Password;
+                z.Adresa = value.Adresa;
+                z.DatumRodjenja = DateTime.Parse(value.DatumRodjenja);
+                z.JMBG = value.JMBG;
+                z.Pol = value.Pol;
+                z.TipZaposlenog = value.TipZaposlenog;
+                z.Klinika = s.Load<Klinika>(value.IdKlinike);
+                z.Telefon = value.Telefon;
+                s.Flush();
+                s.Close();
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, "Greska prilikom upisivanja u bazu podataka " + ex.Message);
+            }
+            return Content(HttpStatusCode.OK, "Objekat je azuriran/upisan u bazu");
         }
 
         // DELETE: api/Zaposleni/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                Zaposleni z = s.Load<Zaposleni>(id);
+                Ugovor u = z.Ugovor;
+                s.Delete(u);
+                s.Delete(z);
+                s.Flush();
+                s.Close();
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, "Greska prilikom brisanja iz baze podataka " + ex.Message);
+            }
+            return Content(HttpStatusCode.OK, "Objekat je Obrisan iz baze");
         }
     }
 }

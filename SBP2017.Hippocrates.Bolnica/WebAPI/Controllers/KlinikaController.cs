@@ -324,7 +324,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return Content(HttpStatusCode.BadRequest, "Greska brisanja iz baze podataka " + ex.Message);
+                return Content(HttpStatusCode.BadRequest, "Greska brisanja iz baze podataka, ne mozete obrisati kliniku ukoliko ona sadrzi narudzbenice,pacijente i zaposlene,prvo premestite pacijente i zaposlene zatim pokusajte ponovo. ");
             }
             return Content(HttpStatusCode.OK, "Objekat je obrisan iz baze");
         }

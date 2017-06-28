@@ -140,7 +140,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.DataProvider
             catch (Exception ex)
             {
                 s.Close();
-                success = "Greska prilikom upisa u bazu " + ex.Message;
+                success = "Greska prilikom brisanja iz baze " + ex.Message;
                 return false;
             }
         }
