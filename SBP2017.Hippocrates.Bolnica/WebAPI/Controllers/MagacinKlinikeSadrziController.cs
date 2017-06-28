@@ -9,12 +9,11 @@ using System.Web.Http;
 
 namespace WebAPI.Controllers
 {
-    public class IskustvoController : ApiController
+    public class MagacinKlinikeSadrziController : ApiController
     {
-        // GET: api/Iskustvo
         public IHttpActionResult GetAll()
         {
-            IList<IskustvoDto> listDto = IskustvoDataProvider.GetAll();
+            IList<MagacinKlinikeSadrziDto> listDto = MagacinKlinikeSadrziDataProvider.GetAll();
             if (listDto.Count == 0)
                 return Content(HttpStatusCode.NotFound, "Nema rezultata");
             return Content(HttpStatusCode.OK, listDto);
@@ -24,26 +23,26 @@ namespace WebAPI.Controllers
         {
 
             bool found = true;
-            IskustvoDto d = IskustvoDataProvider.Get(id, out found);
+            MagacinKlinikeSadrziDto d = MagacinKlinikeSadrziDataProvider.Get(id, out found);
             if (!found)
                 return Content(HttpStatusCode.NotFound, "Nema rezultata za trazeni ID: " + id);
             return Content(HttpStatusCode.OK, d);
         }
 
 
-        public IHttpActionResult Post([FromBody]IskustvoDto value)
+        public IHttpActionResult Post([FromBody]MagacinKlinikeSadrziDto value)
         {
             string s = "";
-            if (IskustvoDataProvider.Add(value, out s))
+            if (MagacinKlinikeSadrziDataProvider.Add(value, out s))
                 return Content(HttpStatusCode.Created, s);
             return Content(HttpStatusCode.BadRequest, s);
 
         }
 
-        public IHttpActionResult Put(int id, [FromBody]IskustvoDto value)
+        public IHttpActionResult Put(int id, [FromBody]MagacinKlinikeSadrziDto value)
         {
             string st = "";
-            if (IskustvoDataProvider.Update(id, value, out st))
+            if (MagacinKlinikeSadrziDataProvider.Update(id, value, out st))
                 return Content(HttpStatusCode.OK, st);
             else
                 return Content(HttpStatusCode.BadRequest, st);
@@ -53,7 +52,7 @@ namespace WebAPI.Controllers
         public IHttpActionResult Delete(int id)
         {
             string st = "";
-            if (IskustvoDataProvider.Delete(id, out st))
+            if (MagacinKlinikeSadrziDataProvider.Delete(id, out st))
                 return Content(HttpStatusCode.OK, st);
             else
                 return Content(HttpStatusCode.BadRequest, st);

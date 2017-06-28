@@ -9,60 +9,60 @@ using System.Threading.Tasks;
 
 namespace SBP2017.Hippocrates.Bolnica.Data.DataProvider
 {
-    public class IskustvoDataProvider
+    public class MagacinKlinikeSadrziDataProvider
     {
-        public static IList<IskustvoDto> GetAll()
+        public static IList<MagacinKlinikeSadrziDto> GetAll()
         {
             //st = "";
             ISession s = DataLayer.GetSession();
-            IList<Iskustvo> iskustva = s.QueryOver<Iskustvo>().List();
-            List<IskustvoDto> listDTO = new List<IskustvoDto>();
-            foreach (Iskustvo i in iskustva)
+            IList<MagacinKlinikeSadrzi> iskustva = s.QueryOver<MagacinKlinikeSadrzi>().List();
+            List<MagacinKlinikeSadrziDto> listDTO = new List<MagacinKlinikeSadrziDto>();
+            foreach (MagacinKlinikeSadrzi i in iskustva)
             {
-                IskustvoDto dto = new IskustvoDto()
+                MagacinKlinikeSadrziDto dto = new MagacinKlinikeSadrziDto()
                 {
                     Id = i.Id,
-                    Pozicija = i.Pozicija,
-                    Institucija = i.Institucija,
-                    IdZaposleni = i.Zaposleni.Id
+                    IdMagacinKlinike = i.MagacinKlinike  == null ? -1: i.MagacinKlinike.Id,
+                    IdPotrosniMaterijal = i.PotrosniMaterijal == null ? -1: i.PotrosniMaterijal.Id,
+                    Kolicina = i.Kolicina
                 };
                 listDTO.Add(dto);
             }
             return listDTO;
         }
 
-        public static IskustvoDto Get(int id, out bool found)
+        public static MagacinKlinikeSadrziDto Get(int id, out bool found)
         {
             found = true;
             ISession s = DataLayer.GetSession();
-            Iskustvo d = s.Get<Iskustvo>(id);
+            MagacinKlinikeSadrzi d = s.Get<MagacinKlinikeSadrzi>(id);
             if (d == null)
             {
                 s.Close();
                 found = false;
-                return new IskustvoDto();
+                return new MagacinKlinikeSadrziDto();
             }
-            IskustvoDto kdto = new IskustvoDto()
+            MagacinKlinikeSadrziDto kdto = new MagacinKlinikeSadrziDto()
             {
                 Id = d.Id,
-                Institucija = d.Institucija,
-                Pozicija = d.Pozicija,
-                IdZaposleni = d.Zaposleni.Id
+                IdMagacinKlinike = d.MagacinKlinike == null ? -1 : d.MagacinKlinike.Id,
+                IdPotrosniMaterijal = d.PotrosniMaterijal == null ? -1 : d.PotrosniMaterijal.Id,
+                Kolicina = d.Kolicina
             };
             s.Close();
             return kdto;
         }
 
-        public static bool Add(IskustvoDto dto, out string success)
+        public static bool Add(MagacinKlinikeSadrziDto dto, out string success)
         {
             ISession s = DataLayer.GetSession();
             success = "Uspesno upisan objekat";
-            Iskustvo d = new Iskustvo();
+            MagacinKlinikeSadrzi d = new MagacinKlinikeSadrzi();
 
-            d.Institucija = dto.Institucija;
-            d.Pozicija = dto.Pozicija;
-            d.Id = dto.Id;
-            d.Zaposleni = s.Get<Zaposleni>(dto.IdZaposleni);
+            //d.Id = dto.Id; // protected set
+            d.Kolicina = dto.Kolicina;
+            d.PotrosniMaterijal = s.Get<PotrosniMaterijal>(dto.IdPotrosniMaterijal);
+            d.MagacinKlinike = s.Get<MagacinKlinike>(dto.IdMagacinKlinike);
             try
             {
                 s.Save(d);
@@ -78,19 +78,18 @@ namespace SBP2017.Hippocrates.Bolnica.Data.DataProvider
             }
         }
 
-        public static bool Update(int id, IskustvoDto dto, out string success)
+        public static bool Update(int id, MagacinKlinikeSadrziDto dto, out string success)
         {
             ISession s = DataLayer.GetSession();
             success = "Uspesno upisan/azuiran objekat";
 
-            Iskustvo obj = s.Get<Iskustvo>(id);
+            MagacinKlinikeSadrzi obj = s.Get<MagacinKlinikeSadrzi>(id);
             if (obj == null)
-                obj = new Iskustvo();
+                obj = new MagacinKlinikeSadrzi();
 
-            obj.Institucija = dto.Institucija;
-            obj.Pozicija = dto.Pozicija;
-            obj.Id = dto.Id;
-            obj.Zaposleni = s.Get<Zaposleni>(dto.IdZaposleni);
+            obj.Kolicina = dto.Kolicina;
+            obj.PotrosniMaterijal = s.Get<PotrosniMaterijal>(dto.IdPotrosniMaterijal);
+            obj.MagacinKlinike = s.Get<MagacinKlinike>(dto.IdMagacinKlinike);
             try
             {
                 s.Save(obj);
@@ -111,7 +110,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.DataProvider
             ISession s = DataLayer.GetSession();
             success = "Uspesno obrisan objekat";
 
-            Iskustvo d = s.Get<Iskustvo>(id);
+            MagacinKlinikeSadrzi d = s.Get<MagacinKlinikeSadrzi>(id);
             if (d == null)
             {
                 success = "Ne postoji objekata sa ID: " + id;

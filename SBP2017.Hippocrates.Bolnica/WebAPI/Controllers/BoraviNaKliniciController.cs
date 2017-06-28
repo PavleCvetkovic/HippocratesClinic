@@ -81,7 +81,7 @@ namespace WebAPI.Controllers
                 // bnk.Id = value.Id, // protected set (self-generated ID)
                 Klinika = k,
                 Pacijent = pkc,
-                DatumPrijema = DateTime.Now.Date, // harck-coded (because it's NOT nullable in Database)
+                DatumPrijema = DateTime.Now.Date, // hard-coded (because it's NOT nullable in Database)
                 OcekivaniBoravak = value.OcekivaniBoravak,
                 BrojKreveta = value.BrojKreveta
             };
