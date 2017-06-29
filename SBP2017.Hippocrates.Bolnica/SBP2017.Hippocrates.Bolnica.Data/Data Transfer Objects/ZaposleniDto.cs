@@ -14,7 +14,7 @@ namespace SBP2017.Hippocrates.Bolnica.Data.Data_Transfer_Objects
         public virtual string Adresa { get; set; }
         public virtual string Telefon { get; set; }
         public virtual string Pol { get; set; }
-        public virtual DateTime DatumRodjenja { get; set; }
+        public virtual string DatumRodjenja { get; set; }
         public virtual string JMBG { get; set; }
         public virtual string TipZaposlenog { get; set; }
         public virtual int IdKlinike { get; set; }

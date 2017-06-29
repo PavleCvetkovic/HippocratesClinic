@@ -16,25 +16,22 @@ namespace SBP2017.Hippocrates.Bolnica.Data.DataProvider
             ISession s = DataLayer.GetSession();
             IList<PacijentKlinickogCentra> dlist = s.QueryOver<PacijentKlinickogCentra>().List<PacijentKlinickogCentra>();
             List<PacijentKlinickogCentraDto> dtolist = new List<PacijentKlinickogCentraDto>();
-            PacijentKlinickogCentraDto dto = new PacijentKlinickogCentraDto();
+            
             foreach (PacijentKlinickogCentra d in dlist)
             {
-                if (d != null)
-                {
-                    dto = new PacijentKlinickogCentraDto()
-                    {
-                        Id = d.Id,
-                        Ime = d.Ime,
-                        Prezime = d.Prezime,
-                        Adresa = d.Adresa,
-                        BracniStatus = d.BracniStatus,
-                        JMBG = d.JMBG,
-                        Rodjak = d.Rodjak.Ime + " " + d.Prezime,
-                        Pol = d.Pol,
-                        DatumRodjenja = d.DatumRodjenja.ToString()
-                    };
+               
+                    PacijentKlinickogCentraDto dto = new PacijentKlinickogCentraDto();
+
+                    dto.Id = d.Id;
+                    dto.Ime = d.Ime;
+                    dto.Prezime = d.Prezime;
+                    dto.Adresa = d.Adresa;
+                    dto.BracniStatus = d.BracniStatus;
+                    dto.JMBG = d.JMBG;
+                    dto.Pol = d.Pol;
+                    dto.DatumRodjenja = d.DatumRodjenja.ToString();
                     dtolist.Add(dto);
-                }
+                
             }
             s.Close();
             return dtolist;
@@ -59,7 +56,6 @@ namespace SBP2017.Hippocrates.Bolnica.Data.DataProvider
                 Adresa = d.Adresa,
                 BracniStatus = d.BracniStatus,
                 JMBG = d.JMBG,
-                Rodjak = d.Rodjak.Ime + " " + d.Prezime,
                 Pol = d.Pol,
                 DatumRodjenja = d.DatumRodjenja.ToString()
             };
@@ -81,7 +77,6 @@ namespace SBP2017.Hippocrates.Bolnica.Data.DataProvider
             d.DatumRodjenja = DateTime.Parse(dto.DatumRodjenja);
             d.JMBG = dto.JMBG;
             d.Pol = dto.Pol;
-            d.Rodjak = s.Load<Rodjak>(dto.RodjakId);
             try
             {
                 s.Save(d);
@@ -114,7 +109,6 @@ namespace SBP2017.Hippocrates.Bolnica.Data.DataProvider
             d.DatumRodjenja = DateTime.Parse(dto.DatumRodjenja);
             d.JMBG = dto.JMBG;
             d.Pol = dto.Pol;
-            d.Rodjak = s.Load<Rodjak>(dto.RodjakId);
             try
             {
                 s.Save(d);
