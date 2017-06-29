@@ -151,7 +151,9 @@ namespace WebAPI.Controllers
         {
             ISession s = DataLayer.GetSession();
             IList<Klinika> kl = s.QueryOver<Klinika>().Where(x => x.Id == id).List();
-            Klinika k = kl[0];
+            Klinika k = null;
+            if (kl.Count > 0)
+                k = kl[0];
             //Klinika k = s.Get<Klinika>(id);  // Koristi se GET metod. (jer on proverava postojanje objekta u bazi)
             #region Objasnjenje zasto se koristi get metod
                 //Load should be used when you know for sure that an entity with a certain ID exists.
@@ -301,8 +303,11 @@ namespace WebAPI.Controllers
 
             if (k.Magacin != null)
                 s.Delete(k.Magacin);
-            k.ListaCekanja.Pacijenti = null;
-            s.Delete(k.ListaCekanja);
+            if (k.ListaCekanja != null)
+            {
+                k.ListaCekanja.Pacijenti = null;
+                s.Delete(k.ListaCekanja);
+            }
             try
             {
                 foreach (Narudzbenica n in k.Narudzbenice)
@@ -324,7 +329,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return Content(HttpStatusCode.BadRequest, "Greska brisanja iz baze podataka, ne mozete obrisati kliniku ukoliko ona sadrzi narudzbenice,pacijente i zaposlene,prvo premestite pacijente i zaposlene zatim pokusajte ponovo. ");
+                return Content(HttpStatusCode.BadRequest, "Greska brisanja iz baze podataka, ne mozete obrisati kliniku ukoliko ona sadrzi narudzbenice,pacijente i zaposlene,prvo premestite pacijente i zaposlene zatim pokusajte ponovo. " + ex.Message);
             }
             return Content(HttpStatusCode.OK, "Objekat je obrisan iz baze");
         }
