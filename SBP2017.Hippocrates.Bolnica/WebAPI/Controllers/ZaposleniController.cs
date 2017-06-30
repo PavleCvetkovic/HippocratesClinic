@@ -92,21 +92,8 @@ namespace WebAPI.Controllers
 
                 if (z == null)
                     return Content(HttpStatusCode.BadRequest, "Pogresan izbor tipa zaposlenog");
-                
-                z.Ime = value.Ime.ToString();
-                z.Prezime = value.Prezime.ToString();
-                z.Telefon = value.Telefon.ToString();
-                z.Pol = value.Pol.ToString();
-                z.Password = value.Password.ToString();
-                z.Adresa = value.Adresa.ToString();
-                z.DatumRodjenja = DateTime.Now;
-                z.JMBG = value.JMBG.ToString();
-                z.TipZaposlenog = value.TipZaposlenog.ToString();
-                z.Klinika = s.Get<Klinika>(value.IdKlinike);
-                z.Ugovor = s.Get<Ugovor>(value.IdUgovora);
-                z.Ugovor.Zaposleni = z;
-            
-                //s.Save(z);
+
+                s.CreateSQLQuery("INSERT INTO ZAPOSLENI(IME, PREZIME, ADRESA, TELEFON, POL, DATUM_RODJENJA, JMBG, ID_UGOVORA, ID_KLINIKE, PASSWORD, TIP_ZAPOSLENOG) VALUES ('"+value.Ime.ToString()+"','" + value.Prezime.ToString() + "','" + value.Adresa +"','"+value.Telefon.ToString() + "','" +value.Pol.ToString() + "','" + value.DatumRodjenja.ToString() + "','" + value.JMBG.ToString() + "',"+value.IdUgovora.ToString() + ","+value.IdKlinike+",'" + value.Password.ToString() + "','" + value.TipZaposlenog.ToString() + "')").ExecuteUpdate();
                 s.Flush();
                 s.Close();
 
@@ -115,32 +102,8 @@ namespace WebAPI.Controllers
             {
                 return Content(HttpStatusCode.BadRequest, "Greska prilikom upisivanja u bazu podataka " + ex.Message);
             }
-            /*try ovo je funkcija mada nisam skinuo dll za oracle jer mnogo zauzima,probaj da resis,a ako ne na kraju ce importujemo dll za oracle
-            {
-                string connstr = "Data Source=gislab-oracle.elfak.ni.ac.rs:1521/SBP_PDB;User Id=S15058;Password=pajapro1234";
-                OracleConnection con = new OracleConnection(connstr);
-                con.Open();
-                OracleCommand cmd = new OracleCommand();
-                cmd.Connection = con;
-                cmd.CommandText = "Insert into ZAPOSLENI('IME','PREZIME','ADRESA','TELEFON','POL','DATUM_RODJENJA','JMBG','ID_UGOVORA','ID_KLINIKE','PASSWORD','TIP_ZAPOSLENOG') VALUES (:ZIme,:ZPrezime,:ZAdresa,:ZTELEFON,:ZPOL,:ZDATUM_RODJENJA,:ZJMBG,:ZIdU,:ZIdK,:ZPASS,:ZTIP)";
-                cmd.Parameters.Add(new OracleParameter("ZIme", OracleType.VarChar)).Value = value.Ime;
-                cmd.Parameters.Add(new OracleParameter("ZPrezime", OracleType.VarChar)).Value = value.Prezime;
-                cmd.Parameters.Add(new OracleParameter("ZAdresa", OracleType.VarChar)).Value = value.Adresa;
-                cmd.Parameters.Add(new OracleParameter("ZTELEFON", OracleType.VarChar)).Value = value.Telefon;
-                cmd.Parameters.Add(new OracleParameter("ZDATUM_RODJENJA", OracleType.VarChar)).Value = value.DatumRodjenja;
-                cmd.Parameters.Add(new OracleParameter("ZJMBG", OracleType.VarChar)).Value = value.JMBG;
-                cmd.Parameters.Add(new OracleParameter("ZPASS", OracleType.VarChar)).Value = value.Password;
-                cmd.Parameters.Add(new OracleParameter("ZTIP", OracleType.VarChar)).Value = value.TipZaposlenog;
-                cmd.Parameters.Add(new OracleParameter("ZIdU", OracleType.Int16)).Value = value.IdUgovora;
-                cmd.Parameters.Add(new OracleParameter("ZIdK", OracleType.Int16)).Value = value.IdKlinike;
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
-            catch(Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, "Greska prilikom upisivanja u bazu podataka " + ex.Message);
-            }
-            return Content(HttpStatusCode.OK, "Objekat je upisan u bazu");*/
+            
+            return Content(HttpStatusCode.OK, "Objekat je upisan u bazu");
         }
 
         // PUT: api/Zaposleni/5
