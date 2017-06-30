@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBP2017.Hippocrates.Bolnica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBP2017.Hippocrates.Bolnica.Data", "SBP2017.Hippocrates.Bolnica.Data\SBP2017.Hippocrates.Bolnica.Data.csproj", "{DF62751A-6CA3-4805-9C38-6A30807D06A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{4BF9D8CD-490B-4D16-B761-156D7A9F5B37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{DF62751A-6CA3-4805-9C38-6A30807D06A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF62751A-6CA3-4805-9C38-6A30807D06A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF62751A-6CA3-4805-9C38-6A30807D06A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BF9D8CD-490B-4D16-B761-156D7A9F5B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BF9D8CD-490B-4D16-B761-156D7A9F5B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BF9D8CD-490B-4D16-B761-156D7A9F5B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BF9D8CD-490B-4D16-B761-156D7A9F5B37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
